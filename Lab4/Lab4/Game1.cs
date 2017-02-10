@@ -182,11 +182,12 @@ namespace Lab4
             MouseState mouseState = Mouse.GetState();
             // TODO: Add your update logic here
             //       Change to a set of Switch statements using Enum GameState
-            
+
             switch (CurrentGameState)
             {
                 #region MainMenu Code
                 case GameState.MainMenu:
+                    mouseState = Mouse.GetState();
                     if (mainMenu1P.isClicked == true)
                     {
                         CurrentGameState = GameState.InGame1P;
@@ -222,7 +223,7 @@ namespace Lab4
                 #endregion
                 #region Single Player Code
                 case GameState.InGame1P:
-                
+                    mouseState = Mouse.GetState();
                     if (exitInput.IsKeyDown(Keys.P))
                     {
                         gamePaused = true;
@@ -256,13 +257,13 @@ namespace Lab4
                             CurrentGameState = GameState.MainMenu;
                         }
                         pauseExitButton.Update(mouseState);
-                        gameExitButton.Update(mouseState); 
+                        gameExitButton.Update(mouseState);
                     }
                     break;
                 #endregion
                 #region Two Player Code
                 case GameState.InGame2P:
-
+                    mouseState = Mouse.GetState();
                     Console.WriteLine(CurrentGameState);
                     if (!gamePaused)
                     {
@@ -301,31 +302,28 @@ namespace Lab4
                 #endregion
                 #region Settings Code
                 case GameState.Settings:
-                
+                    mouseState = Mouse.GetState();
                     KeyboardState settingsExit = Keyboard.GetState();
-                    
+
                     //Exit Condition for Settings Screen
                     if (settingsExit.IsKeyDown(Keys.Enter))
                     {
                         CurrentGameState = GameState.MainMenu;
                     }
 
-                    break; 
+                    break;
                 #endregion
-                    /*
                 #region Credits Code
-                if (credits)
-                {
-                    mainMenu = false;
+                case GameState.Credits:
                     if (exitInput.IsKeyDown(Keys.Q))
                     {
-                        credits = false;
-                        mainMenu = true;
+                        CurrentGameState = GameState.MainMenu;
                     }
-                }
-                #endregion*/
+
+                    break;
+
+                    #endregion
             }
-            mouseState = Mouse.GetState();
             inputHelper.Update();
             base.Update(gameTime);
         }
