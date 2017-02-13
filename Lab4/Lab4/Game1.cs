@@ -61,7 +61,7 @@ namespace Lab4
             InGame1P,
             InGame2P,
             Settings,
-            Credits,
+            Credits
         }
         GameState CurrentGameState = GameState.MainMenu;
 
@@ -381,6 +381,7 @@ namespace Lab4
                     mainMenuCredits.Draw(spriteBatch);
                     mainMenuQuit.Draw(spriteBatch);
                     MainMenuSprite.Draw(spriteBatch);
+                    //*/
 
                     //If I want to make there be a highlighting box
                     //Make sure to change the MenuLineBar.bmp so that
