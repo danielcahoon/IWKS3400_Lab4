@@ -23,6 +23,7 @@ namespace Lab4
         public Vector2 center { get { return position + (size / 2); } set { } } //sprite center
         public float radius { get { return size.X / 2; } } //sprite radius
         
+        public Vector2 startingPosition { get; set; } //original location for the sprite
         //clsSprite Constructor
         public clsSprite(Texture2D newTexture, Vector2 newPosition, Vector2 newSize,
                          int ScreenWidth, int ScreenHeight)
@@ -30,6 +31,7 @@ namespace Lab4
             texture = newTexture;
             position = newPosition;
             size = newSize;
+            startingPosition = newPosition;
 
             screenSize = new Vector2(ScreenWidth, ScreenHeight);
         }
@@ -41,21 +43,21 @@ namespace Lab4
         public void Move()
         {
             //if we'll move out of the screen, invert velocity in the X direction
-            //checking right boundary
+            /*//checking right boundary
             if (position.X + size.X + velocity.X > screenSize.X)
             {
                 velocity = new Vector2(-velocity.X, velocity.Y);
-            }
+            }*/
             //checking bottom boundary
             if (position.Y + size.Y + velocity.Y > screenSize.Y)
             {
                 velocity = new Vector2(velocity.X, -velocity.Y);
             }
-            //checknig left boundary
+            /*//checknig left boundary
             if (position.X + velocity.X < 0)
             {
                 velocity = new Vector2(-velocity.X, velocity.Y);
-            }
+            }//*/
             //checking top boundary
             if (position.Y + velocity.Y < 0)
             {
@@ -131,6 +133,15 @@ namespace Lab4
                     this.position.X < otherSprite.position.X + otherSprite.size.X &&
                     this.position.Y + this.size.Y > otherSprite.position.Y &&
                     this.position.Y < otherSprite.position.Y + otherSprite.size.Y);
+        }
+        public void blockBall(Vector2 position)
+        {
+
+        }
+        
+        public void Reset()
+        {
+            position = startingPosition;
         }
     }
 }

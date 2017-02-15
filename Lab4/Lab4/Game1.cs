@@ -16,6 +16,12 @@ namespace Lab4
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+
+        //Font Stuff
+        SpriteFont Font1;
+        Vector2 FontPos;
+        public string victory; //used to hold congratulations/blnt message
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public InputHelper inputHelper;
@@ -40,9 +46,7 @@ namespace Lab4
         clsButton settingScreenSelection3;
         clsButton settingScreenSelection4;
         #endregion
-
-        clsSprite creditsSprite;
-        clsSprite gameBoardSprite;
+        
         #region Pause Screen Sprite and Buttons
         //Sprites
         clsSprite pauseScreenSprite;
@@ -53,7 +57,8 @@ namespace Lab4
 
         #endregion
 
-
+        PongGame P1Game;
+        PongGame P2Game;
         bool gamePaused;
         enum GameState
         {
@@ -95,9 +100,18 @@ namespace Lab4
         /// </summary>
         protected override void LoadContent()
         {
+            //Font Stuff
+            Font1 = Content.Load<SpriteFont>("Courier New");
+
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             inputHelper = new InputHelper();
+            
+            P1Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("ball2"), graphics, 1);
+            
+            P2Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("ball2"), graphics, 2);
+            
             //Load 2D Content into the Sprites
             MainMenuSprite = new clsSprite(Content.Load<Texture2D>("MainMenu"),
                                     new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
@@ -120,11 +134,7 @@ namespace Lab4
             #region Setting Buttons
 
             #endregion
-            creditsSprite = new clsSprite(Content.Load<Texture2D>("CreditScreen"),
-                                    new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            gameBoardSprite = new clsSprite(Content.Load<Texture2D>("GameScreen"),
-                                    new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            pauseScreenSprite = new clsSprite(Content.Load<Texture2D>("PauseScreen1"),
+           pauseScreenSprite = new clsSprite(Content.Load<Texture2D>("PauseScreen1"),
                                     new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             #region Pause Buttons
             gameExitButton = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(110, 19));
@@ -150,10 +160,7 @@ namespace Lab4
 
             settingsSprite.texture.Dispose();
 
-            creditsSprite.texture.Dispose();
-
-            gameBoardSprite.texture.Dispose();
-
+           
             //Pause Screen Disposal
             pauseScreenSprite.texture.Dispose();
             pauseExitButton.texture.Dispose();
@@ -191,24 +198,42 @@ namespace Lab4
                     if (mainMenu1P.isClicked == true)
                     {
                         CurrentGameState = GameState.InGame1P;
+                        P1Game.Reset();
+                        if (mouseState.LeftButton == ButtonState.Released)
+                        {
+                            CurrentGameState = GameState.MainMenu;
+                        }
                     }
                     mainMenu1P.Update(mouseState);
 
                     if (mainMenu2P.isClicked == true)
                     {
                         CurrentGameState = GameState.InGame2P;
+                        P2Game.Reset();
+                        if (mouseState.LeftButton == ButtonState.Released)
+                        {
+                            CurrentGameState = GameState.MainMenu;
+                        }
                     }
                     mainMenu2P.Update(mouseState);
 
                     if (mainMenuSettings.isClicked == true)
                     {
                         CurrentGameState = GameState.Settings;
+                        if (mouseState.LeftButton == ButtonState.Released)
+                        {
+                            CurrentGameState = GameState.MainMenu;
+                        }
                     }
                     mainMenuSettings.Update(mouseState);
 
                     if (mainMenuCredits.isClicked == true)
                     {
                         CurrentGameState = GameState.Credits;
+                        if (mouseState.LeftButton == ButtonState.Released)
+                        {
+                            CurrentGameState = GameState.MainMenu;
+                        }
                     }
                     mainMenuCredits.Update(mouseState);
 
@@ -224,20 +249,22 @@ namespace Lab4
                 #region Single Player Code
                 case GameState.InGame1P:
                     mouseState = Mouse.GetState();
+                    
                     if (exitInput.IsKeyDown(Keys.P))
                     {
                         gamePaused = true;
                     }
                     if (!gamePaused)
                     {
-                        //Update logic for single player game here
-                        /*while(Game isn't done)
-                         * {
-                         *      Play through game
-                         *      Update Score
-                         *      Etc
-                         *  }
-                        //*/
+                        if(P1Game.gameActive)
+                        {
+                            P1Game.Update(exitInput);
+                        }
+                        else
+                        {
+                            P1Game.Reset();
+                            CurrentGameState = GameState.MainMenu;
+                        }
 
                         //TODO Implement actual exit condition
                         if (exitInput.IsKeyDown(Keys.Space))
@@ -251,10 +278,14 @@ namespace Lab4
                         {
                             gamePaused = false;
                         }
+                        //Exiting Game needs debugging from Pause Screen
                         else if (gameExitButton.isClicked)
                         {
-                            gamePaused = false;
-                            CurrentGameState = GameState.MainMenu;
+                            if (mouseState.LeftButton == ButtonState.Released)
+                            {
+                                gamePaused = false;
+                                CurrentGameState = GameState.MainMenu;
+                            }
                         }
                         pauseExitButton.Update(mouseState);
                         gameExitButton.Update(mouseState);
@@ -264,16 +295,22 @@ namespace Lab4
                 #region Two Player Code
                 case GameState.InGame2P:
                     mouseState = Mouse.GetState();
-                    Console.WriteLine(CurrentGameState);
+
+                    if (exitInput.IsKeyDown(Keys.P))
+                    {
+                        gamePaused = true;
+                    }
                     if (!gamePaused)
                     {
-                        //Code to pause game
-                        if (exitInput.IsKeyDown(Keys.P) && !inputHelper.IsNewPress(Keys.P))
+                        if (P2Game.gameActive)
                         {
-                            inputHelper.Update();
-                            gamePaused = true;
+                            P2Game.Update(exitInput);
                         }
-                        //Update logic for single player game here
+                        else
+                        {
+                            P2Game.Reset();
+                            CurrentGameState = GameState.MainMenu;
+                        }
 
                         //TODO Implement actual exit condition
                         if (exitInput.IsKeyDown(Keys.Space))
@@ -283,20 +320,21 @@ namespace Lab4
                     }
                     else
                     {
-                        Console.WriteLine("In Pause Screen");
-
-                        pauseExitButton.Update(mouseState);
-                        gameExitButton.Update(mouseState);
                         if (pauseExitButton.isClicked)
                         {
                             gamePaused = false;
                         }
+                        //Exiting game needs debugging from Pause Screen
                         else if (gameExitButton.isClicked)
                         {
-                            gamePaused = false;
-                            CurrentGameState = GameState.MainMenu;
-                            Console.WriteLine(CurrentGameState);
+                            if (mouseState.LeftButton == ButtonState.Released)
+                            {
+                                gamePaused = false;
+                                CurrentGameState = GameState.MainMenu;
+                            }
                         }
+                        pauseExitButton.Update(mouseState);
+                        gameExitButton.Update(mouseState);
                     }
                     break;
                 #endregion
@@ -335,58 +373,24 @@ namespace Lab4
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
-            // TODO: Add your drawing code here
-            spriteBatch.Begin();
-            if(CurrentGameState == GameState.InGame1P || CurrentGameState == GameState.InGame2P)
+            
+            switch(CurrentGameState)
             {
-                if(gamePaused)
-                {
-                    pauseScreenSprite.Draw(spriteBatch);
-                    pauseExitButton.Draw(spriteBatch);
-                    gameExitButton.Draw(spriteBatch);
-                }
-                else
-                {
-                    if (CurrentGameState == GameState.InGame1P)
-                    {
-                        //print out associated things with one player game
-                        //and which settings are active
-                        gameBoardSprite.Draw(spriteBatch);
-                    }
-                    else
-                    {
-                        //print out associated things with a two player game
-                        //and which settings are active
-                        gameBoardSprite.Draw(spriteBatch);
-                    }
-                }
-            }
-            else if(CurrentGameState == GameState.Settings)
-            {
-                settingsSprite.Draw(spriteBatch);
-            }
-            else if (CurrentGameState == GameState.Credits)
-            {
-                creditsSprite.Draw(spriteBatch);
-            }
-            else
-            {
-                if (CurrentGameState == GameState.MainMenu)
-                {
-
+                case GameState.MainMenu:
+                    spriteBatch.Begin();
                     mainMenu1P.Draw(spriteBatch);
                     mainMenu2P.Draw(spriteBatch);
                     mainMenuSettings.Draw(spriteBatch);
                     mainMenuCredits.Draw(spriteBatch);
                     mainMenuQuit.Draw(spriteBatch);
                     MainMenuSprite.Draw(spriteBatch);
+                    spriteBatch.End();
                     //*/
 
                     //If I want to make there be a highlighting box
                     //Make sure to change the MenuLineBar.bmp so that
                     //It is just one color
-                    
+
                     /*
                     mainMenu1P.Draw(spriteBatch);
                     mainMenu2P.Draw(spriteBatch);
@@ -395,11 +399,59 @@ namespace Lab4
                     mainMenuQuit.Draw(spriteBatch);
                     MainMenuSprite.Draw(spriteBatch);
                     //*/
-                }
-            }
 
-            spriteBatch.End();
-            base.Draw(gameTime);
+                    break;
+
+                case GameState.InGame1P:
+                    spriteBatch.Begin();
+                    if (gamePaused)
+                    {
+                        pauseScreenSprite.Draw(spriteBatch);
+                        pauseExitButton.Draw(spriteBatch);
+                        gameExitButton.Draw(spriteBatch);
+                    }
+                    else
+                    {
+                        //print out associated things with one player game
+                        //and which settings are active
+                        P1Game.Draw(spriteBatch);
+                        spriteBatch.DrawString(Font1, "Computer: " + P1Game.P2.score, new Vector2(5, 10), Color.LimeGreen);
+                        spriteBatch.DrawString(Font1, "Player 1: " + P1Game.P1.score,
+                            new Vector2(graphics.GraphicsDevice.Viewport.Width - Font1.MeasureString("Player 1: " + P1Game.P1.score).X - 5, 10), Color.LimeGreen);
+                        //gameBoardSprite.Draw(spriteBatch);
+                    }
+                    spriteBatch.End();
+                    break;
+                case GameState.InGame2P:
+                    spriteBatch.Begin();
+                    if (gamePaused)
+                    {
+                        pauseScreenSprite.Draw(spriteBatch);
+                        pauseExitButton.Draw(spriteBatch);
+                        gameExitButton.Draw(spriteBatch);
+                    }
+                    else
+                    {
+                        P2Game.Draw(spriteBatch);
+                        spriteBatch.DrawString(Font1, "Player 2: " + P1Game.P2.score, new Vector2(5, 10), Color.LimeGreen);
+                        spriteBatch.DrawString(Font1, "Player 1: " + P1Game.P1.score,
+                            new Vector2(graphics.GraphicsDevice.Viewport.Width - Font1.MeasureString("Player 1: " + P1Game.P1.score).X - 5, 10), Color.LimeGreen);
+                    }
+                    spriteBatch.End();
+                    break;
+                case GameState.Settings:
+                    spriteBatch.Begin();
+                    settingsSprite.Draw(spriteBatch);
+                    spriteBatch.End();
+                    break;
+                case GameState.Credits:
+                    spriteBatch.Begin();
+                    spriteBatch.DrawString(Font1, "Credits\n     Danny Cahoon\n\n     Jacob J\n\n     Hugh Ohlin\n\n     Robbie Fikes\n\n", new Vector2(((graphics.GraphicsDevice.Viewport.Width / 2) - Font1.MeasureString("Credits").X - 10), 10), Color.LimeGreen);
+                    spriteBatch.DrawString(Font1, "Go Back. . . ", new Vector2(5, graphics.GraphicsDevice.Viewport.Height - Font1.MeasureString("Go Back. . .").Y), Color.LimeGreen);
+                    spriteBatch.End();
+                    break;
+            }
+           base.Draw(gameTime);
         }
     }
 }

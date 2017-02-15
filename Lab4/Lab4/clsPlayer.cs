@@ -11,7 +11,7 @@ namespace Lab4
     class clsPlayer 
     {
         public clsSprite paddle;
-        KeyboardState movementKey = Keyboard.GetState();
+        //KeyboardState movementKey = Keyboard.GetState();
         PongGame.PlayerType playerType;
         public int score;
 
@@ -25,49 +25,77 @@ namespace Lab4
                     //position associated with right side
                     paddle = new clsSprite(texture, position, newSize, (int)screenSize.X, (int)screenSize.Y);
                     break;
+                case PongGame.PlayerType.PlayerTwo:
+                    paddle = new clsSprite(texture, position, newSize, (int)screenSize.X, (int)screenSize.Y);
+                    break;
+                case PongGame.PlayerType.CPU:
+                    paddle = new clsSprite(texture, position, newSize, (int)screenSize.X, (int)screenSize.Y);
+                    break;
             }
         }
 
-        public void move(clsSprite gameBall)
+        public void move(clsSprite gameBall, KeyboardState movementKey)
         {
+            //Console.WriteLine("{0}'s paddle position = {1}", playerType, paddle.position);
             if (playerType == PongGame.PlayerType.PlayerOne)
             {
                 if (movementKey.IsKeyDown(Keys.Up))
                 {
-                    paddle.position = new Vector2(paddle.position.X, paddle.position.Y + 5);
-                    paddle.withinScreen();
+                    paddle.velocity = new Vector2(0, -5);
+                    paddle.Move();
                 }
                 else if (movementKey.IsKeyDown(Keys.Down))
                 {
-                    paddle.position = new Vector2(paddle.position.X, paddle.position.Y - 5);
-                    paddle.withinScreen();
+                    paddle.velocity = new Vector2(0, 5);
+                    paddle.Move();
                 }
             }
             else if (playerType == PongGame.PlayerType.PlayerTwo)
             {
                 if (movementKey.IsKeyDown(Keys.W))
                 {
-                    paddle.position = new Vector2(paddle.position.X, paddle.position.Y + 5);
-                    paddle.withinScreen();
+                    paddle.velocity = new Vector2(0, -5);
+                    paddle.Move();
                 }
                 else if (movementKey.IsKeyDown(Keys.S))
                 {
-                    paddle.position = new Vector2(paddle.position.X, paddle.position.Y - 5);
-                    paddle.withinScreen();
+                    paddle.velocity = new Vector2(0, 5);
+                    paddle.Move();
                 }
             }
             else if (playerType == PongGame.PlayerType.CPU)
             {
                 //Add code for difficulty here regarding when the 
                 //paddle finds out where the ball is
-
-                paddle.position = new Vector2(gameBall.position.X, gameBall.position.Y);
+                if (gameBall.position.X - paddle.position.X < 300 && gameBall.position.Y > (paddle.center.Y - paddle.size.Y / 2))
+                {
+                    paddle.velocity = new Vector2(0, 5);
+                    paddle.Move();
+                }
+                else if (gameBall.position.X - paddle.position.X < 300 && gameBall.position.Y < (paddle.center.Y - paddle.size.Y / 2))
+                {
+                    paddle.velocity = new Vector2(0, -5);
+                    paddle.Move();
+                }
+                else
+                {
+                    paddle.Move();
+                }
                 paddle.withinScreen();
             }
         }
         public void scorePoint()
         {
             ++score;
+        }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            paddle.Draw(spriteBatch);
+        }
+        public void Reset()
+        {
+            score = 0;
+            paddle.Reset();
         }
     }
 }
