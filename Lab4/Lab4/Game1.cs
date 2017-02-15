@@ -22,6 +22,9 @@ namespace Lab4
         Vector2 FontPos;
         public string victory; //used to hold congratulations/blnt message
 
+        //Sound and Music Stuff
+
+        
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public InputHelper inputHelper;
@@ -39,12 +42,22 @@ namespace Lab4
         #endregion
         #region Settings Screen Sprite and Buttons
         //Sprites
-        clsSprite settingsSprite;
+        clsSprite settingsSprite; //Used as the not Changing background to overlay buttons on 
         //Buttons
-        clsButton settingScreenSelection1;
-        clsButton settingScreenSelection2;
-        clsButton settingScreenSelection3;
-        clsButton settingScreenSelection4;
+        clsButton settingBarrierOn;
+        clsButton settingBarrierOff;
+
+        clsButton settingPowerUpsOn;
+        clsButton settingPowerUpsOff;
+
+        clsButton settingDifficulty1;
+        clsButton settingDifficulty2;
+        clsButton settingDifficulty3;
+
+        clsButton settingMusicOn;
+        clsButton settingMusicOff;
+
+        clsButton settingExitButton;
         #endregion
         
         #region Pause Screen Sprite and Buttons
