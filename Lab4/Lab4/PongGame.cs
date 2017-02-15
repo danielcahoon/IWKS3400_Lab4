@@ -31,7 +31,7 @@ namespace Lab4
                 P1.paddle.velocity = new Vector2(0, 0);
                 P2.paddle.velocity = new Vector2(0, 0);
                 gameBall = new clsSprite(gameBallTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 32, (graphics.PreferredBackBufferHeight / 2) - 32), new Vector2(64, 64), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                gameBall.velocity = new Vector2(-2, -2);
+                gameBall.velocity = new Vector2(-5, -5);
             }
             else
             {
@@ -40,7 +40,7 @@ namespace Lab4
                 P1.paddle.velocity = new Vector2(0, 0);
                 P2.paddle.velocity = new Vector2(0, 5);
                 gameBall = new clsSprite(gameBallTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 32, (graphics.PreferredBackBufferHeight / 2) - 32), new Vector2(64, 64), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                gameBall.velocity = new Vector2(-5, -5);
+                gameBall.velocity = new Vector2(-2, -2);
             }
         }
 

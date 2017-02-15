@@ -26,7 +26,7 @@ namespace Lab4
         public Vector2 size;
 
 
-        public clsButton(Texture2D newTexture, Vector2 size)//, GraphicsDevice graphics)
+        public clsButton(Texture2D newTexture, Vector2 size)
         {
             texture = newTexture;
 
@@ -35,7 +35,6 @@ namespace Lab4
 
             this.size = size;
         }
-
         bool down;
         public bool isClicked;
         public void Update(MouseState mouse)

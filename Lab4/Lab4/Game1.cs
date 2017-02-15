@@ -145,7 +145,7 @@ namespace Lab4
             settingsSprite = new clsSprite(Content.Load<Texture2D>("Settings"),
                                     new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             #region Setting Buttons
-
+            //settingBarrierOn = new clsButton(Content.Load<Texture2D>(""))
             #endregion
            pauseScreenSprite = new clsSprite(Content.Load<Texture2D>("PauseScreen1"),
                                     new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
