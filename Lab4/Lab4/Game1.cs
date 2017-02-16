@@ -19,7 +19,6 @@ namespace Lab4
 
         //Font Stuff
         SpriteFont Font1;
-        Vector2 FontPos;
         public string victory; //used to hold congratulations/blnt message
 
         //Sound and Music Stuff
@@ -121,7 +120,7 @@ namespace Lab4
         /// all of your content.
         /// </summary>
         protected override void LoadContent()
-        {
+            {
             //Font Stuff
             Font1 = Content.Load<SpriteFont>("Courier New");
 
@@ -163,6 +162,73 @@ namespace Lab4
             gameExitButton.setPosition(new Vector2(578, 13));
             pauseExitButton = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2((672-581), 19));
             pauseExitButton.setPosition(new Vector2(581, 45));
+            #endregion
+
+            #region Audio Loading
+            //Load the SoundEffect Resources
+            menuEffect = Content.Load<SoundEffect>("MenuSoundEffect");
+            ballHit = Content.Load<SoundEffect>("BallHit");
+            score = Content.Load<SoundEffect>("Score");
+            gameWin = Content.Load<SoundEffect>("GameWin");
+
+            //Load File built from XACT project
+            audioEngine = new AudioEngine("Content\\Lab4Sounds.xgs");
+            sounds = new WaveBank(audioEngine, "Content\\Sounds.xwb");
+            soundsBank = new SoundBank(audioEngine, "Content\\SoundsBank.xsb");
+
+            //Load Streaming Wave Banks
+            mainMenu = new WaveBank(audioEngine, "Content\\MainMenu.xwb", 0, 4);
+            /*//Settings to Implement
+             * settings = new WaveBank(audioEngine, "Content\\Settings.xwb", 0, 4);
+             * 
+             * //Credits to Implement
+             * credits = new WaveBank(audioEngine, "Content\\Credits.xwb", 0, 4);
+             * 
+             //*/
+            easyAI = new WaveBank(audioEngine, "Content\\EasyAI.xwb", 0, 4);
+            /*//Other AI difficulties to implement
+             * medAI = new WaveBank(audioEngine, "Content\\MediumAI.xwb", 0, 4);
+             * hardAI = new WaveBank(audioEngine, "Content\\HardAI.xwb, 0, 4);
+             * 
+             * //2P game audio to implement
+             * twoPlayer = new WaveBank(audioEngine, "Content\\2Player.xwb, 0, 4);
+             * 
+             //*/
+
+            //Get Cues for Streaming music
+            mainMenuCue = soundsBank.GetCue("MainMenuMusic");
+            easyAICue = soundsBank.GetCue("EasyAI");
+            /*//Getting cues for the other cues
+             *  medAICue = soundsBank.GetCue("MediumAI");
+             *  hardAICue = soundsBank.GetCue("HardAI");
+             *  twoPlayerCue = soundsBank.GetCue("2Player");
+             *  settingsCue = soundsBank.GetCue("SettingsMusic");
+             *  creditsCue = soundsBank.GetCue("Credits");
+             *  //*/
+
+            /*//playing and pausing the cues for changing of game state
+            settingsCue.Play();
+            creditsCue.Play();
+            twoPlayerCue.Play();
+            //playing for the different difficulties
+            */easyAICue.Play();
+            //medAICue.Play();
+            //hardAICue.Play();
+
+            //Pausing all of the above cues for later use in GameState changing
+            //Difficulty pasuing
+            easyAICue.Pause();
+            //medAI.Pause();
+            //hardAI.Pause();
+
+            /*
+            settingsCue.Pause();
+            creditsCue.Pause();
+            twoPlayerCue.Pause();
+            //*/
+
+            //Play the MainMenu Theme by default
+            mainMenuCue.Play();
             #endregion
         }
 

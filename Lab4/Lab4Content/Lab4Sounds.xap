@@ -337,14 +337,8 @@ Wave Bank
     Streaming = 1;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Xbox Bank Last Modified Low = 0;
-    Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 0;
-    PC Bank Last Modified High = 0;
-    Header Last Modified Low = 0;
-    Header Last Modified High = 0;
-    Bank Last Revised Low = 1622612796;
-    Bank Last Revised High = 30574522;
+    Bank Last Revised Low = 11703872;
+    Bank Last Revised High = 30574617;
 
     Wave
     {
@@ -364,8 +358,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1533082890;
-            Last Modified High = 30574148;
+            Last Modified Low = 3988203662;
+            Last Modified High = 30574553;
         }
     }
 }
@@ -420,8 +414,6 @@ Sound Bank
     Windows File = Win\SoundsBank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Header Last Modified High = 0;
-    Header Last Modified Low = 0;
 
     Sound
     {
