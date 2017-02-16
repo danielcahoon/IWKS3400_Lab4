@@ -19,6 +19,7 @@ namespace Lab4
 
         //Font Stuff
         SpriteFont Font1;
+        Vector2 FontPos;
         public string victory; //used to hold congratulations/blnt message
 
         //Sound and Music Stuff
@@ -67,7 +68,7 @@ namespace Lab4
 
         clsButton settingExitButton;
         #endregion
-        
+
         #region Pause Screen Sprite and Buttons
         //Sprites
         clsSprite pauseScreenSprite;
@@ -120,19 +121,65 @@ namespace Lab4
         /// all of your content.
         /// </summary>
         protected override void LoadContent()
-            {
+        {
             //Font Stuff
             Font1 = Content.Load<SpriteFont>("Courier New");
 
+            #region Music Stuff
+            // Load the SoundEffect resource
+            menuEffect = Content.Load<SoundEffect>("MenuSoundEffect");
+            ballHit = Content.Load<SoundEffect>("BallHit");
+            score = Content.Load<SoundEffect>("Score");
+            gameWin = Content.Load<SoundEffect>("GameWin");
+
+            // Load file built from XACT project
+            audioEngine = new AudioEngine("Content\\Lab4Sounds.xgs");
+            sounds = new WaveBank(audioEngine, "Content\\Sounds.xwb");
+            soundsBank = new SoundBank(audioEngine, "Content\\SoundsBank.xsb");
+
+            // Load streaming wave banks
+            mainMenu = new WaveBank(audioEngine, "Content\\MainMenu.xwb", 0, 4);
+            settings = new WaveBank(audioEngine, "Content\\Settings.xwb", 0, 4);
+            credits = new WaveBank(audioEngine, "Content\\Credits.xwb", 0, 4);
+            easyAI = new WaveBank(audioEngine, "Content\\EasyAI.xwb", 0, 4);
+            medAI = new WaveBank(audioEngine, "Content\\MediumAI.xwb", 0, 4);
+            hardAI = new WaveBank(audioEngine, "Content\\HardAI.xwb", 0, 4);
+            twoPlayer = new WaveBank(audioEngine, "Content\\2Player.xwb", 0, 4);
+
+            // The audio engine must be updated before the streaming cues are ready
+            audioEngine.Update();
+
+            // Get cues for streaming music
+            mainMenuCue = soundsBank.GetCue("MainMenuMusic");
+            settingsCue = soundsBank.GetCue("SettingsMusic");
+            creditsCue = soundsBank.GetCue("Credits");
+            easyAICue = soundsBank.GetCue("EasyAI");
+            medAICue = soundsBank.GetCue("MediumAI");
+            hardAICue = soundsBank.GetCue("HardAI");
+            twoPlayerCue = soundsBank.GetCue("2Player");
+
+            audioEngine.Update();
+            settingsCue.Play();
+            creditsCue.Play();
+            easyAICue.Play();
+            twoPlayerCue.Play();
+
+            //settingsCue.Pause();
+            //creditsCue.Pause();
+            //easyAICue.Pause();
+            //twoPlayerCue.Pause();
+
+            mainMenuCue.Play();
+            #endregion
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             inputHelper = new InputHelper();
-            
+
             P1Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("ball2"), graphics, 1);
-            
+
             P2Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("ball2"), graphics, 2);
-            
+
             //Load 2D Content into the Sprites
             MainMenuSprite = new clsSprite(Content.Load<Texture2D>("MainMenu"),
                                     new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
@@ -155,80 +202,13 @@ namespace Lab4
             #region Setting Buttons
             //settingBarrierOn = new clsButton(Content.Load<Texture2D>(""))
             #endregion
-           pauseScreenSprite = new clsSprite(Content.Load<Texture2D>("PauseScreen1"),
+            pauseScreenSprite = new clsSprite(Content.Load<Texture2D>("PauseScreen1"),
                                     new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             #region Pause Buttons
             gameExitButton = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(110, 19));
             gameExitButton.setPosition(new Vector2(578, 13));
-            pauseExitButton = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2((672-581), 19));
+            pauseExitButton = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2((672 - 581), 19));
             pauseExitButton.setPosition(new Vector2(581, 45));
-            #endregion
-
-            #region Audio Loading
-            //Load the SoundEffect Resources
-            menuEffect = Content.Load<SoundEffect>("MenuSoundEffect");
-            ballHit = Content.Load<SoundEffect>("BallHit");
-            score = Content.Load<SoundEffect>("Score");
-            gameWin = Content.Load<SoundEffect>("GameWin");
-
-            //Load File built from XACT project
-            audioEngine = new AudioEngine("Content\\Lab4Sounds.xgs");
-            sounds = new WaveBank(audioEngine, "Content\\Sounds.xwb");
-            soundsBank = new SoundBank(audioEngine, "Content\\SoundsBank.xsb");
-
-            //Load Streaming Wave Banks
-            mainMenu = new WaveBank(audioEngine, "Content\\MainMenu.xwb", 0, 4);
-            /*//Settings to Implement
-             * settings = new WaveBank(audioEngine, "Content\\Settings.xwb", 0, 4);
-             * 
-             * //Credits to Implement
-             * credits = new WaveBank(audioEngine, "Content\\Credits.xwb", 0, 4);
-             * 
-             //*/
-            easyAI = new WaveBank(audioEngine, "Content\\EasyAI.xwb", 0, 4);
-            /*//Other AI difficulties to implement
-             * medAI = new WaveBank(audioEngine, "Content\\MediumAI.xwb", 0, 4);
-             * hardAI = new WaveBank(audioEngine, "Content\\HardAI.xwb, 0, 4);
-             * 
-             * //2P game audio to implement
-             * twoPlayer = new WaveBank(audioEngine, "Content\\2Player.xwb, 0, 4);
-             * 
-             //*/
-
-            //Get Cues for Streaming music
-            mainMenuCue = soundsBank.GetCue("MainMenuMusic");
-            easyAICue = soundsBank.GetCue("EasyAI");
-            /*//Getting cues for the other cues
-             *  medAICue = soundsBank.GetCue("MediumAI");
-             *  hardAICue = soundsBank.GetCue("HardAI");
-             *  twoPlayerCue = soundsBank.GetCue("2Player");
-             *  settingsCue = soundsBank.GetCue("SettingsMusic");
-             *  creditsCue = soundsBank.GetCue("Credits");
-             *  //*/
-
-            /*//playing and pausing the cues for changing of game state
-            settingsCue.Play();
-            creditsCue.Play();
-            twoPlayerCue.Play();
-            //playing for the different difficulties
-            */easyAICue.Play();
-            //medAICue.Play();
-            //hardAICue.Play();
-
-            //Pausing all of the above cues for later use in GameState changing
-            //Difficulty pasuing
-            easyAICue.Pause();
-            //medAI.Pause();
-            //hardAI.Pause();
-
-            /*
-            settingsCue.Pause();
-            creditsCue.Pause();
-            twoPlayerCue.Pause();
-            //*/
-
-            //Play the MainMenu Theme by default
-            mainMenuCue.Play();
             #endregion
         }
 
@@ -248,7 +228,7 @@ namespace Lab4
 
             settingsSprite.texture.Dispose();
 
-           
+
             //Pause Screen Disposal
             pauseScreenSprite.texture.Dispose();
             pauseExitButton.texture.Dispose();
@@ -276,7 +256,61 @@ namespace Lab4
 
             MouseState mouseState = Mouse.GetState();
             // TODO: Add your update logic here
-            //       Change to a set of Switch statements using Enum GameState
+            //       Change to a set of Switch statements using Enum GameState 
+
+            switch (CurrentGameState)
+            {
+                #region Main Menu Music
+                case GameState.MainMenu:
+                    audioEngine.Update();
+                    mainMenuCue.Resume();
+                    settingsCue.Pause();
+                    creditsCue.Pause();
+                    easyAICue.Pause();
+                    twoPlayerCue.Pause();
+                    break;
+                #endregion
+                #region Settings Music
+                case GameState.Settings:
+                    audioEngine.Update();
+                    mainMenuCue.Pause();
+                    settingsCue.Resume();
+                    creditsCue.Pause();
+                    easyAICue.Pause();
+                    twoPlayerCue.Pause();
+                    break;
+                #endregion
+                #region Credits Music
+                case GameState.Credits:
+                    audioEngine.Update();
+                    mainMenuCue.Pause();
+                    settingsCue.Pause();
+                    creditsCue.Resume();
+                    easyAICue.Pause();
+                    twoPlayerCue.Pause();
+                    break;
+                #endregion
+                #region 1 Player Music
+                case GameState.InGame1P:
+                    audioEngine.Update();
+                    mainMenuCue.Pause();
+                    settingsCue.Pause();
+                    creditsCue.Pause();
+                    easyAICue.Resume();
+                    twoPlayerCue.Pause();
+                    break;
+                #endregion
+                #region 2 Player Music
+                case GameState.InGame2P:
+                    audioEngine.Update();
+                    mainMenuCue.Pause();
+                    settingsCue.Pause();
+                    creditsCue.Pause();
+                    easyAICue.Pause();
+                    twoPlayerCue.Resume();
+                    break;
+                    #endregion
+            }
 
             switch (CurrentGameState)
             {
@@ -337,14 +371,14 @@ namespace Lab4
                 #region Single Player Code
                 case GameState.InGame1P:
                     mouseState = Mouse.GetState();
-                    
+
                     if (exitInput.IsKeyDown(Keys.P))
                     {
                         gamePaused = true;
                     }
                     if (!gamePaused)
                     {
-                        if(P1Game.gameActive)
+                        if (P1Game.gameActive)
                         {
                             P1Game.Update(exitInput);
                         }
@@ -451,6 +485,8 @@ namespace Lab4
                     #endregion
             }
             inputHelper.Update();
+            // Update the audio engine
+            audioEngine.Update();
             base.Update(gameTime);
         }
 
@@ -461,8 +497,8 @@ namespace Lab4
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            
-            switch(CurrentGameState)
+
+            switch (CurrentGameState)
             {
                 case GameState.MainMenu:
                     spriteBatch.Begin();
@@ -539,7 +575,7 @@ namespace Lab4
                     spriteBatch.End();
                     break;
             }
-           base.Draw(gameTime);
+            base.Draw(gameTime);
         }
     }
 }
