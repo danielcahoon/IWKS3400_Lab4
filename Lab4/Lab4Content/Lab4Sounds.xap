@@ -13,7 +13,7 @@ Global Settings
 {
     Xbox File = Xbox\Lab4Sounds.xgs;
     Windows File = Win\Lab4Sounds.xgs;
-    Header File = C:\Users\Jake\Source\Repos\IWKS3400_Lab4\Lab4\Lab4Content\Lab4Sounds.h;
+    Header File = Lab4Sounds.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
     Last Modified Low = 0;
@@ -231,7 +231,7 @@ Wave Bank
     Wave
     {
         Name = BallHit;
-        File = ..\..\..\..\..\Documents\School\Game Design\Lab 4\Music\BallHit.wav;
+        File = BallHit.wav;
         Build Settings Last Modified Low = 1442201617;
         Build Settings Last Modified High = 30574517;
 
@@ -254,7 +254,7 @@ Wave Bank
     Wave
     {
         Name = GameWin;
-        File = ..\..\..\..\..\Documents\School\Game Design\Lab 4\Music\GameWin.wav;
+        File = GameWin.wav;
         Build Settings Last Modified Low = 1442201617;
         Build Settings Last Modified High = 30574517;
 
@@ -277,7 +277,7 @@ Wave Bank
     Wave
     {
         Name = MenuSoundEffect;
-        File = ..\..\..\..\..\Documents\School\Game Design\Lab 4\Music\MenuSoundEffect.wav;
+        File = MenuSoundEffect.wav;
         Build Settings Last Modified Low = 1442357907;
         Build Settings Last Modified High = 30574517;
 
@@ -300,7 +300,7 @@ Wave Bank
     Wave
     {
         Name = Score;
-        File = ..\..\..\..\..\Documents\School\Game Design\Lab 4\Music\Score.wav;
+        File = Score.wav;
         Build Settings Last Modified Low = 1442357907;
         Build Settings Last Modified High = 30574517;
 
@@ -337,7 +337,7 @@ Wave Bank
     Wave
     {
         Name = MainMenuMusic;
-        File = ..\..\..\..\..\Documents\School\Game Design\Lab 4\Music\MainMenu.wav;
+        File = MainMenu.wav;
         Build Settings Last Modified Low = 566599016;
         Build Settings Last Modified High = 30574518;
 
@@ -374,7 +374,7 @@ Wave Bank
     Wave
     {
         Name = SettingsMusic;
-        File = ..\..\..\..\..\Documents\School\Game Design\Lab 4\Music\Settings.wav;
+        File = Settings.wav;
         Build Settings Last Modified Low = 566599016;
         Build Settings Last Modified High = 30574518;
 
@@ -411,7 +411,7 @@ Wave Bank
     Wave
     {
         Name = Credits;
-        File = ..\..\..\..\..\Documents\School\Game Design\Lab 4\Music\Credits.wav;
+        File = Credits.wav;
         Build Settings Last Modified Low = 566442816;
         Build Settings Last Modified High = 30574518;
 
@@ -448,7 +448,7 @@ Wave Bank
     Wave
     {
         Name = HardAI;
-        File = ..\..\..\..\..\Documents\School\Game Design\Lab 4\Music\HardAI.wav;
+        File = HardAI.wav;
         Build Settings Last Modified Low = 566599016;
         Build Settings Last Modified High = 30574518;
 
@@ -485,7 +485,7 @@ Wave Bank
     Wave
     {
         Name = MediumAI;
-        File = ..\..\..\..\..\Documents\School\Game Design\Lab 4\Music\MediumAI.wav;
+        File = MediumAI.wav;
         Build Settings Last Modified Low = 566599016;
         Build Settings Last Modified High = 30574518;
 
@@ -522,7 +522,7 @@ Wave Bank
     Wave
     {
         Name = EasyAI;
-        File = ..\..\..\..\..\Documents\School\Game Design\Lab 4\Music\EasyAI.wav;
+        File = EasyAI.wav;
         Build Settings Last Modified Low = 566442816;
         Build Settings Last Modified High = 30574518;
 
@@ -559,7 +559,7 @@ Wave Bank
     Wave
     {
         Name = 2Player;
-        File = ..\..\..\..\..\Documents\School\Game Design\Lab 4\Music\2Player.wav;
+        File = 2Player.wav;
         Build Settings Last Modified Low = 566442816;
         Build Settings Last Modified High = 30574518;
 
