@@ -23,8 +23,17 @@ namespace Lab4
         public string victory; //used to hold congratulations/blnt message
 
         //Sound and Music Stuff
+        // Create a SoundEffect resource
+        SoundEffect menuEffect, ballHit, gameWin, score;
+        AudioEngine audioEngine;
+        SoundBank soundsBank;
+        WaveBank sounds;
+        Cue soundsCue;
 
-        
+        WaveBank mainMenu, settings, credits, hardAI, medAI, easyAI, twoPlayer;
+        Cue mainMenuCue, settingsCue, creditsCue, hardAICue, medAICue, easyAICue, twoPlayerCue;
+
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public InputHelper inputHelper;

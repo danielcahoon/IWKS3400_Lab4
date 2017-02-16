@@ -225,6 +225,12 @@ Wave Bank
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = <none>;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 0;
+    PC Bank Last Modified High = 0;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
     Bank Last Revised Low = 2995170114;
     Bank Last Revised High = 30574517;
 
@@ -331,13 +337,19 @@ Wave Bank
     Streaming = 1;
     Seek Tables = 1;
     Compression Preset Name = <none>;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 0;
+    PC Bank Last Modified High = 0;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
     Bank Last Revised Low = 1622612796;
     Bank Last Revised High = 30574522;
 
     Wave
     {
         Name = MainMenuMusic;
-        File = MainMenu.wav;
+        File = MainMenuMusic.wav;
         Build Settings Last Modified Low = 566599016;
         Build Settings Last Modified High = 30574518;
 
@@ -360,154 +372,6 @@ Wave Bank
 
 Wave Bank
 {
-    Name = Settings;
-    Xbox File = Xbox\Settings.xwb;
-    Windows File = Win\Settings.xwb;
-    Xbox Bank Path Edited = 0;
-    Windows Bank Path Edited = 0;
-    Streaming = 1;
-    Seek Tables = 1;
-    Compression Preset Name = <none>;
-    Bank Last Revised Low = 2163735264;
-    Bank Last Revised High = 30574522;
-
-    Wave
-    {
-        Name = SettingsMusic;
-        File = Settings.wav;
-        Build Settings Last Modified Low = 566599016;
-        Build Settings Last Modified High = 30574518;
-
-        Cache
-        {
-            Format Tag = 0;
-            Channels = 2;
-            Sampling Rate = 44100;
-            Bits Per Sample = 1;
-            Play Region Offset = 124;
-            Play Region Length = 158736572;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 342562864;
-            Last Modified High = 30574149;
-        }
-    }
-}
-
-Wave Bank
-{
-    Name = Credits;
-    Xbox File = Xbox\Credits.xwb;
-    Windows File = Win\Credits.xwb;
-    Xbox Bank Path Edited = 0;
-    Windows Bank Path Edited = 0;
-    Streaming = 1;
-    Seek Tables = 1;
-    Compression Preset Name = <none>;
-    Bank Last Revised Low = 2231911091;
-    Bank Last Revised High = 30574522;
-
-    Wave
-    {
-        Name = Credits;
-        File = Credits.wav;
-        Build Settings Last Modified Low = 566442816;
-        Build Settings Last Modified High = 30574518;
-
-        Cache
-        {
-            Format Tag = 0;
-            Channels = 2;
-            Sampling Rate = 44100;
-            Bits Per Sample = 1;
-            Play Region Offset = 122;
-            Play Region Length = 31320764;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 4274639644;
-            Last Modified High = 30574147;
-        }
-    }
-}
-
-Wave Bank
-{
-    Name = HardAI;
-    Xbox File = Xbox\HardAI.xwb;
-    Windows File = Win\HardAI.xwb;
-    Xbox Bank Path Edited = 0;
-    Windows Bank Path Edited = 0;
-    Streaming = 1;
-    Seek Tables = 1;
-    Compression Preset Name = <none>;
-    Bank Last Revised Low = 1836139901;
-    Bank Last Revised High = 30574522;
-
-    Wave
-    {
-        Name = HardAI;
-        File = HardAI.wav;
-        Build Settings Last Modified Low = 566599016;
-        Build Settings Last Modified High = 30574518;
-
-        Cache
-        {
-            Format Tag = 0;
-            Channels = 2;
-            Sampling Rate = 44100;
-            Bits Per Sample = 1;
-            Play Region Offset = 152;
-            Play Region Length = 49397948;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 1077175462;
-            Last Modified High = 30574148;
-        }
-    }
-}
-
-Wave Bank
-{
-    Name = MediumAI;
-    Xbox File = Xbox\MediumAI.xwb;
-    Windows File = Win\MediumAI.xwb;
-    Xbox Bank Path Edited = 0;
-    Windows Bank Path Edited = 0;
-    Streaming = 1;
-    Seek Tables = 1;
-    Compression Preset Name = <none>;
-    Bank Last Revised Low = 1895874948;
-    Bank Last Revised High = 30574522;
-
-    Wave
-    {
-        Name = MediumAI;
-        File = MediumAI.wav;
-        Build Settings Last Modified Low = 566599016;
-        Build Settings Last Modified High = 30574518;
-
-        Cache
-        {
-            Format Tag = 0;
-            Channels = 2;
-            Sampling Rate = 44100;
-            Bits Per Sample = 1;
-            Play Region Offset = 162;
-            Play Region Length = 31638716;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 2376780194;
-            Last Modified High = 30574148;
-        }
-    }
-}
-
-Wave Bank
-{
     Name = EasyAI;
     Xbox File = Xbox\EasyAI.xwb;
     Windows File = Win\EasyAI.xwb;
@@ -516,6 +380,12 @@ Wave Bank
     Streaming = 1;
     Seek Tables = 1;
     Compression Preset Name = <none>;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 0;
+    PC Bank Last Modified High = 0;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
     Bank Last Revised Low = 2022437546;
     Bank Last Revised High = 30574522;
 
@@ -543,43 +413,6 @@ Wave Bank
     }
 }
 
-Wave Bank
-{
-    Name = 2Player;
-    Xbox File = Xbox\2Player.xwb;
-    Windows File = Win\2Player.xwb;
-    Xbox Bank Path Edited = 0;
-    Windows Bank Path Edited = 0;
-    Streaming = 1;
-    Seek Tables = 1;
-    Compression Preset Name = <none>;
-    Bank Last Revised Low = 1777748523;
-    Bank Last Revised High = 30574522;
-
-    Wave
-    {
-        Name = 2Player;
-        File = 2Player.wav;
-        Build Settings Last Modified Low = 566442816;
-        Build Settings Last Modified High = 30574518;
-
-        Cache
-        {
-            Format Tag = 0;
-            Channels = 2;
-            Sampling Rate = 44100;
-            Bits Per Sample = 1;
-            Play Region Offset = 160;
-            Play Region Length = 31592636;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 3471339188;
-            Last Modified High = 30574147;
-        }
-    }
-}
-
 Sound Bank
 {
     Name = SoundsBank;
@@ -587,6 +420,8 @@ Sound Bank
     Windows File = Win\SoundsBank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 
     Sound
     {
@@ -825,147 +660,6 @@ Sound Bank
 
     Sound
     {
-        Name = 2Player;
-        Volume = -1200;
-        Pitch = 0;
-        Priority = 0;
-
-        Category Entry
-        {
-            Name = Music;
-        }
-
-        Track
-        {
-            Volume = 0;
-            Use Filter = 0;
-
-            Play Wave Event
-            {
-                Break Loop = 0;
-                Use Speaker Position = 0;
-                Use Center Speaker = 1;
-                New Speaker Position On Loop = 1;
-                Speaker Position Angle = 0.000000;
-                Speaker Position Arc = 0.000000;
-
-                Event Header
-                {
-                    Timestamp = 0;
-                    Relative = 0;
-                    Random Recurrence = 0;
-                    Random Offset = 0;
-                }
-
-                Wave Entry
-                {
-                    Bank Name = 2Player;
-                    Bank Index = 7;
-                    Entry Name = 2Player;
-                    Entry Index = 0;
-                    Weight = 255;
-                    Weight Min = 0;
-                }
-            }
-        }
-    }
-
-    Sound
-    {
-        Name = HardAI;
-        Volume = -1200;
-        Pitch = 0;
-        Priority = 0;
-
-        Category Entry
-        {
-            Name = Music;
-        }
-
-        Track
-        {
-            Volume = 0;
-            Use Filter = 0;
-
-            Play Wave Event
-            {
-                Break Loop = 0;
-                Use Speaker Position = 0;
-                Use Center Speaker = 1;
-                New Speaker Position On Loop = 1;
-                Speaker Position Angle = 0.000000;
-                Speaker Position Arc = 0.000000;
-
-                Event Header
-                {
-                    Timestamp = 0;
-                    Relative = 0;
-                    Random Recurrence = 0;
-                    Random Offset = 0;
-                }
-
-                Wave Entry
-                {
-                    Bank Name = HardAI;
-                    Bank Index = 4;
-                    Entry Name = HardAI;
-                    Entry Index = 0;
-                    Weight = 255;
-                    Weight Min = 0;
-                }
-            }
-        }
-    }
-
-    Sound
-    {
-        Name = MediumAI;
-        Volume = -1200;
-        Pitch = 0;
-        Priority = 0;
-
-        Category Entry
-        {
-            Name = Music;
-        }
-
-        Track
-        {
-            Volume = 0;
-            Use Filter = 0;
-
-            Play Wave Event
-            {
-                Break Loop = 0;
-                Use Speaker Position = 0;
-                Use Center Speaker = 1;
-                New Speaker Position On Loop = 1;
-                Speaker Position Angle = 0.000000;
-                Speaker Position Arc = 0.000000;
-
-                Event Header
-                {
-                    Timestamp = 0;
-                    Relative = 0;
-                    Random Recurrence = 0;
-                    Random Offset = 0;
-                }
-
-                Wave Entry
-                {
-                    Bank Name = MediumAI;
-                    Bank Index = 5;
-                    Entry Name = MediumAI;
-                    Entry Index = 0;
-                    Weight = 255;
-                    Weight Min = 0;
-                }
-            }
-        }
-    }
-
-    Sound
-    {
         Name = EasyAI;
         Volume = -1200;
         Pitch = 0;
@@ -1001,102 +695,8 @@ Sound Bank
                 Wave Entry
                 {
                     Bank Name = EasyAI;
-                    Bank Index = 6;
-                    Entry Name = EasyAI;
-                    Entry Index = 0;
-                    Weight = 255;
-                    Weight Min = 0;
-                }
-            }
-        }
-    }
-
-    Sound
-    {
-        Name = SettingsMusic;
-        Volume = -1200;
-        Pitch = 0;
-        Priority = 0;
-
-        Category Entry
-        {
-            Name = Music;
-        }
-
-        Track
-        {
-            Volume = 0;
-            Use Filter = 0;
-
-            Play Wave Event
-            {
-                Break Loop = 0;
-                Use Speaker Position = 0;
-                Use Center Speaker = 1;
-                New Speaker Position On Loop = 1;
-                Speaker Position Angle = 0.000000;
-                Speaker Position Arc = 0.000000;
-
-                Event Header
-                {
-                    Timestamp = 0;
-                    Relative = 0;
-                    Random Recurrence = 0;
-                    Random Offset = 0;
-                }
-
-                Wave Entry
-                {
-                    Bank Name = Settings;
                     Bank Index = 2;
-                    Entry Name = SettingsMusic;
-                    Entry Index = 0;
-                    Weight = 255;
-                    Weight Min = 0;
-                }
-            }
-        }
-    }
-
-    Sound
-    {
-        Name = Credits;
-        Volume = -1200;
-        Pitch = 0;
-        Priority = 0;
-
-        Category Entry
-        {
-            Name = Music;
-        }
-
-        Track
-        {
-            Volume = 0;
-            Use Filter = 0;
-
-            Play Wave Event
-            {
-                Break Loop = 0;
-                Use Speaker Position = 0;
-                Use Center Speaker = 1;
-                New Speaker Position On Loop = 1;
-                Speaker Position Angle = 0.000000;
-                Speaker Position Arc = 0.000000;
-
-                Event Header
-                {
-                    Timestamp = 0;
-                    Relative = 0;
-                    Random Recurrence = 0;
-                    Random Offset = 0;
-                }
-
-                Wave Entry
-                {
-                    Bank Name = Credits;
-                    Bank Index = 3;
-                    Entry Name = Credits;
+                    Entry Name = EasyAI;
                     Entry Index = 0;
                     Weight = 255;
                     Weight Min = 0;
@@ -1207,66 +807,6 @@ Sound Bank
 
     Cue
     {
-        Name = 2Player;
-
-        Variation
-        {
-            Variation Type = 3;
-            Variation Table Type = 1;
-            New Variation on Loop = 0;
-        }
-
-        Sound Entry
-        {
-            Name = 2Player;
-            Index = 5;
-            Weight Min = 0;
-            Weight Max = 255;
-        }
-    }
-
-    Cue
-    {
-        Name = HardAI;
-
-        Variation
-        {
-            Variation Type = 3;
-            Variation Table Type = 1;
-            New Variation on Loop = 0;
-        }
-
-        Sound Entry
-        {
-            Name = HardAI;
-            Index = 6;
-            Weight Min = 0;
-            Weight Max = 255;
-        }
-    }
-
-    Cue
-    {
-        Name = MediumAI;
-
-        Variation
-        {
-            Variation Type = 3;
-            Variation Table Type = 1;
-            New Variation on Loop = 0;
-        }
-
-        Sound Entry
-        {
-            Name = MediumAI;
-            Index = 7;
-            Weight Min = 0;
-            Weight Max = 255;
-        }
-    }
-
-    Cue
-    {
         Name = EasyAI;
 
         Variation
@@ -1279,47 +819,7 @@ Sound Bank
         Sound Entry
         {
             Name = EasyAI;
-            Index = 8;
-            Weight Min = 0;
-            Weight Max = 255;
-        }
-    }
-
-    Cue
-    {
-        Name = SettingsMusic;
-
-        Variation
-        {
-            Variation Type = 3;
-            Variation Table Type = 1;
-            New Variation on Loop = 0;
-        }
-
-        Sound Entry
-        {
-            Name = SettingsMusic;
-            Index = 9;
-            Weight Min = 0;
-            Weight Max = 255;
-        }
-    }
-
-    Cue
-    {
-        Name = Credits;
-
-        Variation
-        {
-            Variation Type = 3;
-            Variation Table Type = 1;
-            New Variation on Loop = 0;
-        }
-
-        Sound Entry
-        {
-            Name = Credits;
-            Index = 10;
+            Index = 5;
             Weight Min = 0;
             Weight Max = 255;
         }
