@@ -20,16 +20,21 @@ namespace Lab4
         Vector2 position;
         public Texture2D texture;
         Rectangle rectangle;
+        
+        //On/Off kind of button
+        bool toggleColorType;
+        bool buttonOn;
 
         Color color = new Color(0, 0, 0, 0);
 
         public Vector2 size;
 
 
-        public clsButton(Texture2D newTexture, Vector2 size)
+        public clsButton(Texture2D newTexture, Vector2 size, bool toggle, bool colored)
         {
             texture = newTexture;
-
+            toggleColorType = toggle;
+            buttonOn = colored;
             //ScreenWidth = 800, ScreenHeight = 600
             //ImageWidth  = 270, ImageHeight  = 40
 
@@ -46,36 +51,63 @@ namespace Lab4
 
             if(mouseRectangle.Intersects(rectangle))
             {
-                if(color.A == 255)
+                if (toggleColorType)
                 {
-                    down = true; 
-                }
-                if (color.A == 0)
-                {
-                    down = false;
-                }
-                if(down)
-                {
-                    color = new Color(185, 0, 255, 255);
+                    if (mouse.LeftButton == ButtonState.Pressed && buttonOn == false)
+                    {
+                        isClicked = true;
+                        color = new Color(185, 0, 255, 255);
+                        buttonOn = true;
+                    }
                 }
                 else
                 {
-                    color = new Color(185, 0, 255, 255);
 
-                    //color.A += 5;
-                }
+                    if (color.A == 255)
+                    {
+                        down = true;
+                    }
+                    if (color.A == 0)
+                    {
+                        down = false;
+                    }
+                    if (down)
+                    {
+                        color = new Color(185, 0, 255, 255);
+                    }
+                    else
+                    {
+                        color = new Color(185, 0, 255, 255);
 
-                if (mouse.LeftButton == ButtonState.Pressed && inputHelper.CurrentMouseState != inputHelper.LastMouseState)
-                {
-                    isClicked = true;
+                        //color.A += 5;
+                    }
+
+                    if (mouse.LeftButton == ButtonState.Pressed && inputHelper.CurrentMouseState != inputHelper.LastMouseState)
+                    {
+                        isClicked = true;
+                    }
                 }
             }
-            else if(color.A > 0)
+            else if(color.A > 0 && toggleColorType == false)
             {
                 color = new Color(0, 0, 0, 0);
                 isClicked = false;
             }
+            else
+            {
+                isClicked = false;
+            }
             inputHelper.Update();
+        }
+        public void removeColor()
+        {
+            color = new Color(0, 0, 0, 0);
+            buttonOn = false;
+        }
+        public void addColor()
+        {
+            color = new Color(185, 0, 255, 255);
+            buttonOn = true;
         }
         public void setPosition(Vector2 newPosition)
         {
