@@ -26,20 +26,6 @@ namespace Lab4
         public clsPowerUp barrierSpeedDown;
         Random randPowerUp = new Random();
 
-        public Random RandPowerUp
-        {
-            get
-            {
-                return randPowerUp;
-            }
-
-            set
-            {
-                randPowerUp = value;
-            }
-        }
-
-
         public enum PlayerType
         {
             PlayerOne,
@@ -88,10 +74,10 @@ namespace Lab4
                     gameBall = new clsSprite(gameBallTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 32, (graphics.PreferredBackBufferHeight / 2) - 32), new Vector2(64, 64), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
                     gameBall.velocity = new Vector2(-5, -5);
 
-                    ballSpeedUp = new clsPowerUp(ballSpeedUpTexure, randPowerUp.Next(graphics.PreferredBackBufferHeight, graphics.PreferredBackBufferWidth), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                    ballSpeedDown = new clsPowerUp(ballSpeedDownTexture, randPowerUp.Next(graphics.PreferredBackBufferHeight, graphics.PreferredBackBufferWidth), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                    barrierSpeedUp = new clsPowerUp(barrierSpeedUpTexture, randPowerUp.Next(graphics.PreferredBackBufferHeight, graphics.PreferredBackBufferWidth), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                    barrierSpeedDown = new clsPowerUp(barrierSpeedDownTexture, randPowerUp.Next(graphics.PreferredBackBufferHeight, graphics.PreferredBackBufferWidth), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+                    ballSpeedUp = new clsPowerUp(ballSpeedUpTexure, new Vector2((int)randPowerUp.Next(0, graphics.PreferredBackBufferWidth), (int)randPowerUp.Next(0, graphics.PreferredBackBufferHeight)), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, clsPowerUp.PowerUpType.BallSpeedUp);
+                    ballSpeedDown = new clsPowerUp(ballSpeedDownTexture, new Vector2((int)randPowerUp.Next(0, graphics.PreferredBackBufferWidth), (int)randPowerUp.Next(0, graphics.PreferredBackBufferHeight)), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, clsPowerUp.PowerUpType.BallSpeedDown);
+                    barrierSpeedUp = new clsPowerUp(barrierSpeedUpTexture, new Vector2((int)randPowerUp.Next(0, graphics.PreferredBackBufferWidth), (int)randPowerUp.Next(0, graphics.PreferredBackBufferHeight)), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, clsPowerUp.PowerUpType.BarrierSpeedUp);
+                    barrierSpeedDown = new clsPowerUp(barrierSpeedDownTexture, new Vector2((int)randPowerUp.Next(0, graphics.PreferredBackBufferWidth), (int)randPowerUp.Next(0, graphics.PreferredBackBufferHeight)), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, clsPowerUp.PowerUpType.BarrierSpeedDown);
 
 
                 }
@@ -110,10 +96,10 @@ namespace Lab4
                     gameBall = new clsSprite(gameBallTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 32, (graphics.PreferredBackBufferHeight / 2) - 32), new Vector2(64, 64), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
                     gameBall.velocity = new Vector2(-2, -2);
 
-                    ballSpeedUp = new clsPowerUp(ballSpeedUpTexure, randPowerUp.Next(graphics.PreferredBackBufferHeight, graphics.PreferredBackBufferWidth), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                    ballSpeedDown = new clsPowerUp(ballSpeedDownTexture, randPowerUp.Next(graphics.PreferredBackBufferHeight, graphics.PreferredBackBufferWidth), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                    barrierSpeedUp = new clsPowerUp(barrierSpeedUpTexture, randPowerUp.Next(graphics.PreferredBackBufferHeight, graphics.PreferredBackBufferWidth), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                    barrierSpeedDown = new clsPowerUp(barrierSpeedDownTexture, randPowerUp.Next(graphics.PreferredBackBufferHeight, graphics.PreferredBackBufferWidth), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+                    ballSpeedUp = new clsPowerUp(ballSpeedUpTexure, new Vector2((int)randPowerUp.Next(0, graphics.PreferredBackBufferWidth), (int)randPowerUp.Next(0, graphics.PreferredBackBufferHeight)), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, clsPowerUp.PowerUpType.BallSpeedUp);
+                    ballSpeedDown = new clsPowerUp(ballSpeedDownTexture, new Vector2((int)randPowerUp.Next(0, graphics.PreferredBackBufferWidth), (int)randPowerUp.Next(0, graphics.PreferredBackBufferHeight)), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, clsPowerUp.PowerUpType.BallSpeedDown);
+                    barrierSpeedUp = new clsPowerUp(barrierSpeedUpTexture, new Vector2((int)randPowerUp.Next(0, graphics.PreferredBackBufferWidth), (int)randPowerUp.Next(0, graphics.PreferredBackBufferHeight)), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, clsPowerUp.PowerUpType.BarrierSpeedUp);
+                    barrierSpeedDown = new clsPowerUp(barrierSpeedDownTexture, new Vector2((int)randPowerUp.Next(0, graphics.PreferredBackBufferWidth), (int)randPowerUp.Next(0, graphics.PreferredBackBufferHeight)), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, clsPowerUp.PowerUpType.BarrierSpeedDown);
 
                 }
             }
@@ -128,10 +114,10 @@ namespace Lab4
                     gameBall = new clsSprite(gameBallTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 32, (graphics.PreferredBackBufferHeight / 2) - 32), new Vector2(64, 64), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
                     gameBall.velocity = new Vector2(-5, -5);
 
-                    ballSpeedUp = new clsPowerUp(ballSpeedUpTexure, randPowerUp.Next(graphics.PreferredBackBufferHeight, graphics.PreferredBackBufferWidth), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                    ballSpeedDown = new clsPowerUp(ballSpeedDownTexture, randPowerUp.Next(graphics.PreferredBackBufferHeight, graphics.PreferredBackBufferWidth), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                    barrierSpeedUp = new clsPowerUp(barrierSpeedUpTexture, randPowerUp.Next(graphics.PreferredBackBufferHeight, graphics.PreferredBackBufferWidth), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                    barrierSpeedDown = new clsPowerUp(barrierSpeedDownTexture, randPowerUp.Next(graphics.PreferredBackBufferHeight, graphics.PreferredBackBufferWidth), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+                    ballSpeedUp = new clsPowerUp(ballSpeedUpTexure, new Vector2((int)randPowerUp.Next(0, graphics.PreferredBackBufferWidth), (int)randPowerUp.Next(0, graphics.PreferredBackBufferHeight)), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, clsPowerUp.PowerUpType.BallSpeedUp);
+                    ballSpeedDown = new clsPowerUp(ballSpeedDownTexture, new Vector2((int)randPowerUp.Next(0, graphics.PreferredBackBufferWidth), (int)randPowerUp.Next(0, graphics.PreferredBackBufferHeight)), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, clsPowerUp.PowerUpType.BallSpeedDown);
+                    barrierSpeedUp = new clsPowerUp(barrierSpeedUpTexture, new Vector2((int)randPowerUp.Next(0, graphics.PreferredBackBufferWidth), (int)randPowerUp.Next(0, graphics.PreferredBackBufferHeight)), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, clsPowerUp.PowerUpType.BarrierSpeedUp);
+                    barrierSpeedDown = new clsPowerUp(barrierSpeedDownTexture, new Vector2((int)randPowerUp.Next(0, graphics.PreferredBackBufferWidth), (int)randPowerUp.Next(0, graphics.PreferredBackBufferHeight)), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, clsPowerUp.PowerUpType.BarrierSpeedDown);
 
                 }
                 else
@@ -143,10 +129,10 @@ namespace Lab4
                     gameBall = new clsSprite(gameBallTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 32, (graphics.PreferredBackBufferHeight / 2) - 32), new Vector2(64, 64), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
                     gameBall.velocity = new Vector2(-2, -2);
 
-                    ballSpeedUp = new clsPowerUp(ballSpeedUpTexure, randPowerUp.Next(graphics.PreferredBackBufferHeight, graphics.PreferredBackBufferWidth), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                    ballSpeedDown = new clsPowerUp(ballSpeedDownTexture, randPowerUp.Next(graphics.PreferredBackBufferHeight, graphics.PreferredBackBufferWidth), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                    barrierSpeedUp = new clsPowerUp(barrierSpeedUpTexture, randPowerUp.Next(graphics.PreferredBackBufferHeight, graphics.PreferredBackBufferWidth), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                    barrierSpeedDown = new clsPowerUp(barrierSpeedDownTexture, randPowerUp.Next(graphics.PreferredBackBufferHeight, graphics.PreferredBackBufferWidth), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+                    ballSpeedUp = new clsPowerUp(ballSpeedUpTexure, new Vector2((int)randPowerUp.Next(0, graphics.PreferredBackBufferWidth), (int)randPowerUp.Next(0, graphics.PreferredBackBufferHeight)), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, clsPowerUp.PowerUpType.BallSpeedUp);
+                    ballSpeedDown = new clsPowerUp(ballSpeedDownTexture, new Vector2((int)randPowerUp.Next(0, graphics.PreferredBackBufferWidth), (int)randPowerUp.Next(0, graphics.PreferredBackBufferHeight)), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, clsPowerUp.PowerUpType.BallSpeedDown);
+                    barrierSpeedUp = new clsPowerUp(barrierSpeedUpTexture, new Vector2((int)randPowerUp.Next(0, graphics.PreferredBackBufferWidth), (int)randPowerUp.Next(0, graphics.PreferredBackBufferHeight)), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, clsPowerUp.PowerUpType.BarrierSpeedUp);
+                    barrierSpeedDown = new clsPowerUp(barrierSpeedDownTexture, new Vector2((int)randPowerUp.Next(0, graphics.PreferredBackBufferWidth), (int)randPowerUp.Next(0, graphics.PreferredBackBufferHeight)), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, clsPowerUp.PowerUpType.BarrierSpeedDown);
 
                 }
             }
