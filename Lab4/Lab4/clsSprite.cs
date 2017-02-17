@@ -49,7 +49,7 @@ namespace Lab4
                 velocity = new Vector2(-velocity.X, velocity.Y);
             }*/
             //checking bottom boundary
-            if (position.Y + size.Y + velocity.Y > screenSize.Y)
+            if (position.Y + velocity.Y > screenSize.Y)
             {
                 velocity = new Vector2(velocity.X, -velocity.Y);
             }
@@ -59,7 +59,7 @@ namespace Lab4
                 velocity = new Vector2(-velocity.X, velocity.Y);
             }//*/
             //checking top boundary
-            if (position.Y + velocity.Y < 0)
+            if (position.Y + velocity.Y < -size.Y)
             {
                 velocity = new Vector2(velocity.X, -velocity.Y);
             }
@@ -96,25 +96,29 @@ namespace Lab4
         //method for checking if the ball is off the screen from manual movement
         public void withinScreen()
         {
-            //checking right boundary
-            if (position.X + size.X > screenSize.X)
-            {
-                position = new Vector2(screenSize.X - size.X, position.Y);
-            }
+            ////checking right boundary
+            //if (position.X + size.X > screenSize.X)
+            //{
+            //    position = new Vector2(screenSize.X - size.X, position.Y);
+            //    velocity = new Vector2(-velocity.X, velocity.Y);
+            //}
             //checking bottom boundary
             if (position.Y + size.Y > screenSize.Y)
             {
                 position = new Vector2(position.X, screenSize.Y - size.Y);
+                velocity = new Vector2(velocity.X, -velocity.Y);
             }
-            //checknig left boundary
-            if (position.X < 0)
-            {
-                position = new Vector2(0, position.Y);
-            }
+            ////checknig left boundary
+            //if (position.X < 0)
+            //{
+            //    position = new Vector2(0, position.Y);
+            //    velocity = new Vector2(-velocity.X, velocity.Y);
+            //}
             //checking top boundary
             if (position.Y < 0)
             {
                 position = new Vector2(position.X, 0);
+                velocity = new Vector2(velocity.X, -velocity.Y);
             }
         }
         public bool CircleCollides(clsSprite otherSprite)

@@ -5,18 +5,23 @@ using System.Text;
 
 namespace Lab4
 {
-    class pongSettings
+    public class pongSettings
     {
-        
+       public enum Difficulty
+        {
+            Easy,
+            Medium,
+            Hard
+        }
        public bool powerUps { get; set; }
-       public int difficulty { get; set; }
+       public Difficulty difficulty { get; set; }
        public bool barriers { get; set; }
        public bool music { get; set; }
 
         public pongSettings()
         {
             powerUps = true;
-            difficulty = 1;
+            difficulty = Difficulty.Easy;
             barriers = true;
             music = true;
         } 

@@ -34,9 +34,9 @@ namespace Lab4
         Cue mainMenuCue, settingsCue, creditsCue, hardAICue, medAICue, easyAICue, twoPlayerCue;
 
 
-        GraphicsDeviceManager graphics;
+        public static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        public InputHelper inputHelper;
+        public static InputHelper inputHelper;
         #region Sprite Definitions
 
         #region Main Menu Sprites and Buttons
@@ -81,6 +81,7 @@ namespace Lab4
 
         PongGame P1Game;
         PongGame P2Game;
+        public static pongSettings gameSettings;
         bool gamePaused;
         enum GameState
         {
@@ -172,42 +173,75 @@ namespace Lab4
             mainMenuCue.Play();
             #endregion
 
+            gameSettings = new pongSettings();
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             inputHelper = new InputHelper();
 
-            P1Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("ball2"), graphics, 1);
+            P1Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("ball2"), graphics, 1);
 
-            P2Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("ball2"), graphics, 2);
+            P2Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("ball2"), graphics, 2);
 
             //Load 2D Content into the Sprites
             MainMenuSprite = new clsSprite(Content.Load<Texture2D>("MainMenu"),
                                     new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             #region Menu Buttons
             //Load 2D content into my MainMenuButton
-            mainMenu1P = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(270, 40));
+            mainMenu1P = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(270, 40), false, false);
             mainMenu1P.setPosition(new Vector2(224, 116));
-            mainMenu2P = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(233, 40));
+            mainMenu2P = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(233, 40), false, false);
             mainMenu2P.setPosition(new Vector2(224, 179));
-            mainMenuSettings = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(169, 40));
+            mainMenuSettings = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(169, 40), false, false);
             mainMenuSettings.setPosition(new Vector2(224, 243));
-            mainMenuCredits = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(149, 40));
+            mainMenuCredits = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(149, 40), false, false);
             mainMenuCredits.setPosition(new Vector2(224, 307));
-            mainMenuQuit = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(230, 40));
+            mainMenuQuit = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(230, 40), false, false);
             mainMenuQuit.setPosition(new Vector2(224, 371));
             #endregion
 
             settingsSprite = new clsSprite(Content.Load<Texture2D>("Settings"),
                                     new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             #region Setting Buttons
-            //settingBarrierOn = new clsButton(Content.Load<Texture2D>(""))
+            #region Barrier
+            settingBarrierOn = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
+            settingBarrierOn.setPosition(new Vector2(455, 118));
+            settingBarrierOn.addColor();
+            settingBarrierOff = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
+            settingBarrierOff.setPosition(new Vector2(558, 118));
+            #endregion
+            #region PowerUps
+            settingPowerUpsOn = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
+            settingPowerUpsOn.setPosition(new Vector2(455, 181));
+            settingPowerUpsOn.addColor();
+            settingPowerUpsOff = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
+            settingPowerUpsOff.setPosition(new Vector2(558, 181));
+            #endregion
+            #region Difficulty
+            settingDifficulty1 = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(50, 40), true, false);
+            settingDifficulty1.setPosition(new Vector2(460, 249));
+            settingDifficulty1.addColor();
+            settingDifficulty2 = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(50, 40), true, false);
+            settingDifficulty2.setPosition(new Vector2(523, 249));
+            settingDifficulty3 = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(50, 40), true, false);
+            settingDifficulty3.setPosition(new Vector2(585, 249));
+
+            #endregion
+            #region Music
+            settingMusicOn = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
+            settingMusicOn.setPosition(new Vector2(455, 309));
+            settingMusicOn.addColor();
+            settingMusicOff = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
+            settingMusicOff.setPosition(new Vector2(558, 309));
+            #endregion
+            settingExitButton = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(235, 40), false, false);
+            settingExitButton.setPosition(new Vector2(34, 437));
             #endregion
             pauseScreenSprite = new clsSprite(Content.Load<Texture2D>("PauseScreen1"),
                                     new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             #region Pause Buttons
-            gameExitButton = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(110, 19));
+            gameExitButton = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(110, 19), false, false);
             gameExitButton.setPosition(new Vector2(578, 13));
-            pauseExitButton = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2((672 - 581), 19));
+            pauseExitButton = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2((672 - 581), 19), false, false);
             pauseExitButton.setPosition(new Vector2(581, 45));
             #endregion
         }
@@ -257,61 +291,75 @@ namespace Lab4
             MouseState mouseState = Mouse.GetState();
             // TODO: Add your update logic here
             //       Change to a set of Switch statements using Enum GameState 
-
-            switch (CurrentGameState)
+            #region Music Stuff
+            if (gameSettings.music == true)
             {
-                #region Main Menu Music
-                case GameState.MainMenu:
-                    audioEngine.Update();
-                    mainMenuCue.Resume();
-                    settingsCue.Pause();
-                    creditsCue.Pause();
-                    easyAICue.Pause();
-                    twoPlayerCue.Pause();
-                    break;
-                #endregion
-                #region Settings Music
-                case GameState.Settings:
-                    audioEngine.Update();
-                    mainMenuCue.Pause();
-                    settingsCue.Resume();
-                    creditsCue.Pause();
-                    easyAICue.Pause();
-                    twoPlayerCue.Pause();
-                    break;
-                #endregion
-                #region Credits Music
-                case GameState.Credits:
-                    audioEngine.Update();
-                    mainMenuCue.Pause();
-                    settingsCue.Pause();
-                    creditsCue.Resume();
-                    easyAICue.Pause();
-                    twoPlayerCue.Pause();
-                    break;
-                #endregion
-                #region 1 Player Music
-                case GameState.InGame1P:
-                    audioEngine.Update();
-                    mainMenuCue.Pause();
-                    settingsCue.Pause();
-                    creditsCue.Pause();
-                    easyAICue.Resume();
-                    twoPlayerCue.Pause();
-                    break;
-                #endregion
-                #region 2 Player Music
-                case GameState.InGame2P:
-                    audioEngine.Update();
-                    mainMenuCue.Pause();
-                    settingsCue.Pause();
-                    creditsCue.Pause();
-                    easyAICue.Pause();
-                    twoPlayerCue.Resume();
-                    break;
+                switch (CurrentGameState)
+                {
+                    #region Main Menu Music
+                    case GameState.MainMenu:
+                        audioEngine.Update();
+                        mainMenuCue.Resume();
+                        settingsCue.Pause();
+                        creditsCue.Pause();
+                        easyAICue.Pause();
+                        twoPlayerCue.Pause();
+                        break;
                     #endregion
+                    #region Settings Music
+                    case GameState.Settings:
+                        audioEngine.Update();
+                        mainMenuCue.Pause();
+                        settingsCue.Resume();
+                        creditsCue.Pause();
+                        easyAICue.Pause();
+                        twoPlayerCue.Pause();
+                        break;
+                    #endregion
+                    #region Credits Music
+                    case GameState.Credits:
+                        audioEngine.Update();
+                        mainMenuCue.Pause();
+                        settingsCue.Pause();
+                        creditsCue.Resume();
+                        easyAICue.Pause();
+                        twoPlayerCue.Pause();
+                        break;
+                    #endregion
+                    #region 1 Player Music
+                    case GameState.InGame1P:
+                        audioEngine.Update();
+                        mainMenuCue.Pause();
+                        settingsCue.Pause();
+                        creditsCue.Pause();
+                        easyAICue.Resume();
+                        twoPlayerCue.Pause();
+                        break;
+                    #endregion
+                    #region 2 Player Music
+                    case GameState.InGame2P:
+                        audioEngine.Update();
+                        mainMenuCue.Pause();
+                        settingsCue.Pause();
+                        creditsCue.Pause();
+                        easyAICue.Pause();
+                        twoPlayerCue.Resume();
+                        break;
+                        #endregion
+                }
             }
-
+            else
+            {
+                //Pause any music if setting says 
+                audioEngine.Update();
+                mainMenuCue.Pause();
+                settingsCue.Pause();
+                creditsCue.Pause();
+                easyAICue.Pause();
+                twoPlayerCue.Pause();
+            }
+            #endregion
+            #region Game Code
             switch (CurrentGameState)
             {
                 #region MainMenu Code
@@ -464,8 +512,127 @@ namespace Lab4
                 case GameState.Settings:
                     mouseState = Mouse.GetState();
                     KeyboardState settingsExit = Keyboard.GetState();
+                    
+                    #region Barrier Settings
+                    if(settingBarrierOn.isClicked)
+                    {
+                        if (mouseState.LeftButton == ButtonState.Released)
+                        {
+                            settingBarrierOff.removeColor();
+                            settingBarrierOn.addColor();
+                            gameSettings.barriers = true;
+                        }
+                        
+                    }
+                    if (settingBarrierOff.isClicked)
+                    {
+                        if (mouseState.LeftButton == ButtonState.Released)
+                        {
+                            settingBarrierOn.removeColor();
+                            settingBarrierOff.addColor();
+                            gameSettings.barriers = false;
+                        }
+                        
+                    }
+                    settingBarrierOn.Update(mouseState);
+                    settingBarrierOff.Update(mouseState);
+                    #endregion
+                    #region PowerUp Settings
+                    if (settingPowerUpsOn.isClicked)
+                    {
+                        if (mouseState.LeftButton == ButtonState.Released)
+                        {
+                            settingPowerUpsOff.removeColor();
+                            settingPowerUpsOn.addColor();
+                            gameSettings.powerUps = true;
+                        }
 
-                    //Exit Condition for Settings Screen
+                    }
+                    if (settingPowerUpsOff.isClicked)
+                    {
+                        if (mouseState.LeftButton == ButtonState.Released)
+                        {
+                            settingPowerUpsOn.removeColor();
+                            settingPowerUpsOff.addColor();
+                            gameSettings.powerUps = false;
+                        }
+
+                    }
+                    settingPowerUpsOn.Update(mouseState);
+                    settingPowerUpsOff.Update(mouseState);
+                    #endregion
+                    #region Difficulty Settings
+                    if (settingDifficulty1.isClicked)
+                    {
+                        if (mouseState.LeftButton == ButtonState.Released)
+                        {
+                            settingDifficulty1.addColor();
+                            settingDifficulty2.removeColor();
+                            settingDifficulty3.removeColor();
+                            gameSettings.difficulty = pongSettings.Difficulty.Easy;
+                        }
+
+                    }
+                    if (settingDifficulty2.isClicked)
+                    {
+                        if (mouseState.LeftButton == ButtonState.Released)
+                        {
+                            settingDifficulty1.removeColor();
+                            settingDifficulty2.addColor();
+                            settingDifficulty3.removeColor();
+                            gameSettings.difficulty = pongSettings.Difficulty.Medium;
+                        }
+
+                    }
+                    if (settingDifficulty3.isClicked)
+                    {
+                        if (mouseState.LeftButton == ButtonState.Released)
+                        {
+                            settingDifficulty1.removeColor();
+                            settingDifficulty2.removeColor();
+                            settingDifficulty3.addColor();
+                            gameSettings.difficulty = pongSettings.Difficulty.Hard;
+                        }
+
+                    }
+                    settingDifficulty1.Update(mouseState);
+                    settingDifficulty2.Update(mouseState);
+                    settingDifficulty3.Update(mouseState);
+                    #endregion
+                    #region Music Settings
+                    if (settingMusicOn.isClicked)
+                    {
+                        if (mouseState.LeftButton == ButtonState.Released)
+                        {
+                            settingMusicOff.removeColor();
+                            settingMusicOn.addColor();
+                            gameSettings.music = true;
+                        }
+
+                    }
+                    if (settingMusicOff.isClicked)
+                    {
+                        if (mouseState.LeftButton == ButtonState.Released)
+                        {
+                            settingMusicOn.removeColor();
+                            settingMusicOff.addColor();
+                            gameSettings.music = false;
+                        }
+
+                    }
+                    settingMusicOn.Update(mouseState);
+                    settingMusicOff.Update(mouseState);
+                    #endregion
+                    #region Exit Settings
+                    if (settingExitButton.isClicked == true)
+                    {
+                        if (mouseState.LeftButton == ButtonState.Released)
+                        {
+                            CurrentGameState = GameState.MainMenu;
+                        }
+                    }
+                    settingExitButton.Update(mouseState);
+                    #endregion//Exit Condition for Settings Screen
                     if (settingsExit.IsKeyDown(Keys.Enter))
                     {
                         CurrentGameState = GameState.MainMenu;
@@ -484,6 +651,7 @@ namespace Lab4
 
                     #endregion
             }
+            #endregion
             inputHelper.Update();
             // Update the audio engine
             audioEngine.Update();
@@ -566,11 +734,21 @@ namespace Lab4
                 case GameState.Settings:
                     spriteBatch.Begin();
                     settingsSprite.Draw(spriteBatch);
+                    settingBarrierOn.Draw(spriteBatch);
+                    settingBarrierOff.Draw(spriteBatch);
+                    settingPowerUpsOn.Draw(spriteBatch);
+                    settingPowerUpsOff.Draw(spriteBatch);
+                    settingDifficulty1.Draw(spriteBatch);
+                    settingDifficulty2.Draw(spriteBatch);
+                    settingDifficulty3.Draw(spriteBatch);
+                    settingMusicOn.Draw(spriteBatch);
+                    settingMusicOff.Draw(spriteBatch);
+                    settingExitButton.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
                 case GameState.Credits:
                     spriteBatch.Begin();
-                    spriteBatch.DrawString(Font1, "Credits\n     Danny Cahoon\n\n     Jacob J\n\n     Hugh Ohlin\n\n     Robbie Fikes\n\n", new Vector2(((graphics.GraphicsDevice.Viewport.Width / 2) - Font1.MeasureString("Credits").X - 10), 10), Color.LimeGreen);
+                    spriteBatch.DrawString(Font1, "Credits\n     Danny Cahoon\n\n     Jacob Jolly\n\n     Hugh Ohlin\n\n     Robbie Fikes\n\n", new Vector2(((graphics.GraphicsDevice.Viewport.Width / 2) - Font1.MeasureString("Credits").X - 10), 10), Color.LimeGreen);
                     spriteBatch.DrawString(Font1, "Go Back. . . ", new Vector2(5, graphics.GraphicsDevice.Viewport.Height - Font1.MeasureString("Go Back. . .").Y), Color.LimeGreen);
                     spriteBatch.End();
                     break;
