@@ -21,8 +21,9 @@ namespace Lab4
             PlayerTwo,
             CPU
         }
-        public PongGame(Texture2D playerOneTexture, Texture2D playerTwoTexture, Texture2D gameBallTexture, GraphicsDeviceManager graphics, int numOfUsers)
+        public PongGame(Texture2D playerOneTexture, Texture2D playerTwoTexture, Texture2D gameBallTexture, GraphicsDeviceManager graphics, int numOfUsers, pongSettings newSettings)
         {
+            settings = newSettings;
             gameActive = true;
             if (numOfUsers == 1)
             {
