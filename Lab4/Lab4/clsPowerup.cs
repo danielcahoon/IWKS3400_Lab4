@@ -31,9 +31,7 @@ namespace Lab4
 
         public bool active {get; set;}
 
-        
-
-
+        Random rnd = new Random();
 
         public Texture2D texture { get; set; } //sprite texture, read-only property
         public Vector2 position { get; set; } //sprite position on screen
@@ -61,14 +59,14 @@ namespace Lab4
             screenSize = new Vector2(ScreenWidth, ScreenHeight);
         }
 
-       /* public clsPowerUp(Texture2D ballSpeedUpTexure, int v, Vector2 vector2, int preferredBackBufferWidth, int preferredBackBufferHeight)
+        public clsPowerUp(Texture2D ballSpeedUpTexure, int v, Vector2 vector2, int preferredBackBufferWidth, int preferredBackBufferHeight)
         {
             this.ballSpeedUpTexure = ballSpeedUpTexure;
             this.v = v;
             this.vector2 = vector2;
             this.preferredBackBufferWidth = preferredBackBufferWidth;
             this.preferredBackBufferHeight = preferredBackBufferHeight;
-        }*/
+        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -85,8 +83,7 @@ namespace Lab4
         }
         public void Reset()
         {
-            
-
+            position = startingPosition;
         }
     }
 }
