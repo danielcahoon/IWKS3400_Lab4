@@ -172,9 +172,11 @@ namespace Lab4
             spriteBatch = new SpriteBatch(GraphicsDevice);
             inputHelper = new InputHelper();
 
-            P1Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("ball2"), graphics, 1);
+            P1Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("ball2"), 
+                Content.Load<Texture2D>(/*"ballSpeedUp"*/"ball1"), Content.Load<Texture2D>(/*"ballSpeedDown"*/"ball1"), Content.Load<Texture2D>(/*"barrierSpeedUp"*/"ball1"), Content.Load<Texture2D>(/*"barrierSpeedDown"*/"ball1"), graphics, 1);
 
-            P2Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("ball2"), graphics, 2);
+            P2Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("ball2"),
+                Content.Load<Texture2D>(/*"ballSpeedUp"*/"ball1"), Content.Load<Texture2D>(/*"ballSpeedDown"*/"ball1"), Content.Load<Texture2D>(/*"barrierSpeedUp"*/"ball1"), Content.Load<Texture2D>(/*"barrierSpeedDown"*/"ball1"), graphics, 2);
 
             //Load 2D Content into the Sprites
             MainMenuSprite = new clsSprite(Content.Load<Texture2D>("MainMenu"),

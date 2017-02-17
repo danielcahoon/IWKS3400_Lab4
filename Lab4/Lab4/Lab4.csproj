@@ -75,6 +75,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsPowerUp.cs" />
     <Compile Include="clsPlayer.cs" />
     <Compile Include="inputHelper.cs" />
     <Compile Include="clsButton.cs" />
