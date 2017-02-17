@@ -12,9 +12,9 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Lab4
 {
-    class clsPowerup
+    class clsPowerUp
     {
-        public static enum PowerUpType
+        public enum PowerUpType
         {
             BallSpeedUp,
             BallSpeedDown,
@@ -23,6 +23,13 @@ namespace Lab4
         }
 
         PowerUpType puType;
+        private Texture2D ballSpeedUpTexure;
+        private int v;
+        private Vector2 vector2;
+        private int preferredBackBufferWidth;
+        private int preferredBackBufferHeight;
+
+        public bool active {get; set;}
 
 
 
@@ -36,9 +43,9 @@ namespace Lab4
         public float radius { get { return size.X / 2; } } //sprite radius
 
         public Vector2 startingPosition { get; set; } //original location for the sprite
-        //clsSprite Constructor
+        //clsPowerUp Constructor
 
-        public clsPowerup(Texture2D newTexture, Vector2 newPosition, Vector2 newSize,
+        public clsPowerUp(Texture2D newTexture, Vector2 newPosition, Vector2 newSize,
                          int ScreenWidth, int ScreenHeight, PowerUpType newType)
         {
             texture = newTexture;
@@ -47,9 +54,20 @@ namespace Lab4
             startingPosition = newPosition;
 
             puType = newType;
+            active = false;
 
             screenSize = new Vector2(ScreenWidth, ScreenHeight);
         }
+
+        public clsPowerUp(Texture2D ballSpeedUpTexure, int v, Vector2 vector2, int preferredBackBufferWidth, int preferredBackBufferHeight)
+        {
+            this.ballSpeedUpTexure = ballSpeedUpTexure;
+            this.v = v;
+            this.vector2 = vector2;
+            this.preferredBackBufferWidth = preferredBackBufferWidth;
+            this.preferredBackBufferHeight = preferredBackBufferHeight;
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, Color.White);
