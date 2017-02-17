@@ -8,3 +8,5 @@
 ~ Moving Barriers
 ~ Differnt AI difficulties
 ~ Proper Ball-Paddle interaction
+~ Instructions Screen before 1P
+~ Instructions Screen before 2P

@@ -34,9 +34,9 @@ namespace Lab4
         Cue mainMenuCue, settingsCue, creditsCue, hardAICue, medAICue, easyAICue, twoPlayerCue;
 
 
-        GraphicsDeviceManager graphics;
+        public static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        public InputHelper inputHelper;
+        public static InputHelper inputHelper;
         #region Sprite Definitions
 
         #region Main Menu Sprites and Buttons
@@ -81,7 +81,7 @@ namespace Lab4
 
         PongGame P1Game;
         PongGame P2Game;
-        pongSettings gameSettings;
+        public static pongSettings gameSettings;
         bool gamePaused;
         enum GameState
         {
@@ -173,13 +173,14 @@ namespace Lab4
             mainMenuCue.Play();
             #endregion
 
+            gameSettings = new pongSettings();
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             inputHelper = new InputHelper();
 
-            P1Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("ball2"), graphics, 1, gameSettings);
+            P1Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("ball2"), graphics, 1);
 
-            P2Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("ball2"), graphics, 2, gameSettings);
+            P2Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("ball2"), graphics, 2);
 
             //Load 2D Content into the Sprites
             MainMenuSprite = new clsSprite(Content.Load<Texture2D>("MainMenu"),
@@ -201,7 +202,6 @@ namespace Lab4
             settingsSprite = new clsSprite(Content.Load<Texture2D>("Settings"),
                                     new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             #region Setting Buttons
-            gameSettings = new pongSettings();
             #region Barrier
             settingBarrierOn = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
             settingBarrierOn.setPosition(new Vector2(455, 118));

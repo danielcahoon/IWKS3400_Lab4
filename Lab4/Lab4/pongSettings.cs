@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Lab4
 {
-    class pongSettings
+    public class pongSettings
     {
        public enum Difficulty
         {
