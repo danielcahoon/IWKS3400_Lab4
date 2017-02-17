@@ -1,6 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +25,26 @@ namespace Lab4
             PlayerTwo,
             CPU
         }
+        
+        // Sound Effect Stuff
+        AudioEngine audioEngine;
+        SoundBank soundsBank;
+        WaveBank ballHit, score, gameWin;
+        Cue ballCue, scoreCue, winCue;
+
         public PongGame(Texture2D playerOneTexture, Texture2D playerTwoTexture, Texture2D gameBallTexture, GraphicsDeviceManager graphics, int numOfUsers)
         {
+            // Sound Effects Stuff
+            audioEngine = new AudioEngine("Content\\Lab4Sounds.xgs");
+            ballHit = new WaveBank(audioEngine, "Content\\Sounds.xwb");
+            score = new WaveBank(audioEngine, "Content\\Sounds.xwb");
+            gameWin = new WaveBank(audioEngine, "Content\\Sounds.xwb");
+            soundsBank = new SoundBank(audioEngine, "Content\\SoundsBank.xsb");
+            ballCue = soundsBank.GetCue("BallHit");
+            scoreCue = soundsBank.GetCue("Score");
+            winCue = soundsBank.GetCue("GameWin");
+            audioEngine.Update();
+
             gameActive = true;
             if (numOfUsers == 1)
             {
@@ -54,6 +76,8 @@ namespace Lab4
                 P1.scorePoint();
                 Console.WriteLine("P1 Score: {0}", P1.score);
                 Console.WriteLine("P2 Score: {0}", P2.score);
+                scoreCue = soundsBank.GetCue("Score");
+                scoreCue.Play();
                 gameBall.Reset();
             }
             if (gameBall.position.X > 642)
@@ -61,21 +85,30 @@ namespace Lab4
                 P2.scorePoint();
                 Console.WriteLine("P1 Score: {0}", P1.score);
                 Console.WriteLine("P2 Score: {0}", P2.score);
+                scoreCue = soundsBank.GetCue("Score");
+                scoreCue.Play();
                 gameBall.Reset();
             }
             if (P1.paddle.Collides(gameBall))
             {
+                ballCue = soundsBank.GetCue("BallHit");
+                ballCue.Play();
                 gameBall.velocity *= -1;
             }
             if(P2.paddle.Collides(gameBall))
             {
+                ballCue = soundsBank.GetCue("BallHit");
+                ballCue.Play();
                 gameBall.velocity *= -1;
             }
             
             if(P1.score == 10 || P2.score == 10)
             {
+                winCue = soundsBank.GetCue("GameWin");
+                winCue.Play();
                 gameActive = false;
             }
+            audioEngine.Update();
             return (P1.score == 10 || P2.score == 10);
         }
         public void Reset()
