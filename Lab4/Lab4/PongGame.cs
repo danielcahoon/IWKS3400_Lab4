@@ -250,6 +250,10 @@ namespace Lab4
             botBarrier.Draw(spriteBatch);
             topBarrier.Draw(spriteBatch);
             gameBall.Draw(spriteBatch);
+            ballSpeedUp.Draw(spriteBatch);
+            ballSpeedDown.Draw(spriteBatch);
+            barrierSpeedUp.Draw(spriteBatch);
+            barrierSpeedDown.Draw(spriteBatch);
         }
     }
 }
