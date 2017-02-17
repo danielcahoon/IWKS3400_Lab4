@@ -126,20 +126,20 @@ namespace Lab4
             
             if (gameBall.position.X < P2.paddle.size.X / 2)
             {
+                scoreCue = soundsBank.GetCue("Score");
+                scoreCue.Play();
                 P1.scorePoint();
                 Console.WriteLine("P1 Score: {0}", P1.score);
                 Console.WriteLine("P2 Score: {0}", P2.score);
-                scoreCue = soundsBank.GetCue("Score");
-                scoreCue.Play();
                 gameBall.Reset();
             }
             if (gameBall.position.X > 642)
             {
+                scoreCue = soundsBank.GetCue("Score");
+                scoreCue.Play();
                 P2.scorePoint();
                 Console.WriteLine("P1 Score: {0}", P1.score);
                 Console.WriteLine("P2 Score: {0}", P2.score);
-                scoreCue = soundsBank.GetCue("Score");
-                scoreCue.Play();
                 gameBall.Reset();
             }
             if (P1.paddle.Collides(gameBall))
@@ -156,14 +156,19 @@ namespace Lab4
             }
             if (botBarrier.Collides(gameBall))
             {
+                ballCue = soundsBank.GetCue("BallHit");
+                ballCue.Play();
                 gameBall.velocity *= -1;
             }
             if (topBarrier.Collides(gameBall))
             {
+                ballCue = soundsBank.GetCue("BallHit");
+                ballCue.Play();
                 gameBall.velocity *= -1;
             }
             if (P1.score == 10 || P2.score == 10)
             {
+                
                 winCue = soundsBank.GetCue("GameWin");
                 winCue.Play();
                 gameActive = false;

@@ -29,7 +29,7 @@ namespace Lab4
         WaveBank sounds;
 
         WaveBank mainMenu, settings, credits, hardAI, medAI, easyAI, twoPlayer;
-        Cue mainMenuCue, settingsCue, creditsCue, hardAICue, medAICue, easyAICue, twoPlayerCue;
+        public Cue mainMenuCue, settingsCue, creditsCue, hardAICue, medAICue, easyAICue, twoPlayerCue;
 
 
         public static GraphicsDeviceManager graphics;
