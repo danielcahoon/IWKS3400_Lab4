@@ -31,7 +31,7 @@ namespace Lab4
 
         public bool active {get; set;}
 
-
+        Random rnd = new Random();
 
         public Texture2D texture { get; set; } //sprite texture, read-only property
         public Vector2 position { get; set; } //sprite position on screen
