@@ -23,12 +23,10 @@ namespace Lab4
         public string victory; //used to hold congratulations/blnt message
 
         //Sound and Music Stuff
-        // Create a SoundEffect resource
         SoundEffect menuEffect, ballHit, gameWin, score;
         AudioEngine audioEngine;
         SoundBank soundsBank;
         WaveBank sounds;
-        Cue soundsCue;
 
         WaveBank mainMenu, settings, credits, hardAI, medAI, easyAI, twoPlayer;
         Cue mainMenuCue, settingsCue, creditsCue, hardAICue, medAICue, easyAICue, twoPlayerCue;
@@ -163,13 +161,9 @@ namespace Lab4
             settingsCue.Play();
             creditsCue.Play();
             easyAICue.Play();
+            medAICue.Play();
+            hardAICue.Play();
             twoPlayerCue.Play();
-
-            //settingsCue.Pause();
-            //creditsCue.Pause();
-            //easyAICue.Pause();
-            //twoPlayerCue.Pause();
-
             mainMenuCue.Play();
             #endregion
 
@@ -302,7 +296,11 @@ namespace Lab4
                         mainMenuCue.Resume();
                         settingsCue.Pause();
                         creditsCue.Pause();
+                        #region Difficulty Music
                         easyAICue.Pause();
+                        medAICue.Pause();
+                        hardAICue.Pause();
+                        #endregion
                         twoPlayerCue.Pause();
                         break;
                     #endregion
@@ -312,7 +310,11 @@ namespace Lab4
                         mainMenuCue.Pause();
                         settingsCue.Resume();
                         creditsCue.Pause();
+                        #region Difficulty Music
                         easyAICue.Pause();
+                        medAICue.Pause();
+                        hardAICue.Pause();
+                        #endregion
                         twoPlayerCue.Pause();
                         break;
                     #endregion
@@ -322,7 +324,11 @@ namespace Lab4
                         mainMenuCue.Pause();
                         settingsCue.Pause();
                         creditsCue.Resume();
+                        #region Difficulty Music
                         easyAICue.Pause();
+                        medAICue.Pause();
+                        hardAICue.Pause();
+                        #endregion
                         twoPlayerCue.Pause();
                         break;
                     #endregion
@@ -332,7 +338,26 @@ namespace Lab4
                         mainMenuCue.Pause();
                         settingsCue.Pause();
                         creditsCue.Pause();
-                        easyAICue.Resume();
+                        #region Difficulty Music
+                        switch(gameSettings.difficulty)
+                        {
+                            case pongSettings.Difficulty.Easy:
+                                easyAICue.Resume();
+                                medAICue.Pause();
+                                hardAICue.Pause();
+                                break;
+                            case pongSettings.Difficulty.Medium:
+                                easyAICue.Pause();
+                                medAICue.Resume();
+                                hardAICue.Pause();
+                                break;
+                            case pongSettings.Difficulty.Hard:
+                                easyAICue.Pause();
+                                medAICue.Pause();
+                                hardAICue.Resume();
+                                break;
+                        }
+                        #endregion
                         twoPlayerCue.Pause();
                         break;
                     #endregion
@@ -342,7 +367,11 @@ namespace Lab4
                         mainMenuCue.Pause();
                         settingsCue.Pause();
                         creditsCue.Pause();
+                        #region Difficulty Music
                         easyAICue.Pause();
+                        medAICue.Pause();
+                        hardAICue.Pause();
+                        #endregion
                         twoPlayerCue.Resume();
                         break;
                         #endregion

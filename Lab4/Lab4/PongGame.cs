@@ -26,7 +26,14 @@ namespace Lab4
             PlayerTwo,
             CPU
         }
-        public PongGame(Texture2D playerOneTexture, Texture2D playerTwoTexture, Texture2D gameBallTexture, GraphicsDeviceManager graphics, int numOfUsers)
+
+        // Sound Effect Stuff
+        AudioEngine audioEngine;
+        SoundBank soundsBank;
+        WaveBank ballHit, gameWin, score;
+        Cue ballCue, winCue, scoreCue;
+
+        public PongGame(Texture2D playerOneTexture, Texture2D playerTwoTexture, Texture2D barrierTexture, Texture2D gameBallTexture, GraphicsDeviceManager graphics, int numOfUsers)
         {
             // Sound Effects Stuff
             audioEngine = new AudioEngine("Content\\Lab4Sounds.xgs");
