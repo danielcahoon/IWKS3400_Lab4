@@ -49,7 +49,7 @@ namespace Lab4
                 velocity = new Vector2(-velocity.X, velocity.Y);
             }*/
             //checking bottom boundary
-            if (position.Y + size.Y + velocity.Y > screenSize.Y + 150)
+            if (position.Y + velocity.Y > screenSize.Y)
             {
                 velocity = new Vector2(velocity.X, -velocity.Y);
             }
@@ -59,7 +59,7 @@ namespace Lab4
                 velocity = new Vector2(-velocity.X, velocity.Y);
             }//*/
             //checking top boundary
-            if (position.Y + velocity.Y < -150)
+            if (position.Y + velocity.Y < -size.Y)
             {
                 velocity = new Vector2(velocity.X, -velocity.Y);
             }
