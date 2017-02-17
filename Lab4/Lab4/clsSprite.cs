@@ -24,6 +24,9 @@ namespace Lab4
         public float radius { get { return size.X / 2; } } //sprite radius
         
         public Vector2 startingPosition { get; set; } //original location for the sprite
+        Random rnd = new Random();
+
+
         //clsSprite Constructor
         public clsSprite(Texture2D newTexture, Vector2 newPosition, Vector2 newSize,
                          int ScreenWidth, int ScreenHeight)
@@ -138,6 +141,29 @@ namespace Lab4
                     this.position.Y + this.size.Y > otherSprite.position.Y &&
                     this.position.Y < otherSprite.position.Y + otherSprite.size.Y);
         }
+        public bool CircleCollidesPaddle(clsSprite otherSprite)
+        {
+            //Taken from provided vanilla pong code from https://github.com/KatherineG/InworksGameDev
+            if ((this.position.X + this.size.X >= otherSprite.position.X) && // right side
+                (this.position.Y + this.size.Y >= otherSprite.position.Y) && //top boundary
+                (this.position.Y <  otherSprite.position.Y + otherSprite.size.Y)) //bottom boundary
+                return true;
+            else if ((this.position.X <= otherSprite.position.X + otherSprite.size.X) &&  // left side
+                    (this.position.Y + this.size.Y >= otherSprite.position.Y) && // top boundary
+                    (this.position.Y <= otherSprite.position.Y + otherSprite.size.Y))
+                return true;
+            else
+                return false;
+        }
+        //public bool CircleCorner(clsSprite otherSprite)
+        //{
+        //    //Taken from provided vanilla pong code from https://github.com/KatherineG/InworksGameDev
+        //    if (((this.position.Y + this.size.Y) <= (otherSprite.position.Y + otherSprite.PADDLE_KILL_SHOT_FRACTION))    // upper corner
+        //       || ((this.position.Y) >= (otherSprite.position.Y + otherSprite.size.Y - otherSprite.PADDLE_KILL_SHOT_FRACTION)))  // lower corner
+        //        return true;
+        //    else
+        //        return false;
+        //}
         public void blockBall(Vector2 position)
         {
 
@@ -146,6 +172,7 @@ namespace Lab4
         public void Reset()
         {
             position = startingPosition;
+
         }
     }
 }

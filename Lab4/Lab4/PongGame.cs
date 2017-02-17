@@ -20,6 +20,7 @@ namespace Lab4
         public clsSprite topBarrier;
         public clsSprite botBarrier;
         clsSprite gameBall;
+        Random rnd = new Random();
         public enum PlayerType
         {
             PlayerOne,
@@ -60,7 +61,7 @@ namespace Lab4
                     botBarrier = new clsSprite(barrierTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 20, graphics.PreferredBackBufferHeight - 150), new Vector2(40, 150), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
                     botBarrier.velocity = new Vector2(0, -2);
                     gameBall = new clsSprite(gameBallTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 32, (graphics.PreferredBackBufferHeight / 2) - 32), new Vector2(64, 64), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                    gameBall.velocity = new Vector2(-5, -5);
+                    
                 }
                 else
                 {
@@ -85,7 +86,9 @@ namespace Lab4
                     P1.paddle.velocity = new Vector2(0, 0);
                     P2.paddle.velocity = new Vector2(0, 0);
                     gameBall = new clsSprite(gameBallTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 32, (graphics.PreferredBackBufferHeight / 2) - 32), new Vector2(64, 64), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                    gameBall.velocity = new Vector2(-5, -5);
+                    
+                    gameBall.velocity = new Vector2(rnd.Next(5, 7), rnd.Next(-2, 3));
+                    if(gameBall.velocity.Y == 0) gameBall.velocity = new Vector2(gameBall.velocity.X, rnd.Next(-3, -1));
                 }
                 else
                 {
@@ -110,7 +113,7 @@ namespace Lab4
             {
                 topBarrier.Move();
                 botBarrier.Move();
-                if (topBarrier.Collides(botBarrier))
+                if (topBarrier.Collides(botBarrier) || topBarrier.Collides(gameBall) || botBarrier.Collides(gameBall))
                 {
                     topBarrier.velocity *= -1;
                     botBarrier.velocity *= -1;
@@ -142,25 +145,25 @@ namespace Lab4
                 Console.WriteLine("P2 Score: {0}", P2.score);
                 gameBall.Reset();
             }
-            if (P1.paddle.Collides(gameBall))
+            if (gameBall.CircleCollidesPaddle(P1.paddle))
             {
                 ballCue = soundsBank.GetCue("BallHit");
                 ballCue.Play();
                 gameBall.velocity *= -1;
             }
-            if(P2.paddle.Collides(gameBall))
+            if(gameBall.CircleCollidesPaddle(P2.paddle))
+            {
+                ballCue = soundsBank.GetCue("BallHit");
+                ballCue.Play();
+                gameBall.velocity = new Vector2(-gameBall.velocity.X, rnd.Next(((int)gameBall.velocity.Y - 1), ((int)gameBall.velocity.Y + 2)));
+            }
+            if (gameBall.CircleCollidesPaddle(botBarrier) && (gameBall.position.X > botBarrier.position.X + botBarrier.size.X || gameBall.position.X < botBarrier.position.X))
             {
                 ballCue = soundsBank.GetCue("BallHit");
                 ballCue.Play();
                 gameBall.velocity *= -1;
             }
-            if (botBarrier.Collides(gameBall))
-            {
-                ballCue = soundsBank.GetCue("BallHit");
-                ballCue.Play();
-                gameBall.velocity *= -1;
-            }
-            if (topBarrier.Collides(gameBall))
+            if (gameBall.CircleCollidesPaddle(topBarrier) && (gameBall.position.X > topBarrier.position.X + topBarrier.size.X || gameBall.position.X < topBarrier.position.X))
             {
                 ballCue = soundsBank.GetCue("BallHit");
                 ballCue.Play();
