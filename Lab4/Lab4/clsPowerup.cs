@@ -81,6 +81,28 @@ namespace Lab4
             }
             return (Vector2.Distance(this.center, otherSprite.center) < this.radius + otherSprite.radius);
         }
+
+        public clsSprite speedBall(clsSprite ball)
+        {
+            ball.velocity *= 2;
+            return ball;
+        }
+        public clsSprite slowBall(clsSprite ball)
+        {
+            ball.velocity /= 2;
+            return ball;
+        }
+        public clsSprite speedBarrier(clsSprite barrier)
+        {
+            barrier.velocity *= 2;
+            return barrier;
+        }
+        public clsSprite slowBarrier(clsSprite barrier)
+        {
+            barrier.velocity /= 2;
+            return barrier;
+        }
+
         public void Reset()
         {
             position = startingPosition;
