@@ -760,8 +760,8 @@ namespace Lab4
                     else
                     {
                         P2Game.Draw(spriteBatch);
-                        spriteBatch.DrawString(Font1, "Player 2: " + P1Game.P2.score, new Vector2(5, 10), Color.LimeGreen);
-                        spriteBatch.DrawString(Font1, "Player 1: " + P1Game.P1.score,
+                        spriteBatch.DrawString(Font1, "Player 2: " + P2Game.P2.score, new Vector2(5, 10), Color.LimeGreen);
+                        spriteBatch.DrawString(Font1, "Player 1: " + P2Game.P1.score,
                             new Vector2(graphics.GraphicsDevice.Viewport.Width - Font1.MeasureString("Player 1: " + P1Game.P1.score).X - 5, 10), Color.LimeGreen);
                     }
                     spriteBatch.End();
