@@ -398,6 +398,7 @@ namespace Lab4
                     mouseState = Mouse.GetState();
                     if (mainMenu1P.isClicked == true)
                     {
+                        menuEffect.Play();
                         CurrentGameState = GameState.InGame1P;
                         P1Game.Reset();
                         if (mouseState.LeftButton == ButtonState.Released)
@@ -409,6 +410,7 @@ namespace Lab4
 
                     if (mainMenu2P.isClicked == true)
                     {
+                        menuEffect.Play();
                         CurrentGameState = GameState.InGame2P;
                         P2Game.Reset();
                         if (mouseState.LeftButton == ButtonState.Released)
@@ -420,6 +422,7 @@ namespace Lab4
 
                     if (mainMenuSettings.isClicked == true)
                     {
+                        menuEffect.Play();
                         CurrentGameState = GameState.Settings;
                         if (mouseState.LeftButton == ButtonState.Released)
                         {
@@ -430,6 +433,7 @@ namespace Lab4
 
                     if (mainMenuCredits.isClicked == true)
                     {
+                        menuEffect.Play();
                         CurrentGameState = GameState.Credits;
                         if (mouseState.LeftButton == ButtonState.Released)
                         {
