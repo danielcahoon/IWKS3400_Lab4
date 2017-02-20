@@ -175,8 +175,6 @@ namespace Lab4
                 scoreCue = soundsBank.GetCue("Score");
                 scoreCue.Play();
                 P1.scorePoint();
-                Console.WriteLine("P1 Score: {0}", P1.score);
-                Console.WriteLine("P2 Score: {0}", P2.score);
                 gameBall.Reset();
             }
             if (gameBall.position.X > 642)
@@ -184,8 +182,6 @@ namespace Lab4
                 scoreCue = soundsBank.GetCue("Score");
                 scoreCue.Play();
                 P2.scorePoint();
-                Console.WriteLine("P1 Score: {0}", P1.score);
-                Console.WriteLine("P2 Score: {0}", P2.score);
                 gameBall.Reset();
             }
             if (P1.paddle.Collides(gameBall))
