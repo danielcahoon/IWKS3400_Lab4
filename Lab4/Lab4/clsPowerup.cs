@@ -105,7 +105,23 @@ namespace Lab4
 
         public void Reset()
         {
-            position = startingPosition;
+            position = new Vector2((int)(position.X + 17), (int)(position.Y - 17));
+            if (position.X > Game1.graphics.PreferredBackBufferWidth - 50)
+            {
+                position = new Vector2(position.X - 20, position.Y);
+            }
+            if (position.X < 50)
+            {
+                position = new Vector2(position.X + 20, position.Y);
+            }
+            if (position.Y > Game1.graphics.PreferredBackBufferHeight - 50)
+            {
+                position = new Vector2(position.X, position.Y - 20);
+            }
+            if (position.Y < 50)
+            {
+                position = new Vector2(position.X, position.Y + 20);
+            }
         }
     }
 }
