@@ -227,6 +227,10 @@ namespace Lab4
             P1.Reset();
             P2.Reset();
             gameBall.Reset();
+            ballSpeedUp.Reset();
+            ballSpeedDown.Reset();
+            barrierSpeedUp.Reset();
+            barrierSpeedDown.Reset();
             gameActive = true;
         }
         public void Draw(SpriteBatch spriteBatch)
