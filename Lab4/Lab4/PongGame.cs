@@ -38,9 +38,7 @@ namespace Lab4
         SoundBank soundsBank;
         WaveBank ballHit, gameWin, score;
         Cue ballCue, winCue, scoreCue;
-
-
-
+        
         public PongGame(Texture2D playerOneTexture, Texture2D playerTwoTexture, Texture2D barrierTexture,
             Texture2D gameBallTexture, Texture2D ballSpeedUpTexure, Texture2D ballSpeedDownTexture,
             Texture2D barrierSpeedUpTexture, Texture2D barrierSpeedDownTexture, GraphicsDeviceManager graphics, int numOfUsers)
