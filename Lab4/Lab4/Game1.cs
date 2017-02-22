@@ -87,7 +87,13 @@ namespace Lab4
         {
             MainMenu,
             InGame1P,
+            Pause1P,
+            GameEnd1P,
+            Instructions1P,
             InGame2P,
+            Pause2P,
+            GameEnd2P,
+            Instructions2P,
             Settings,
             Credits
         }
@@ -185,8 +191,8 @@ namespace Lab4
                                     new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             #region Menu Buttons
             //Load 2D content into my MainMenuButton
-            mainMenu1P = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(270, 40), false, false);
-            mainMenu1P.setPosition(new Vector2(224, 116));
+            mainMenu1P = new clsButton(Content.Load<Texture2D>("arrow-right"), new Vector2(420, 40), false, false);
+            mainMenu1P.setPosition(new Vector2(408, 160));
             mainMenu2P = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(233, 40), false, false);
             mainMenu2P.setPosition(new Vector2(224, 179));
             mainMenuSettings = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(169, 40), false, false);
@@ -403,7 +409,7 @@ namespace Lab4
                     if (mainMenu1P.isClicked == true)
                     {
                         menuEffect.Play();
-                        CurrentGameState = GameState.InGame1P;
+                        CurrentGameState = GameState.Instructions1P;
                         P1Game.Reset();
                         if (mouseState.LeftButton == ButtonState.Released)
                         {
@@ -456,12 +462,23 @@ namespace Lab4
 
                 #endregion
                 #region Single Player Code
+                case GameState.Instructions1P:
+                    if (exitInput.IsKeyDown(Keys.Up))
+                    {
+                        CurrentGameState = GameState.InGame1P;
+                    }
+                    else if (exitInput.IsKeyDown(Keys.Down))
+                    {
+                        CurrentGameState = GameState.InGame1P;
+                    }
+                    break;
                 case GameState.InGame1P:
                     mouseState = Mouse.GetState();
 
                     if (exitInput.IsKeyDown(Keys.P))
                     {
                         gamePaused = true;
+                        CurrentGameState = GameState.Pause1P;
                     }
                     if (!gamePaused)
                     {
@@ -481,24 +498,31 @@ namespace Lab4
                             CurrentGameState = GameState.MainMenu;
                         }
                     }
-                    else
+                    break;
+                #endregion
+                #region Single Player Pause Code
+                case (GameState.Pause1P):
+                    if (pauseExitButton.isClicked)
                     {
-                        if (pauseExitButton.isClicked)
+                        gamePaused = false;
+                        if (mouseState.LeftButton == ButtonState.Released)
                         {
+                            CurrentGameState = GameState.InGame1P;
                             gamePaused = false;
                         }
-                        //Exiting Game needs debugging from Pause Screen
-                        else if (gameExitButton.isClicked)
-                        {
-                            if (mouseState.LeftButton == ButtonState.Released)
-                            {
-                                gamePaused = false;
-                                CurrentGameState = GameState.MainMenu;
-                            }
-                        }
-                        pauseExitButton.Update(mouseState);
-                        gameExitButton.Update(mouseState);
                     }
+                    //Exiting Game needs debugging from Pause Screen
+                    else if (gameExitButton.isClicked)
+                    {
+                        if (mouseState.LeftButton == ButtonState.Released && exitInput.IsKeyUp(Keys.P))
+                        {
+                            gamePaused = false;
+                            CurrentGameState = GameState.MainMenu;
+                        }
+                    }
+                    pauseExitButton.Update(mouseState);
+                    gameExitButton.Update(mouseState);
+
                     break;
                 #endregion
                 #region Two Player Code
@@ -546,6 +570,9 @@ namespace Lab4
                         gameExitButton.Update(mouseState);
                     }
                     break;
+                #endregion
+                #region Two Player Pause Code
+
                 #endregion
                 #region Settings Code
                 case GameState.Settings:
@@ -737,9 +764,7 @@ namespace Lab4
                     spriteBatch.Begin();
                     if (gamePaused)
                     {
-                        pauseScreenSprite.Draw(spriteBatch);
-                        pauseExitButton.Draw(spriteBatch);
-                        gameExitButton.Draw(spriteBatch);
+                        
                     }
                     else
                     {
@@ -752,6 +777,13 @@ namespace Lab4
                             new Vector2(graphics.GraphicsDevice.Viewport.Width - Font1.MeasureString("Player 1: " + P1Game.P1.score).X - 5, 10), Color.LimeGreen);
                         //gameBoardSprite.Draw(spriteBatch);
                     }
+                    spriteBatch.End();
+                    break;
+                case GameState.Pause1P:
+                    spriteBatch.Begin();
+                    pauseScreenSprite.Draw(spriteBatch);
+                    pauseExitButton.Draw(spriteBatch);
+                    gameExitButton.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
                 case GameState.InGame2P:
