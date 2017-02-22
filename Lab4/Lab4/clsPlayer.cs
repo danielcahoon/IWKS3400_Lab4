@@ -11,6 +11,12 @@ namespace Lab4
     class clsPlayer 
     {
         public clsSprite paddle;
+        public static Rectangle sourceAsh;
+        public static Rectangle sourceGary;
+
+        int frames = 0;
+        float delay = 50f; // Framerate of sprite animation
+        float elapsed = 0f; // checks how many frames went by
         //KeyboardState movementKey = Keyboard.GetState();
         PongGame.PlayerType playerType;
         public int score;
@@ -33,19 +39,54 @@ namespace Lab4
                     break;
             }
         }
-
-        public void move(clsSprite gameBall, KeyboardState movementKey)
+        public void animateAsh(GameTime gameTime)
+        {
+            elapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (elapsed >= delay)
+            {
+                if (frames >= 3)
+                {
+                    frames = 0;
+                }
+                else
+                {
+                    frames++;
+                }
+                elapsed = 0;
+            }
+            sourceAsh = new Rectangle(51 * frames, 0, 51, 235);
+        }
+        public void animateGary(GameTime gameTime)
+        {
+            elapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (elapsed >= delay)
+            {
+                if (frames >= 3)
+                {
+                    frames = 0;
+                }
+                else
+                {
+                    frames++;
+                }
+                elapsed = 0;
+            }
+            sourceGary = new Rectangle(51 * frames, 0, 51, 235);
+        }
+        public void move(clsSprite gameBall, KeyboardState movementKey, GameTime gameTime)
         {
             //Console.WriteLine("{0}'s paddle position = {1}", playerType, paddle.position);
             if (playerType == PongGame.PlayerType.PlayerOne)
             {
                 if (movementKey.IsKeyDown(Keys.Up))
                 {
+                    this.animateAsh(gameTime);
                     paddle.velocity = new Vector2(0, -5);
                     paddle.Move();
                 }
                 else if (movementKey.IsKeyDown(Keys.Down))
                 {
+                    this.animateAsh(gameTime);
                     paddle.velocity = new Vector2(0, 5);
                     paddle.Move();
                 }
@@ -54,11 +95,13 @@ namespace Lab4
             {
                 if (movementKey.IsKeyDown(Keys.W))
                 {
+                    this.animateGary(gameTime);
                     paddle.velocity = new Vector2(0, -5);
                     paddle.Move();
                 }
                 else if (movementKey.IsKeyDown(Keys.S))
                 {
+                    this.animateGary(gameTime);
                     paddle.velocity = new Vector2(0, 5);
                     paddle.Move();
                 }
@@ -69,16 +112,19 @@ namespace Lab4
                 //paddle finds out where the ball is
                 if (gameBall.position.X - paddle.position.X < 300 && gameBall.position.Y > (paddle.center.Y - paddle.size.Y / 2))
                 {
+                    this.animateGary(gameTime);
                     paddle.velocity = new Vector2(0, 5);
                     paddle.Move();
                 }
                 else if (gameBall.position.X - paddle.position.X < 300 && gameBall.position.Y < (paddle.center.Y - paddle.size.Y / 2))
                 {
+                    this.animateGary(gameTime);
                     paddle.velocity = new Vector2(0, -5);
                     paddle.Move();
                 }
                 else
                 {
+                    this.animateGary(gameTime);
                     paddle.Move();
                 }
                 paddle.withinScreen();

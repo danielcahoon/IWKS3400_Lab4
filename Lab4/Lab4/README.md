@@ -1,11 +1,7 @@
 ﻿TODO LIST
-~ Implement Animated Paddles
-~ Add themed gameboard
-	> Perhaps a new menu design?
+~ Implement all themed screens with proper button placement
 ~ Find a way to display end of game message 
 ~ Implement PowerUps
-~ Proper Ball Velocity Implementation
-~ Moving Barriers
 ~ Differnt AI difficulties
 ~ Proper Ball-Paddle interaction
 ~ Instructions Screen before 1P
