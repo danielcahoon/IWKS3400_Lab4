@@ -136,10 +136,10 @@ namespace Lab4
         public bool Collides(clsSprite otherSprite)
         {
             //check if two sprites intersect
-            return (this.position.X + this.size.X > otherSprite.position.X &&
-                    this.position.X < otherSprite.position.X + otherSprite.size.X &&
-                    this.position.Y + this.size.Y > otherSprite.position.Y &&
-                    this.position.Y < otherSprite.position.Y + otherSprite.size.Y);
+            return (this.position.X + this.size.X >= otherSprite.position.X && 
+                this.position.X <= otherSprite.position.X + otherSprite.size.X &&
+                    this.position.Y + this.size.Y >= otherSprite.position.Y && 
+                    this.position.Y <= otherSprite.position.Y + otherSprite.size.Y);
         }
         public bool CircleCollidesPaddle(clsSprite otherSprite)
         {
