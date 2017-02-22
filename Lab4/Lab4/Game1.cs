@@ -191,16 +191,16 @@ namespace Lab4
                                     new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             #region Menu Buttons
             //Load 2D content into my MainMenuButton
-            mainMenu1P = new clsButton(Content.Load<Texture2D>("arrow-right"), new Vector2(420, 40), false, false);
-            mainMenu1P.setPosition(new Vector2(408, 160));
-            mainMenu2P = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(233, 40), false, false);
-            mainMenu2P.setPosition(new Vector2(224, 179));
-            mainMenuSettings = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(169, 40), false, false);
-            mainMenuSettings.setPosition(new Vector2(224, 243));
-            mainMenuCredits = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(149, 40), false, false);
-            mainMenuCredits.setPosition(new Vector2(224, 307));
-            mainMenuQuit = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(230, 40), false, false);
-            mainMenuQuit.setPosition(new Vector2(224, 371));
+            mainMenu1P = new clsButton(Content.Load<Texture2D>("arrow-right"), new Vector2(420, 30), false, false);
+            mainMenu1P.setPosition(new Vector2(400, 152));
+            mainMenu2P = new clsButton(Content.Load<Texture2D>("arrow-right"), new Vector2(420, 30), false, false);
+            mainMenu2P.setPosition(new Vector2(400, 216));
+            mainMenuSettings = new clsButton(Content.Load<Texture2D>("arrow-right"), new Vector2(420, 30), false, false);
+            mainMenuSettings.setPosition(new Vector2(400, 280));
+            mainMenuCredits = new clsButton(Content.Load<Texture2D>("arrow-right"), new Vector2(420, 30), false, false);
+            mainMenuCredits.setPosition(new Vector2(400, 344));
+            mainMenuQuit = new clsButton(Content.Load<Texture2D>("arrow-right"), new Vector2(420, 30), false, false);
+            mainMenuQuit.setPosition(new Vector2(400, 442));
             #endregion
 
             gymSprite = new clsSprite(Content.Load<Texture2D>("gym"),
