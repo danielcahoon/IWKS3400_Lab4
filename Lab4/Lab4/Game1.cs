@@ -205,42 +205,42 @@ namespace Lab4
 
             gymSprite = new clsSprite(Content.Load<Texture2D>("gym"),
                                 new Vector2(0f, 0f), new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            settingsSprite = new clsSprite(Content.Load<Texture2D>("Settings"),
+            settingsSprite = new clsSprite(Content.Load<Texture2D>("menu-settings"),
                                     new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             #region Setting Buttons
             #region Barrier
-            settingBarrierOn = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
-            settingBarrierOn.setPosition(new Vector2(455, 118));
+            settingBarrierOn = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(61, 40), true, false);
+            settingBarrierOn.setPosition(new Vector2(707, 151));
             settingBarrierOn.addColor();
-            settingBarrierOff = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
-            settingBarrierOff.setPosition(new Vector2(558, 118));
+            settingBarrierOff = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(92, 40), true, false);
+            settingBarrierOff.setPosition(new Vector2(803, 151));
             #endregion
             #region PowerUps
-            settingPowerUpsOn = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
-            settingPowerUpsOn.setPosition(new Vector2(455, 181));
+            settingPowerUpsOn = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(61, 40), true, false);
+            settingPowerUpsOn.setPosition(new Vector2(707, 215));
             settingPowerUpsOn.addColor();
-            settingPowerUpsOff = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
-            settingPowerUpsOff.setPosition(new Vector2(558, 181));
+            settingPowerUpsOff = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(92, 40), true, false);
+            settingPowerUpsOff.setPosition(new Vector2(803, 215));
             #endregion
             #region Difficulty
-            settingDifficulty1 = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(50, 40), true, false);
-            settingDifficulty1.setPosition(new Vector2(460, 249));
+            settingDifficulty1 = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(25, 30), true, false);
+            settingDifficulty1.setPosition(new Vector2(711, 284));
             settingDifficulty1.addColor();
-            settingDifficulty2 = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(50, 40), true, false);
-            settingDifficulty2.setPosition(new Vector2(523, 249));
-            settingDifficulty3 = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(50, 40), true, false);
-            settingDifficulty3.setPosition(new Vector2(585, 249));
+            settingDifficulty2 = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(30, 30), true, false);
+            settingDifficulty2.setPosition(new Vector2(803, 284));
+            settingDifficulty3 = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(30, 30), true, false);
+            settingDifficulty3.setPosition(new Vector2(899, 284));
 
             #endregion
             #region Music
-            settingMusicOn = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
-            settingMusicOn.setPosition(new Vector2(455, 309));
+            settingMusicOn = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(61, 40), true, false);
+            settingMusicOn.setPosition(new Vector2(707, 343));
             settingMusicOn.addColor();
-            settingMusicOff = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
-            settingMusicOff.setPosition(new Vector2(558, 309));
+            settingMusicOff = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(92, 40), true, false);
+            settingMusicOff.setPosition(new Vector2(803, 343));
             #endregion
-            settingExitButton = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(235, 40), false, false);
-            settingExitButton.setPosition(new Vector2(34, 437));
+            settingExitButton = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(125, 40), false, false);
+            settingExitButton.setPosition(new Vector2(319, 441));
             #endregion
             pauseScreenSprite = new clsSprite(Content.Load<Texture2D>("PauseScreen1"),
                                     new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
