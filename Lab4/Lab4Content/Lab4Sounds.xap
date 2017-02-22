@@ -238,14 +238,8 @@ Wave Bank
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = Compression Preset;
-    Xbox Bank Last Modified Low = 0;
-    Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 0;
-    PC Bank Last Modified High = 0;
-    Header Last Modified Low = 0;
-    Header Last Modified High = 0;
-    Bank Last Revised Low = 1531788779;
-    Bank Last Revised High = 30574931;
+    Bank Last Revised Low = 4241941161;
+    Bank Last Revised High = 30575965;
 
     Wave
     {
@@ -283,13 +277,13 @@ Wave Bank
             Channels = 2;
             Sampling Rate = 44100;
             Bits Per Sample = 1;
-            Play Region Offset = 130;
-            Play Region Length = 175292;
+            Play Region Offset = 44;
+            Play Region Length = 60048;
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 2588011842;
-            Last Modified High = 30574148;
+            Last Modified Low = 1597496462;
+            Last Modified High = 30575556;
         }
     }
 
@@ -334,8 +328,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1464611460;
-            Last Modified High = 30574931;
+            Last Modified Low = 1765714957;
+            Last Modified High = 30575965;
         }
     }
 }
@@ -482,8 +476,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3933839023;
-            Last Modified High = 30574618;
+            Last Modified Low = 3410299569;
+            Last Modified High = 30575965;
         }
     }
 }
@@ -519,8 +513,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 544011123;
-            Last Modified High = 30574619;
+            Last Modified Low = 3033111874;
+            Last Modified High = 30575965;
         }
     }
 }
@@ -556,8 +550,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3487695447;
-            Last Modified High = 30574618;
+            Last Modified Low = 1607461761;
+            Last Modified High = 30575965;
         }
     }
 }
@@ -593,8 +587,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 2744211963;
-            Last Modified High = 30574618;
+            Last Modified Low = 4027892932;
+            Last Modified High = 30575965;
         }
     }
 }
