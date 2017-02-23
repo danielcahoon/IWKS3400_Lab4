@@ -16,7 +16,6 @@ namespace Lab4
 
     class clsButton
     {
-        InputHelper inputHelper = new InputHelper();
         Vector2 position;
         public Texture2D texture;
         Rectangle rectangle;
@@ -82,7 +81,7 @@ namespace Lab4
                         //color.A += 5;
                     }
 
-                    if (mouse.LeftButton == ButtonState.Pressed && inputHelper.CurrentMouseState != inputHelper.LastMouseState)
+                    if (mouse.LeftButton == ButtonState.Pressed)
                     {
                         isClicked = true;
                     }
@@ -97,7 +96,6 @@ namespace Lab4
             {
                 isClicked = false;
             }
-            inputHelper.Update();
         }
         public void removeColor()
         {
