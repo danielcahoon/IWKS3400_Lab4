@@ -75,7 +75,7 @@ namespace Lab4
                     botBarrier = new clsSprite(barrierTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 20, graphics.PreferredBackBufferHeight - 150), new Vector2(40, 150), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
                     botBarrier.velocity = new Vector2(0, -2);
                 }
-                gameBall = new clsSprite(gameBallTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 32, (graphics.PreferredBackBufferHeight / 2) - 32), new Vector2(32, 32), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+                gameBall = new clsSprite(gameBallTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 36, (graphics.PreferredBackBufferHeight / 2) - 36), new Vector2(36, 36), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
                 gameBall.velocity = new Vector2(randPowerUp.Next(5, 7), randPowerUp.Next(-2, 3));
                 if (gameBall.velocity.Y == 0)
                 {
@@ -93,8 +93,8 @@ namespace Lab4
             }
             else
             {
-                P1 = new clsPlayer(playerOneTexture, PlayerType.PlayerOne, new Vector2(graphics.PreferredBackBufferWidth - 60, (graphics.PreferredBackBufferHeight / 2) - 75), new Vector2(40, 150), new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
-                P2 = new clsPlayer(playerOneTexture, PlayerType.PlayerTwo, new Vector2(0, (graphics.PreferredBackBufferHeight / 2) - 75), new Vector2(40, 150), new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
+                P1 = new clsPlayer(playerOneTexture, PlayerType.PlayerOne, new Vector2(graphics.PreferredBackBufferWidth - 51, (graphics.PreferredBackBufferHeight / 2) - 75), new Vector2(51, 235), new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
+                P2 = new clsPlayer(playerTwoTexture, PlayerType.PlayerTwo, new Vector2(0, (graphics.PreferredBackBufferHeight / 2) - 75), new Vector2(51, 235), new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
                 P1.paddle.velocity = new Vector2(0, 0);
                 P2.paddle.velocity = new Vector2(0, 5);
 
@@ -105,7 +105,7 @@ namespace Lab4
                     botBarrier = new clsSprite(barrierTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 20, graphics.PreferredBackBufferHeight - 150), new Vector2(40, 150), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
                     botBarrier.velocity = new Vector2(0, -2);
                 }
-                gameBall = new clsSprite(gameBallTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 32, (graphics.PreferredBackBufferHeight / 2) - 32), new Vector2(64, 64), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+                gameBall = new clsSprite(gameBallTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 36, (graphics.PreferredBackBufferHeight / 2) - 36), new Vector2(36, 36), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
                 gameBall.velocity = new Vector2(randPowerUp.Next(5, 7), randPowerUp.Next(-2, 3));
                 if (gameBall.velocity.Y == 0)
                 {
@@ -155,67 +155,69 @@ namespace Lab4
                 barrierSpeedDown.position = new Vector2(Game1.graphics.PreferredBackBufferHeight + 150, Game1.graphics.PreferredBackBufferWidth + 150);
             }
 
-            if (gameBall.position.X < P2.paddle.size.X / 2)
+            if (gameBall.position.X < P2.paddle.size.X -gameBall.size.X)
             {
                 scoreCue = soundsBank.GetCue("Score");
                 scoreCue.Play();
                 P1.scorePoint();
+                //Reset the ball's position to the center after each point
                 gameBall.Reset();
+                //Ball gets new random velocity each time a point is scored
+                gameBall.velocity = new Vector2(randPowerUp.Next(5, 7), randPowerUp.Next(-2, 3));
+                if (gameBall.velocity.Y == 0)
+                {
+                    gameBall.velocity = new Vector2(gameBall.velocity.X, randPowerUp.Next(-3, -1));
+                }
             }
-            if (gameBall.position.X > Game1.graphics.PreferredBackBufferWidth)
+            if (gameBall.position.X > Game1.graphics.PreferredBackBufferWidth - P1.paddle.size.X)
             {
                 scoreCue = soundsBank.GetCue("Score");
                 scoreCue.Play();
                 P2.scorePoint();
+                //Reset the ball's position to the center after each point
                 gameBall.Reset();
+                //Ball gets new random velocity each time a point is scored
+                gameBall.velocity = new Vector2(randPowerUp.Next(5, 7), randPowerUp.Next(-2, 3));
+                if (gameBall.velocity.Y == 0)
+                {
+                    gameBall.velocity = new Vector2(gameBall.velocity.X, randPowerUp.Next(-3, -1));
+                }
             }
             if (P1.paddle.Collides(gameBall))
             {
-                if (!P1.paddle.Collides(gameBall))
+                ballCue = soundsBank.GetCue("BallHit");
+                ballCue.Play();
+                gameBall.velocity = new Vector2(-gameBall.velocity.X, randPowerUp.Next(-2, 3));
+                if (gameBall.velocity.Y == 0)
                 {
-                    ballCue = soundsBank.GetCue("BallHit");
-                    ballCue.Play();
-                    gameBall.velocity = new Vector2(-gameBall.velocity.X, randPowerUp.Next(-2, 3));
-                    if (gameBall.velocity.Y == 0)
-                    {
-                        gameBall.velocity = new Vector2(gameBall.velocity.X, randPowerUp.Next(-3, -1));
-                    }
+                    gameBall.velocity = new Vector2(gameBall.velocity.X, randPowerUp.Next(-3, -1));
                 }
             }
             if (P2.paddle.Collides(gameBall))
             {
-                if (!P2.paddle.Collides(gameBall))
+
+                ballCue = soundsBank.GetCue("BallHit");
+                ballCue.Play();
+                gameBall.velocity = new Vector2(-gameBall.velocity.X, randPowerUp.Next(-2, 3));
+                if (gameBall.velocity.Y == 0)
                 {
-                    ballCue = soundsBank.GetCue("BallHit");
-                    ballCue.Play();
-                    gameBall.velocity = new Vector2(-gameBall.velocity.X, randPowerUp.Next(-2, 3));
-                    if (gameBall.velocity.Y == 0)
-                    {
-                        gameBall.velocity = new Vector2(gameBall.velocity.X, randPowerUp.Next(-3, -1));
-                    }
+                    gameBall.velocity = new Vector2(gameBall.velocity.X, randPowerUp.Next(-3, -1));
                 }
             }
             if (botBarrier.Collides(gameBall))
             {
-                if (!botBarrier.Collides(gameBall))
-                {
-                    ballCue = soundsBank.GetCue("BallHit");
-                    ballCue.Play();
-                    gameBall.velocity *= -1;
-                }
+                ballCue = soundsBank.GetCue("BallHit");
+                ballCue.Play();
+                gameBall.velocity *= -1;
             }
             if (topBarrier.Collides(gameBall))
             {
-                if (!topBarrier.Collides(gameBall))
-                {
-                    ballCue = soundsBank.GetCue("BallHit");
-                    ballCue.Play();
-                    gameBall.velocity *= -1;
-                }
+                ballCue = soundsBank.GetCue("BallHit");
+                ballCue.Play();
+                gameBall.velocity *= -1;
             }
             if (P1.score == 10 || P2.score == 10)
             {
-
                 winCue = soundsBank.GetCue("GameWin");
                 winCue.Play();
                 gameActive = false;
