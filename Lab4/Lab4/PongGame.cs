@@ -70,17 +70,18 @@ namespace Lab4
 
                 if (Game1.gameSettings.barriers == true)
                 {
-                    topBarrier = new clsSprite(barrierTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 20, 0), new Vector2(40, 150), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+                    topBarrier = new clsSprite(barrierTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 25.5f, 0), new Vector2(51, 167), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
                     topBarrier.velocity = new Vector2(0, 2);
-                    botBarrier = new clsSprite(barrierTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 20, graphics.PreferredBackBufferHeight - 150), new Vector2(40, 150), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+                    botBarrier = new clsSprite(barrierTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 25.5f, graphics.PreferredBackBufferHeight - 167), new Vector2(51, 167), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
                     botBarrier.velocity = new Vector2(0, -2);
                 }
-                gameBall = new clsSprite(gameBallTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 36, (graphics.PreferredBackBufferHeight / 2) - 36), new Vector2(36, 36), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+                gameBall = new clsSprite(gameBallTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 18, (graphics.PreferredBackBufferHeight / 2) - 18), new Vector2(36, 36), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
                 gameBall.velocity = new Vector2(randPowerUp.Next(5, 7), randPowerUp.Next(-2, 3));
                 if (gameBall.velocity.Y == 0)
                 {
                     gameBall.velocity = new Vector2(gameBall.velocity.X, randPowerUp.Next(-3, -1));
                 }
+
 
                 if (Game1.gameSettings.powerUps == true)
                 {
@@ -100,12 +101,12 @@ namespace Lab4
 
                 if (Game1.gameSettings.barriers == true)
                 {
-                    topBarrier = new clsSprite(barrierTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 20, 0), new Vector2(40, 150), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+                    topBarrier = new clsSprite(barrierTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 25.5f, 0), new Vector2(51, 167), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
                     topBarrier.velocity = new Vector2(0, 2);
-                    botBarrier = new clsSprite(barrierTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 20, graphics.PreferredBackBufferHeight - 150), new Vector2(40, 150), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+                    botBarrier = new clsSprite(barrierTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 25.5f, graphics.PreferredBackBufferHeight - 167), new Vector2(51, 167), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
                     botBarrier.velocity = new Vector2(0, -2);
                 }
-                gameBall = new clsSprite(gameBallTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 36, (graphics.PreferredBackBufferHeight / 2) - 36), new Vector2(36, 36), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+                gameBall = new clsSprite(gameBallTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 18, (graphics.PreferredBackBufferHeight / 2) - 18), new Vector2(36, 36), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
                 gameBall.velocity = new Vector2(randPowerUp.Next(5, 7), randPowerUp.Next(-2, 3));
                 if (gameBall.velocity.Y == 0)
                 {
@@ -192,6 +193,7 @@ namespace Lab4
                 {
                     gameBall.velocity = new Vector2(gameBall.velocity.X, randPowerUp.Next(-3, -1));
                 }
+                gameBall.Move();
             }
             if (P2.paddle.Collides(gameBall))
             {
@@ -203,18 +205,25 @@ namespace Lab4
                 {
                     gameBall.velocity = new Vector2(gameBall.velocity.X, randPowerUp.Next(-3, -1));
                 }
+                gameBall.Move();
             }
             if (botBarrier.Collides(gameBall))
             {
                 ballCue = soundsBank.GetCue("BallHit");
                 ballCue.Play();
+                topBarrier.velocity *= -1;
+                botBarrier.velocity *= -1;
                 gameBall.velocity *= -1;
+                gameBall.Move();
             }
             if (topBarrier.Collides(gameBall))
             {
                 ballCue = soundsBank.GetCue("BallHit");
                 ballCue.Play();
+                topBarrier.velocity *= -1;
+                botBarrier.velocity *= -1;
                 gameBall.velocity *= -1;
+                gameBall.Move();
             }
             if (P1.score == 10 || P2.score == 10)
             {
