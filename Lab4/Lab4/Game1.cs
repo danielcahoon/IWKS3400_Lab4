@@ -21,7 +21,6 @@ namespace Lab4
         
         //Font Stuff
         SpriteFont Font1;
-        Vector2 FontPos;
         public string victory; //used to hold congratulations/blnt message
 
         //Sound and Music Stuff
@@ -36,7 +35,6 @@ namespace Lab4
 
         public static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        public static InputHelper inputHelper;
         #region Sprite Definitions
 
         #region Main Menu Sprites and Buttons
@@ -68,7 +66,9 @@ namespace Lab4
 
         clsButton settingExitButton;
         #endregion
-
+        #region Credit Screen Sprite and Button
+        clsSprite creditScreen;
+        #endregion
         #region Pause Screen Sprite and Buttons
         //Sprites
         clsSprite pauseScreenSprite;
@@ -205,6 +205,9 @@ namespace Lab4
 
             gymSprite = new clsSprite(Content.Load<Texture2D>("gym"),
                                 new Vector2(0f, 0f), new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            creditScreen = new clsSprite(Content.Load<Texture2D>("menu-credits"),
+                                new Vector2(0f, 0f), new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+
             settingsSprite = new clsSprite(Content.Load<Texture2D>("menu-settings"),
                                     new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             #region Setting Buttons
@@ -265,6 +268,8 @@ namespace Lab4
             mainMenuSettings.texture.Dispose();
             mainMenuCredits.texture.Dispose();
             mainMenuQuit.texture.Dispose();
+
+            creditScreen.texture.Dispose();
 
             settingsSprite.texture.Dispose();
 
@@ -718,7 +723,6 @@ namespace Lab4
                     #endregion
             }
             #endregion
-            inputHelper.Update();
             // Update the audio engine
             audioEngine.Update();
             base.Update(gameTime);
@@ -821,8 +825,10 @@ namespace Lab4
                     break;
                 case GameState.Credits:
                     spriteBatch.Begin();
-                    spriteBatch.DrawString(Font1, "Credits\n     Danny Cahoon\n\n     Jacob Jolly\n\n     Hugh Ohlin\n\n     Robbie Fikes\n\n", new Vector2(((graphics.GraphicsDevice.Viewport.Width / 2) - Font1.MeasureString("Credits").X - 10), 10), Color.LimeGreen);
-                    spriteBatch.DrawString(Font1, "Go Back. . . ", new Vector2(5, graphics.GraphicsDevice.Viewport.Height - Font1.MeasureString("Go Back. . .").Y), Color.LimeGreen);
+                    //spriteBatch.DrawString(Font1, "Credits\n     Danny Cahoon\n\n     Jacob Jolly\n\n     Hugh Ohlin\n\n     Robbie Fikes\n\n", new Vector2(((graphics.GraphicsDevice.Viewport.Width / 2) - Font1.MeasureString("Credits").X - 10), 10), Color.LimeGreen);
+                    //spriteBatch.DrawString(Font1, "Go Back. . . ", new Vector2(5, graphics.GraphicsDevice.Viewport.Height - Font1.MeasureString("Go Back. . .").Y), Color.LimeGreen);
+                    creditScreen.Draw(spriteBatch);
+                    exitCredits.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
             }

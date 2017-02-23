@@ -36,6 +36,7 @@ namespace Lab4
                     break;
                 case PongGame.PlayerType.CPU:
                     paddle = new clsSprite(texture, position, newSize, (int)screenSize.X, (int)screenSize.Y);
+                    paddle.velocity = new Vector2(0, -5);
                     break;
             }
         }
@@ -76,6 +77,7 @@ namespace Lab4
         public void move(clsSprite gameBall, KeyboardState movementKey, GameTime gameTime)
         {
             //Console.WriteLine("{0}'s paddle position = {1}", playerType, paddle.position);
+            
             if (playerType == PongGame.PlayerType.PlayerOne)
             {
                 if (movementKey.IsKeyDown(Keys.Up))
@@ -110,24 +112,54 @@ namespace Lab4
             {
                 //Add code for difficulty here regarding when the 
                 //paddle finds out where the ball is
-                if (gameBall.position.X - paddle.position.X < 300 && gameBall.position.Y > (paddle.center.Y - paddle.size.Y / 2))
+                if (Game1.gameSettings.difficulty == pongSettings.Difficulty.Easy)
                 {
-                    this.animateGary(gameTime);
-                    paddle.velocity = new Vector2(0, 5);
                     paddle.Move();
+                    this.animateGary(gameTime);
+                    paddle.withinScreen();
                 }
-                else if (gameBall.position.X - paddle.position.X < 300 && gameBall.position.Y < (paddle.center.Y - paddle.size.Y / 2))
+                else if(Game1.gameSettings.difficulty == pongSettings.Difficulty.Medium)
                 {
-                    this.animateGary(gameTime);
-                    paddle.velocity = new Vector2(0, -5);
-                    paddle.Move();
+                    if (gameBall.position.X - paddle.position.X < 150 && gameBall.position.Y > (paddle.center.Y - paddle.size.Y / 2))
+                    {
+                        this.animateGary(gameTime);
+                        paddle.velocity = new Vector2(0, 5);
+                        paddle.Move();
+                    }
+                    else if (gameBall.position.X - paddle.position.X < 150 && gameBall.position.Y < (paddle.center.Y - paddle.size.Y / 2))
+                    {
+                        this.animateGary(gameTime);
+                        paddle.velocity = new Vector2(0, -5);
+                        paddle.Move();
+                    }
+                    else
+                    {
+                        this.animateGary(gameTime);
+                        paddle.Move();
+                    }
+                    paddle.withinScreen();
                 }
-                else
+                else if(Game1.gameSettings.difficulty == pongSettings.Difficulty.Hard)
                 {
-                    this.animateGary(gameTime);
-                    paddle.Move();
+                    if (gameBall.position.X - paddle.position.X < 300 && gameBall.position.Y > (paddle.center.Y - paddle.size.Y / 2))
+                    {
+                        this.animateGary(gameTime);
+                        paddle.velocity = new Vector2(0, 5);
+                        paddle.Move();
+                    }
+                    else if (gameBall.position.X - paddle.position.X < 300 && gameBall.position.Y < (paddle.center.Y - paddle.size.Y / 2))
+                    {
+                        this.animateGary(gameTime);
+                        paddle.velocity = new Vector2(0, -5);
+                        paddle.Move();
+                    }
+                    else
+                    {
+                        this.animateGary(gameTime);
+                        paddle.Move();
+                    }
+                    paddle.withinScreen();
                 }
-                paddle.withinScreen();
             }
         }
         public void scorePoint()
