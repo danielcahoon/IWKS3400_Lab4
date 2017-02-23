@@ -89,11 +89,8 @@ namespace Lab4
                 {
                     velocity = new Vector2(velocity.X, velocity.Y + 10);
                 }
-                #endregion
-
-
             }
-            
+            #endregion            
         }
 
         //method for checking if the ball is off the screen from manual movement

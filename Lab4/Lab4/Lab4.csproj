@@ -77,7 +77,6 @@
   <ItemGroup>
     <Compile Include="clsPowerUp.cs" />
     <Compile Include="clsPlayer.cs" />
-    <Compile Include="inputHelper.cs" />
     <Compile Include="clsButton.cs" />
     <Compile Include="clsSprite.cs" />
     <Compile Include="PongGame.cs" />
