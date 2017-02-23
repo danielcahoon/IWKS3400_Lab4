@@ -182,7 +182,7 @@ namespace Lab4
             P1Game = new Lab4.PongGame(Content.Load<Texture2D>("paddle-ash"), Content.Load<Texture2D>("paddle-gary"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("pokeball"), 
                 Content.Load<Texture2D>(/*"ballSpeedUp"*/"ball1"), Content.Load<Texture2D>(/*"ballSpeedDown"*/"ball1"), Content.Load<Texture2D>(/*"barrierSpeedUp"*/"ball1"), Content.Load<Texture2D>(/*"barrierSpeedDown"*/"ball1"), graphics, 1);
 
-            P2Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("pokeball"),
+            P2Game = new Lab4.PongGame(Content.Load<Texture2D>("paddle-ash"), Content.Load<Texture2D>("paddle-gary"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("pokeball"),
                 Content.Load<Texture2D>(/*"ballSpeedUp"*/"ball1"), Content.Load<Texture2D>(/*"ballSpeedDown"*/"ball1"), Content.Load<Texture2D>(/*"barrierSpeedUp"*/"ball1"), Content.Load<Texture2D>(/*"barrierSpeedDown"*/"ball1"), graphics, 2);
 
             //Load 2D Content into the Sprites
@@ -202,7 +202,7 @@ namespace Lab4
             mainMenuQuit.setPosition(new Vector2(400, 442));
             #endregion
 
-            gymSprite = new clsSprite(Content.Load<Texture2D>("gym"),
+            gymSprite = new clsSprite(Content.Load<Texture2D>("gym2"),
                                 new Vector2(0f, 0f), new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             creditScreen = new clsSprite(Content.Load<Texture2D>("menu-credits"),
                                 new Vector2(0f, 0f), new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
@@ -412,6 +412,7 @@ namespace Lab4
                     mouseState = Mouse.GetState();
                     if (mainMenu1P.isClicked == true)
                     {
+                        mainMenu1P.isClicked = false;
                         menuEffect.Play();
                         CurrentGameState = GameState.Instructions1P;
                         P1Game.Reset();
@@ -424,6 +425,7 @@ namespace Lab4
 
                     if (mainMenu2P.isClicked == true)
                     {
+                        mainMenu2P.isClicked = false;
                         menuEffect.Play();
                         CurrentGameState = GameState.InGame2P;
                         P2Game.Reset();
@@ -436,6 +438,7 @@ namespace Lab4
 
                     if (mainMenuSettings.isClicked == true)
                     {
+                        mainMenuSettings.isClicked = false;
                         menuEffect.Play();
                         CurrentGameState = GameState.Settings;
                         if (mouseState.LeftButton == ButtonState.Released)
@@ -447,6 +450,7 @@ namespace Lab4
 
                     if (mainMenuCredits.isClicked == true)
                     {
+                        mainMenuCredits.isClicked = false;
                         menuEffect.Play();
                         CurrentGameState = GameState.Credits;
                         if (mouseState.LeftButton == ButtonState.Released)
@@ -765,21 +769,11 @@ namespace Lab4
 
                 case GameState.InGame1P:
                     spriteBatch.Begin();
-                    if (gamePaused)
-                    {
+                    gymSprite.Draw(spriteBatch);
+                    P1Game.Draw(spriteBatch);
+                    spriteBatch.DrawString(Font1, "Gary: " + P1Game.P2.score, new Vector2(130, 60), Color.Black);
+                    spriteBatch.DrawString(Font1, "Ash: " + P1Game.P1.score, new Vector2(997, 60), Color.Black);
                         
-                    }
-                    else
-                    {
-                        //print out associated things with one player game
-                        //and which settings are active
-                        gymSprite.Draw(spriteBatch);
-                        P1Game.Draw(spriteBatch);
-                        spriteBatch.DrawString(Font1, "Computer: " + P1Game.P2.score, new Vector2(5, 10), Color.LimeGreen);
-                        spriteBatch.DrawString(Font1, "Player 1: " + P1Game.P1.score,
-                            new Vector2(graphics.GraphicsDevice.Viewport.Width - Font1.MeasureString("Player 1: " + P1Game.P1.score).X - 5, 10), Color.LimeGreen);
-                        //gameBoardSprite.Draw(spriteBatch);
-                    }
                     spriteBatch.End();
                     break;
                 case GameState.Pause1P:
@@ -801,9 +795,8 @@ namespace Lab4
                     {
                         gymSprite.Draw(spriteBatch);
                         P2Game.Draw(spriteBatch);
-                        spriteBatch.DrawString(Font1, "Player 2: " + P2Game.P2.score, new Vector2(5, 10), Color.LimeGreen);
-                        spriteBatch.DrawString(Font1, "Player 1: " + P2Game.P1.score,
-                            new Vector2(graphics.GraphicsDevice.Viewport.Width - Font1.MeasureString("Player 1: " + P1Game.P1.score).X - 5, 10), Color.LimeGreen);
+                        spriteBatch.DrawString(Font1, "Gary: " + P2Game.P2.score, new Vector2(130, 60), Color.Black);
+                        spriteBatch.DrawString(Font1, "Ash: " + P2Game.P1.score, new Vector2(997, 60), Color.Black);
                     }
                     spriteBatch.End();
                     break;
