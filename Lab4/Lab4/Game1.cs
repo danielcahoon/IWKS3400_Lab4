@@ -179,10 +179,10 @@ namespace Lab4
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            P1Game = new Lab4.PongGame(Content.Load<Texture2D>("paddle-ash"), Content.Load<Texture2D>("paddle-gary"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("pokeball"), 
+            P1Game = new Lab4.PongGame(Content.Load<Texture2D>("paddle-ash"), Content.Load<Texture2D>("paddle-gary"), Content.Load<Texture2D>("barrier"), Content.Load<Texture2D>("pokeball"), 
                 Content.Load<Texture2D>(/*"ballSpeedUp"*/"ball1"), Content.Load<Texture2D>(/*"ballSpeedDown"*/"ball1"), Content.Load<Texture2D>(/*"barrierSpeedUp"*/"ball1"), Content.Load<Texture2D>(/*"barrierSpeedDown"*/"ball1"), graphics, 1);
 
-            P2Game = new Lab4.PongGame(Content.Load<Texture2D>("paddle-ash"), Content.Load<Texture2D>("paddle-gary"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("pokeball"),
+            P2Game = new Lab4.PongGame(Content.Load<Texture2D>("paddle-ash"), Content.Load<Texture2D>("paddle-gary"), Content.Load<Texture2D>("barrier"), Content.Load<Texture2D>("pokeball"),
                 Content.Load<Texture2D>(/*"ballSpeedUp"*/"ball1"), Content.Load<Texture2D>(/*"ballSpeedDown"*/"ball1"), Content.Load<Texture2D>(/*"barrierSpeedUp"*/"ball1"), Content.Load<Texture2D>(/*"barrierSpeedDown"*/"ball1"), graphics, 2);
 
             //Load 2D Content into the Sprites
