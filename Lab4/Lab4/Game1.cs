@@ -16,10 +16,11 @@ namespace Lab4
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-
+       
+        clsSprite gymSprite;
+        
         //Font Stuff
         SpriteFont Font1;
-        Vector2 FontPos;
         public string victory; //used to hold congratulations/blnt message
 
         //Sound and Music Stuff
@@ -29,12 +30,11 @@ namespace Lab4
         WaveBank sounds;
 
         WaveBank mainMenu, settings, credits, hardAI, medAI, easyAI, twoPlayer;
-        Cue mainMenuCue, settingsCue, creditsCue, hardAICue, medAICue, easyAICue, twoPlayerCue;
+        public Cue mainMenuCue, settingsCue, creditsCue, hardAICue, medAICue, easyAICue, twoPlayerCue;
 
 
         public static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        public static InputHelper inputHelper;
         #region Sprite Definitions
 
         #region Main Menu Sprites and Buttons
@@ -66,7 +66,9 @@ namespace Lab4
 
         clsButton settingExitButton;
         #endregion
-
+        #region Credit Screen Sprite and Button
+        clsSprite creditScreen;
+        #endregion
         #region Pause Screen Sprite and Buttons
         //Sprites
         clsSprite pauseScreenSprite;
@@ -85,7 +87,13 @@ namespace Lab4
         {
             MainMenu,
             InGame1P,
+            Pause1P,
+            GameEnd1P,
+            Instructions1P,
             InGame2P,
+            Pause2P,
+            GameEnd2P,
+            Instructions2P,
             Settings,
             Credits
         }
@@ -97,8 +105,8 @@ namespace Lab4
             this.IsMouseVisible = true;
 
             //Set window size
-            graphics.PreferredBackBufferWidth = 1402;
-            graphics.PreferredBackBufferHeight = 700;
+            graphics.PreferredBackBufferWidth = 1248;
+            graphics.PreferredBackBufferHeight = 623;
             Content.RootDirectory = "Content";
         }
 
@@ -170,65 +178,71 @@ namespace Lab4
             gameSettings = new pongSettings();
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            inputHelper = new InputHelper();
 
-            P1Game = new Lab4.PongGame(Content.Load<Texture2D>("paddle-ash"), Content.Load<Texture2D>("paddle-gary"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("pokeball"), graphics, 1);
+            P1Game = new Lab4.PongGame(Content.Load<Texture2D>("paddle-ash"), Content.Load<Texture2D>("paddle-gary"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("pokeball"), 
+                Content.Load<Texture2D>(/*"ballSpeedUp"*/"ball1"), Content.Load<Texture2D>(/*"ballSpeedDown"*/"ball1"), Content.Load<Texture2D>(/*"barrierSpeedUp"*/"ball1"), Content.Load<Texture2D>(/*"barrierSpeedDown"*/"ball1"), graphics, 1);
 
-            P2Game = new Lab4.PongGame(Content.Load<Texture2D>("paddle-ash"), Content.Load<Texture2D>("paddle-gary"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("pokeball"), graphics, 2);
+            P2Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("pokeball"),
+                Content.Load<Texture2D>(/*"ballSpeedUp"*/"ball1"), Content.Load<Texture2D>(/*"ballSpeedDown"*/"ball1"), Content.Load<Texture2D>(/*"barrierSpeedUp"*/"ball1"), Content.Load<Texture2D>(/*"barrierSpeedDown"*/"ball1"), graphics, 2);
 
             //Load 2D Content into the Sprites
-            MainMenuSprite = new clsSprite(Content.Load<Texture2D>("MainMenu"),
+            MainMenuSprite = new clsSprite(Content.Load<Texture2D>("menu-main"),
                                     new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             #region Menu Buttons
             //Load 2D content into my MainMenuButton
-            mainMenu1P = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(270, 40), false, false);
-            mainMenu1P.setPosition(new Vector2(224, 116));
-            mainMenu2P = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(233, 40), false, false);
-            mainMenu2P.setPosition(new Vector2(224, 179));
-            mainMenuSettings = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(169, 40), false, false);
-            mainMenuSettings.setPosition(new Vector2(224, 243));
-            mainMenuCredits = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(149, 40), false, false);
-            mainMenuCredits.setPosition(new Vector2(224, 307));
-            mainMenuQuit = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(230, 40), false, false);
-            mainMenuQuit.setPosition(new Vector2(224, 371));
+            mainMenu1P = new clsButton(Content.Load<Texture2D>("arrow-right"), new Vector2(420, 30), false, false);
+            mainMenu1P.setPosition(new Vector2(400, 152));
+            mainMenu2P = new clsButton(Content.Load<Texture2D>("arrow-right"), new Vector2(420, 30), false, false);
+            mainMenu2P.setPosition(new Vector2(400, 216));
+            mainMenuSettings = new clsButton(Content.Load<Texture2D>("arrow-right"), new Vector2(420, 30), false, false);
+            mainMenuSettings.setPosition(new Vector2(400, 280));
+            mainMenuCredits = new clsButton(Content.Load<Texture2D>("arrow-right"), new Vector2(420, 30), false, false);
+            mainMenuCredits.setPosition(new Vector2(400, 344));
+            mainMenuQuit = new clsButton(Content.Load<Texture2D>("arrow-right"), new Vector2(420, 30), false, false);
+            mainMenuQuit.setPosition(new Vector2(400, 442));
             #endregion
 
-            settingsSprite = new clsSprite(Content.Load<Texture2D>("Settings"),
+            gymSprite = new clsSprite(Content.Load<Texture2D>("gym"),
+                                new Vector2(0f, 0f), new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            creditScreen = new clsSprite(Content.Load<Texture2D>("menu-credits"),
+                                new Vector2(0f, 0f), new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+
+            settingsSprite = new clsSprite(Content.Load<Texture2D>("menu-settings"),
                                     new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             #region Setting Buttons
             #region Barrier
-            settingBarrierOn = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
-            settingBarrierOn.setPosition(new Vector2(455, 118));
+            settingBarrierOn = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(61, 40), true, false);
+            settingBarrierOn.setPosition(new Vector2(707, 151));
             settingBarrierOn.addColor();
-            settingBarrierOff = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
-            settingBarrierOff.setPosition(new Vector2(558, 118));
+            settingBarrierOff = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(92, 40), true, false);
+            settingBarrierOff.setPosition(new Vector2(803, 151));
             #endregion
             #region PowerUps
-            settingPowerUpsOn = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
-            settingPowerUpsOn.setPosition(new Vector2(455, 181));
+            settingPowerUpsOn = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(61, 40), true, false);
+            settingPowerUpsOn.setPosition(new Vector2(707, 215));
             settingPowerUpsOn.addColor();
-            settingPowerUpsOff = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
-            settingPowerUpsOff.setPosition(new Vector2(558, 181));
+            settingPowerUpsOff = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(92, 40), true, false);
+            settingPowerUpsOff.setPosition(new Vector2(803, 215));
             #endregion
             #region Difficulty
-            settingDifficulty1 = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(50, 40), true, false);
-            settingDifficulty1.setPosition(new Vector2(460, 249));
+            settingDifficulty1 = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(25, 30), true, false);
+            settingDifficulty1.setPosition(new Vector2(711, 284));
             settingDifficulty1.addColor();
-            settingDifficulty2 = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(50, 40), true, false);
-            settingDifficulty2.setPosition(new Vector2(523, 249));
-            settingDifficulty3 = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(50, 40), true, false);
-            settingDifficulty3.setPosition(new Vector2(585, 249));
+            settingDifficulty2 = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(30, 30), true, false);
+            settingDifficulty2.setPosition(new Vector2(803, 284));
+            settingDifficulty3 = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(30, 30), true, false);
+            settingDifficulty3.setPosition(new Vector2(899, 284));
 
             #endregion
             #region Music
-            settingMusicOn = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
-            settingMusicOn.setPosition(new Vector2(455, 309));
+            settingMusicOn = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(61, 40), true, false);
+            settingMusicOn.setPosition(new Vector2(707, 343));
             settingMusicOn.addColor();
-            settingMusicOff = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(70, 40), true, false);
-            settingMusicOff.setPosition(new Vector2(558, 309));
+            settingMusicOff = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(92, 40), true, false);
+            settingMusicOff.setPosition(new Vector2(803, 343));
             #endregion
-            settingExitButton = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(235, 40), false, false);
-            settingExitButton.setPosition(new Vector2(34, 437));
+            settingExitButton = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(125, 40), false, false);
+            settingExitButton.setPosition(new Vector2(319, 441));
             #endregion
             pauseScreenSprite = new clsSprite(Content.Load<Texture2D>("PauseScreen1"),
                                     new Vector2(0f, 0f), new Vector2(700f, 500f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
@@ -253,6 +267,8 @@ namespace Lab4
             mainMenuSettings.texture.Dispose();
             mainMenuCredits.texture.Dispose();
             mainMenuQuit.texture.Dispose();
+
+            creditScreen.texture.Dispose();
 
             settingsSprite.texture.Dispose();
 
@@ -396,7 +412,8 @@ namespace Lab4
                     mouseState = Mouse.GetState();
                     if (mainMenu1P.isClicked == true)
                     {
-                        CurrentGameState = GameState.InGame1P;
+                        menuEffect.Play();
+                        CurrentGameState = GameState.Instructions1P;
                         P1Game.Reset();
                         if (mouseState.LeftButton == ButtonState.Released)
                         {
@@ -407,6 +424,7 @@ namespace Lab4
 
                     if (mainMenu2P.isClicked == true)
                     {
+                        menuEffect.Play();
                         CurrentGameState = GameState.InGame2P;
                         P2Game.Reset();
                         if (mouseState.LeftButton == ButtonState.Released)
@@ -418,6 +436,7 @@ namespace Lab4
 
                     if (mainMenuSettings.isClicked == true)
                     {
+                        menuEffect.Play();
                         CurrentGameState = GameState.Settings;
                         if (mouseState.LeftButton == ButtonState.Released)
                         {
@@ -428,6 +447,7 @@ namespace Lab4
 
                     if (mainMenuCredits.isClicked == true)
                     {
+                        menuEffect.Play();
                         CurrentGameState = GameState.Credits;
                         if (mouseState.LeftButton == ButtonState.Released)
                         {
@@ -446,18 +466,29 @@ namespace Lab4
 
                 #endregion
                 #region Single Player Code
+                case GameState.Instructions1P:
+                    if (exitInput.IsKeyDown(Keys.Up))
+                    {
+                        CurrentGameState = GameState.InGame1P;
+                    }
+                    else if (exitInput.IsKeyDown(Keys.Down))
+                    {
+                        CurrentGameState = GameState.InGame1P;
+                    }
+                    break;
                 case GameState.InGame1P:
                     mouseState = Mouse.GetState();
 
                     if (exitInput.IsKeyDown(Keys.P))
                     {
                         gamePaused = true;
+                        CurrentGameState = GameState.Pause1P;
                     }
                     if (!gamePaused)
                     {
                         if (P1Game.gameActive)
                         {
-                            P1Game.Update(exitInput);
+                            P1Game.Update(exitInput, gameTime);
                         }
                         else
                         {
@@ -471,24 +502,31 @@ namespace Lab4
                             CurrentGameState = GameState.MainMenu;
                         }
                     }
-                    else
+                    break;
+                #endregion
+                #region Single Player Pause Code
+                case (GameState.Pause1P):
+                    if (pauseExitButton.isClicked)
                     {
-                        if (pauseExitButton.isClicked)
+                        gamePaused = false;
+                        if (mouseState.LeftButton == ButtonState.Released)
                         {
+                            CurrentGameState = GameState.InGame1P;
                             gamePaused = false;
                         }
-                        //Exiting Game needs debugging from Pause Screen
-                        else if (gameExitButton.isClicked)
-                        {
-                            if (mouseState.LeftButton == ButtonState.Released)
-                            {
-                                gamePaused = false;
-                                CurrentGameState = GameState.MainMenu;
-                            }
-                        }
-                        pauseExitButton.Update(mouseState);
-                        gameExitButton.Update(mouseState);
                     }
+                    //Exiting Game needs debugging from Pause Screen
+                    else if (gameExitButton.isClicked)
+                    {
+                        if (mouseState.LeftButton == ButtonState.Released && exitInput.IsKeyUp(Keys.P))
+                        {
+                            gamePaused = false;
+                            CurrentGameState = GameState.MainMenu;
+                        }
+                    }
+                    pauseExitButton.Update(mouseState);
+                    gameExitButton.Update(mouseState);
+
                     break;
                 #endregion
                 #region Two Player Code
@@ -503,7 +541,7 @@ namespace Lab4
                     {
                         if (P2Game.gameActive)
                         {
-                            P2Game.Update(exitInput);
+                            P2Game.Update(exitInput, gameTime);
                         }
                         else
                         {
@@ -536,6 +574,9 @@ namespace Lab4
                         gameExitButton.Update(mouseState);
                     }
                     break;
+                #endregion
+                #region Two Player Pause Code
+
                 #endregion
                 #region Settings Code
                 case GameState.Settings:
@@ -681,7 +722,6 @@ namespace Lab4
                     #endregion
             }
             #endregion
-            inputHelper.Update();
             // Update the audio engine
             audioEngine.Update();
             base.Update(gameTime);
@@ -699,12 +739,12 @@ namespace Lab4
             {
                 case GameState.MainMenu:
                     spriteBatch.Begin();
+                    MainMenuSprite.Draw(spriteBatch);
                     mainMenu1P.Draw(spriteBatch);
                     mainMenu2P.Draw(spriteBatch);
                     mainMenuSettings.Draw(spriteBatch);
                     mainMenuCredits.Draw(spriteBatch);
                     mainMenuQuit.Draw(spriteBatch);
-                    MainMenuSprite.Draw(spriteBatch);
                     spriteBatch.End();
                     //*/
 
@@ -727,20 +767,26 @@ namespace Lab4
                     spriteBatch.Begin();
                     if (gamePaused)
                     {
-                        pauseScreenSprite.Draw(spriteBatch);
-                        pauseExitButton.Draw(spriteBatch);
-                        gameExitButton.Draw(spriteBatch);
+                        
                     }
                     else
                     {
                         //print out associated things with one player game
                         //and which settings are active
+                        gymSprite.Draw(spriteBatch);
                         P1Game.Draw(spriteBatch);
                         spriteBatch.DrawString(Font1, "Computer: " + P1Game.P2.score, new Vector2(5, 10), Color.LimeGreen);
                         spriteBatch.DrawString(Font1, "Player 1: " + P1Game.P1.score,
                             new Vector2(graphics.GraphicsDevice.Viewport.Width - Font1.MeasureString("Player 1: " + P1Game.P1.score).X - 5, 10), Color.LimeGreen);
                         //gameBoardSprite.Draw(spriteBatch);
                     }
+                    spriteBatch.End();
+                    break;
+                case GameState.Pause1P:
+                    spriteBatch.Begin();
+                    pauseScreenSprite.Draw(spriteBatch);
+                    pauseExitButton.Draw(spriteBatch);
+                    gameExitButton.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
                 case GameState.InGame2P:
@@ -753,9 +799,10 @@ namespace Lab4
                     }
                     else
                     {
+                        gymSprite.Draw(spriteBatch);
                         P2Game.Draw(spriteBatch);
-                        spriteBatch.DrawString(Font1, "Player 2: " + P1Game.P2.score, new Vector2(5, 10), Color.LimeGreen);
-                        spriteBatch.DrawString(Font1, "Player 1: " + P1Game.P1.score,
+                        spriteBatch.DrawString(Font1, "Player 2: " + P2Game.P2.score, new Vector2(5, 10), Color.LimeGreen);
+                        spriteBatch.DrawString(Font1, "Player 1: " + P2Game.P1.score,
                             new Vector2(graphics.GraphicsDevice.Viewport.Width - Font1.MeasureString("Player 1: " + P1Game.P1.score).X - 5, 10), Color.LimeGreen);
                     }
                     spriteBatch.End();
@@ -777,8 +824,9 @@ namespace Lab4
                     break;
                 case GameState.Credits:
                     spriteBatch.Begin();
-                    spriteBatch.DrawString(Font1, "Credits\n     Danny Cahoon\n\n     Jacob Jolly\n\n     Hugh Ohlin\n\n     Robbie Fikes\n\n", new Vector2(((graphics.GraphicsDevice.Viewport.Width / 2) - Font1.MeasureString("Credits").X - 10), 10), Color.LimeGreen);
-                    spriteBatch.DrawString(Font1, "Go Back. . . ", new Vector2(5, graphics.GraphicsDevice.Viewport.Height - Font1.MeasureString("Go Back. . .").Y), Color.LimeGreen);
+                    //spriteBatch.DrawString(Font1, "Credits\n     Danny Cahoon\n\n     Jacob Jolly\n\n     Hugh Ohlin\n\n     Robbie Fikes\n\n", new Vector2(((graphics.GraphicsDevice.Viewport.Width / 2) - Font1.MeasureString("Credits").X - 10), 10), Color.LimeGreen);
+                    //spriteBatch.DrawString(Font1, "Go Back. . . ", new Vector2(5, graphics.GraphicsDevice.Viewport.Height - Font1.MeasureString("Go Back. . .").Y), Color.LimeGreen);
+                    creditScreen.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
             }
