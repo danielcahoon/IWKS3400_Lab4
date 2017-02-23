@@ -68,7 +68,7 @@ namespace Lab4
                     P1 = new clsPlayer(playerOneTexture, PlayerType.PlayerOne, new Vector2(graphics.PreferredBackBufferWidth - 51, (graphics.PreferredBackBufferHeight / 2) - 75), new Vector2(51, 235), new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
                     P2 = new clsPlayer(playerTwoTexture, PlayerType.CPU, new Vector2(0, (graphics.PreferredBackBufferHeight / 2) - 75), new Vector2(51, 235), new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
                     P1.paddle.velocity = new Vector2(0, 0);
-                    P2.paddle.velocity = new Vector2(0, 0);
+                    P2.paddle.velocity = new Vector2(0, -5);
 
                     topBarrier = new clsSprite(barrierTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 20, 0), new Vector2(40, 150), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
                     topBarrier.velocity = new Vector2(0, 2);
