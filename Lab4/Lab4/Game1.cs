@@ -97,8 +97,8 @@ namespace Lab4
             this.IsMouseVisible = true;
 
             //Set window size
-            graphics.PreferredBackBufferWidth = 700;
-            graphics.PreferredBackBufferHeight = 500;
+            graphics.PreferredBackBufferWidth = 1402;
+            graphics.PreferredBackBufferHeight = 700;
             Content.RootDirectory = "Content";
         }
 
@@ -172,9 +172,9 @@ namespace Lab4
             spriteBatch = new SpriteBatch(GraphicsDevice);
             inputHelper = new InputHelper();
 
-            P1Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("ball2"), graphics, 1);
+            P1Game = new Lab4.PongGame(Content.Load<Texture2D>("paddle-ash"), Content.Load<Texture2D>("paddle-gary"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("pokeball"), graphics, 1);
 
-            P2Game = new Lab4.PongGame(Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("ball2"), graphics, 2);
+            P2Game = new Lab4.PongGame(Content.Load<Texture2D>("paddle-ash"), Content.Load<Texture2D>("paddle-gary"), Content.Load<Texture2D>("Paddles"), Content.Load<Texture2D>("pokeball"), graphics, 2);
 
             //Load 2D Content into the Sprites
             MainMenuSprite = new clsSprite(Content.Load<Texture2D>("MainMenu"),
