@@ -128,7 +128,7 @@ namespace Lab4
         {
             if (Game1.gameSettings.barriers == false)
             {
-                botBarrier.position = new Vector2(topBarrier.position.X, -topBarrier.size.X);
+                botBarrier.position = new Vector2(topBarrier.position.X, -topBarrier.size.Y);
                 topBarrier.position = new Vector2(topBarrier.position.X, Game1.graphics.PreferredBackBufferHeight);
             }
             else
