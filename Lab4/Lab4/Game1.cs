@@ -23,15 +23,14 @@ namespace Lab4
         SpriteFont Font1;
         public string victory; //used to hold congratulations/blnt message
 
-        //Sound and Music Stuff
-        SoundEffect menuEffect, ballHit, gameWin, score;
+        //Sound and Music Initialization
+        SoundEffect menuEffect;
         AudioEngine audioEngine;
         SoundBank soundsBank;
         WaveBank sounds;
 
-        WaveBank mainMenu, settings, credits, hardAI, medAI, easyAI, twoPlayer;
-        public Cue mainMenuCue, settingsCue, creditsCue, hardAICue, medAICue, easyAICue, twoPlayerCue;
-
+        WaveBank mainMenu, settings, credits, hardAI, medAI, easyAI, twoPlayer, gameWin;
+        public Cue mainMenuCue, settingsCue, creditsCue, hardAICue, medAICue, easyAICue, twoPlayerCue, winCue;
 
         public static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -132,7 +131,6 @@ namespace Lab4
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -145,12 +143,9 @@ namespace Lab4
             //Font Stuff
             Font1 = Content.Load<SpriteFont>("Courier New");
 
-            #region Music Stuff
+            #region Music Initialization Code
             // Load the SoundEffect resource
             menuEffect = Content.Load<SoundEffect>("MenuSoundEffect");
-            ballHit = Content.Load<SoundEffect>("BallHit");
-            score = Content.Load<SoundEffect>("Score");
-            gameWin = Content.Load<SoundEffect>("GameWin");
 
             // Load file built from XACT project
             audioEngine = new AudioEngine("Content\\Lab4Sounds.xgs");
@@ -165,6 +160,7 @@ namespace Lab4
             medAI = new WaveBank(audioEngine, "Content\\MediumAI.xwb", 0, 4);
             hardAI = new WaveBank(audioEngine, "Content\\HardAI.xwb", 0, 4);
             twoPlayer = new WaveBank(audioEngine, "Content\\2Player.xwb", 0, 4);
+            gameWin = new WaveBank(audioEngine, "Content\\GameWin.xwb", 0, 4);
 
             // The audio engine must be updated before the streaming cues are ready
             audioEngine.Update();
@@ -177,6 +173,7 @@ namespace Lab4
             medAICue = soundsBank.GetCue("MediumAI");
             hardAICue = soundsBank.GetCue("HardAI");
             twoPlayerCue = soundsBank.GetCue("2Player");
+            winCue = soundsBank.GetCue("GameWin"); 
 
             audioEngine.Update();
             settingsCue.Play();
@@ -186,6 +183,7 @@ namespace Lab4
             hardAICue.Play();
             twoPlayerCue.Play();
             mainMenuCue.Play();
+            winCue.Play();
             #endregion
 
             gameSettings = new pongSettings();
@@ -312,8 +310,7 @@ namespace Lab4
             creditScreen.texture.Dispose();
 
             settingsSprite.texture.Dispose();
-
-
+            
             //Pause Screen Disposal
             pauseExitButton.texture.Dispose();
             gameExitButton.texture.Dispose();
@@ -338,7 +335,7 @@ namespace Lab4
                 this.Exit();
             }
             MouseState mouseState = Mouse.GetState();
-            #region Music Stuff
+            #region Music Code
             if (gameSettings.music == true)
             {
                 switch (CurrentGameState)
@@ -355,6 +352,7 @@ namespace Lab4
                         hardAICue.Pause();
                         #endregion
                         twoPlayerCue.Pause();
+                        winCue.Pause();
                         break;
                     #endregion
                     #region 1 Player Music
@@ -384,6 +382,7 @@ namespace Lab4
                         }
                         #endregion
                         twoPlayerCue.Pause();
+                        winCue.Pause();
                         break;
                     #endregion
                     #region 2 Player Music
@@ -398,6 +397,7 @@ namespace Lab4
                         hardAICue.Pause();
                         #endregion
                         twoPlayerCue.Resume();
+                        winCue.Pause();
                         break;
                     #endregion
                     #region Settings Music
@@ -412,6 +412,7 @@ namespace Lab4
                         hardAICue.Pause();
                         #endregion
                         twoPlayerCue.Pause();
+                        winCue.Pause();
                         break;
                     #endregion
                     #region Credits Music
@@ -426,6 +427,7 @@ namespace Lab4
                         hardAICue.Pause();
                         #endregion
                         twoPlayerCue.Pause();
+                        winCue.Pause();
                         break;
                         #endregion
                 }
@@ -575,6 +577,20 @@ namespace Lab4
                 #endregion
                 #region Single Player Game End Code
                 case GameState.GameEnd1P:
+                    switch (gameSettings.difficulty)
+                    {
+                        case pongSettings.Difficulty.Easy:
+                            easyAICue.Pause();
+                            break;
+                        case pongSettings.Difficulty.Medium:
+                            medAICue.Pause();
+                            break;
+                        case pongSettings.Difficulty.Hard:
+                            hardAICue.Pause();
+                            break;
+                    }
+                    audioEngine.Update();
+                    winCue.Resume();
                     if (exitInput.IsKeyDown(Keys.Enter))
                     {
                         CurrentGameState = GameState.MainMenu;
@@ -654,6 +670,9 @@ namespace Lab4
                 #endregion
                 #region Two Player Game End Code
                 case GameState.GameEnd2P:
+                    twoPlayerCue.Pause();
+                    audioEngine.Update();
+                    winCue.Resume();
                     if (exitInput.IsKeyDown(Keys.Enter))
                     {
                         CurrentGameState = GameState.MainMenu;

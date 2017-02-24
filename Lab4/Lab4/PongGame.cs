@@ -34,11 +34,11 @@ namespace Lab4
             CPU
         }
 
-        // Sound Effect Stuff
+        // Sound Effect Initialization
         AudioEngine audioEngine;
         SoundBank soundsBank;
-        WaveBank ballHit, gameWin, score;
-        Cue ballCue, winCue, scoreCue;
+        WaveBank ballHit, score;
+        Cue ballCue, scoreCue;
 
         //Graphics
         
@@ -62,17 +62,15 @@ namespace Lab4
             Texture2D gameBallTexture, Texture2D ballSpeedUpTexture, Texture2D ballSpeedDownTexture,
             Texture2D barrierSpeedUpTexture, Texture2D barrierSpeedDownTexture, GraphicsDeviceManager graphics, int numOfUsers)
         {
-            // Sound Effects Stuff
+            // Sound Effects Initialization
             #region Sound Effects
             audioEngine = new AudioEngine("Content\\Lab4Sounds.xgs");
             ballHit = new WaveBank(audioEngine, "Content\\Sounds.xwb");
             score = new WaveBank(audioEngine, "Content\\Sounds.xwb");
-            gameWin = new WaveBank(audioEngine, "Content\\Sounds.xwb");
             soundsBank = new SoundBank(audioEngine, "Content\\SoundsBank.xsb");
             ballCue = soundsBank.GetCue("BallHit");
             scoreCue = soundsBank.GetCue("Score");
-            winCue = soundsBank.GetCue("GameWin");
-            audioEngine.Update();
+            
             #endregion
             gameActive = true;
             winningScore = 5;
@@ -401,8 +399,6 @@ namespace Lab4
             #endregion
             if (P1.score == winningScore || P2.score == winningScore)
             {
-                winCue = soundsBank.GetCue("GameWin");
-                winCue.Play();
                 gameActive = false;
             }
             audioEngine.Update();
