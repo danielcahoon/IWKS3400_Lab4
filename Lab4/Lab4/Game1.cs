@@ -331,16 +331,13 @@ namespace Lab4
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-            // Allows the game to exit keyboard input
+            // Allows the game to exit no matter the GameState
             KeyboardState exitInput = Keyboard.GetState();
             if (exitInput.IsKeyDown(Keys.D0))
             {
                 this.Exit();
             }
-
             MouseState mouseState = Mouse.GetState();
-            // TODO: Add your update logic here
-            //       Change to a set of Switch statements using Enum GameState 
             #region Music Stuff
             if (gameSettings.music == true)
             {
@@ -352,34 +349,6 @@ namespace Lab4
                         mainMenuCue.Resume();
                         settingsCue.Pause();
                         creditsCue.Pause();
-                        #region Difficulty Music
-                        easyAICue.Pause();
-                        medAICue.Pause();
-                        hardAICue.Pause();
-                        #endregion
-                        twoPlayerCue.Pause();
-                        break;
-                    #endregion
-                    #region Settings Music
-                    case GameState.Settings:
-                        audioEngine.Update();
-                        mainMenuCue.Pause();
-                        settingsCue.Resume();
-                        creditsCue.Pause();
-                        #region Difficulty Music
-                        easyAICue.Pause();
-                        medAICue.Pause();
-                        hardAICue.Pause();
-                        #endregion
-                        twoPlayerCue.Pause();
-                        break;
-                    #endregion
-                    #region Credits Music
-                    case GameState.Credits:
-                        audioEngine.Update();
-                        mainMenuCue.Pause();
-                        settingsCue.Pause();
-                        creditsCue.Resume();
                         #region Difficulty Music
                         easyAICue.Pause();
                         medAICue.Pause();
@@ -429,6 +398,34 @@ namespace Lab4
                         hardAICue.Pause();
                         #endregion
                         twoPlayerCue.Resume();
+                        break;
+                    #endregion
+                    #region Settings Music
+                    case GameState.Settings:
+                        audioEngine.Update();
+                        mainMenuCue.Pause();
+                        settingsCue.Resume();
+                        creditsCue.Pause();
+                        #region Difficulty Music
+                        easyAICue.Pause();
+                        medAICue.Pause();
+                        hardAICue.Pause();
+                        #endregion
+                        twoPlayerCue.Pause();
+                        break;
+                    #endregion
+                    #region Credits Music
+                    case GameState.Credits:
+                        audioEngine.Update();
+                        mainMenuCue.Pause();
+                        settingsCue.Pause();
+                        creditsCue.Resume();
+                        #region Difficulty Music
+                        easyAICue.Pause();
+                        medAICue.Pause();
+                        hardAICue.Pause();
+                        #endregion
+                        twoPlayerCue.Pause();
                         break;
                         #endregion
                 }
@@ -589,6 +586,7 @@ namespace Lab4
                     if (exitInput.IsKeyDown(Keys.P))
                     {
                         gamePaused = true;
+                        CurrentGameState = GameState.Pause2P;
                     }
                     if (!gamePaused)
                     {
@@ -599,37 +597,47 @@ namespace Lab4
                         else
                         {
                             P2Game.Reset();
-                            CurrentGameState = GameState.MainMenu;
+                            CurrentGameState = GameState.GameEnd2P;
                         }
 
-                        //TODO Implement actual exit condition
-                        if (exitInput.IsKeyDown(Keys.Space))
+                        if (exitInput.IsKeyDown(Keys.Enter))
                         {
                             CurrentGameState = GameState.MainMenu;
                         }
-                    }
-                    else
-                    {
-                        if (pauseExitButton.isClicked)
-                        {
-                            gamePaused = false;
-                        }
-                        //Exiting game needs debugging from Pause Screen
-                        else if (gameExitButton.isClicked)
-                        {
-                            if (mouseState.LeftButton == ButtonState.Released)
-                            {
-                                gamePaused = false;
-                                CurrentGameState = GameState.MainMenu;
-                            }
-                        }
-                        pauseExitButton.Update(mouseState);
-                        gameExitButton.Update(mouseState);
                     }
                     break;
                 #endregion
                 #region Two Player Pause Code
-
+                case GameState.Pause2P:
+                    if (pauseExitButton.isClicked)
+                    {
+                        gamePaused = false;
+                        if (mouseState.LeftButton == ButtonState.Released)
+                        {
+                            CurrentGameState = GameState.InGame2P;
+                            gamePaused = false;
+                        }
+                    }
+                    //Exiting Game needs debugging from Pause Screen
+                    else if (gameExitButton.isClicked)
+                    {
+                        if (mouseState.LeftButton == ButtonState.Released && exitInput.IsKeyUp(Keys.P))
+                        {
+                            gamePaused = false;
+                            CurrentGameState = GameState.MainMenu;
+                        }
+                    }
+                    pauseExitButton.Update(mouseState);
+                    gameExitButton.Update(mouseState);
+                    break;
+                #endregion
+                #region Two Player Game End Code
+                case GameState.GameEnd2P:
+                    if (exitInput.IsKeyDown(Keys.Enter))
+                    {
+                        CurrentGameState = GameState.MainMenu;
+                    }
+                    break;
                 #endregion
                 #region Settings Code
                 case GameState.Settings:
@@ -769,7 +777,6 @@ namespace Lab4
                     {
                         CurrentGameState = GameState.MainMenu;
                     }
-
                     break;
 
                     #endregion
@@ -781,7 +788,10 @@ namespace Lab4
         }
 
         /// <summary>
-        /// This is called when the game should draw itself.
+        /// This draws out the Main Menu, Pause Screen, Single Player
+        /// game, Two Player game, the associated parts to each of the
+        /// games, the settings screen, and credits depending on the
+        /// GameState.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
@@ -790,6 +800,7 @@ namespace Lab4
 
             switch (CurrentGameState)
             {
+                #region Main Menu
                 case GameState.MainMenu:
                     spriteBatch.Begin();
                     MainMenuSprite.Draw(spriteBatch);
@@ -815,6 +826,8 @@ namespace Lab4
                     //*/
 
                     break;
+                #endregion
+                #region Single Player Instructions
                 case GameState.Instructions1P:
                     spriteBatch.Begin();
                     if (gameSettings.barriers && gameSettings.powerUps)
@@ -831,15 +844,18 @@ namespace Lab4
                     }
                     spriteBatch.End();
                     break;
+                #endregion
+                #region Single Player Game
                 case GameState.InGame1P:
                     spriteBatch.Begin();
                     gymSprite.Draw(spriteBatch);
                     P1Game.Draw(spriteBatch);
                     spriteBatch.DrawString(Font1, "Gary: " + P1Game.P2.score, new Vector2(130, 60), Color.Black);
                     spriteBatch.DrawString(Font1, "Ash: " + P1Game.P1.score, new Vector2(997, 60), Color.Black);
-                        
                     spriteBatch.End();
                     break;
+                #endregion
+                #region Single Player Pause
                 case GameState.Pause1P:
                     spriteBatch.Begin();
                     pauseScreen.Draw(spriteBatch);
@@ -847,6 +863,8 @@ namespace Lab4
                     gameExitButton.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
+                #endregion
+                #region Single Player End Game
                 case GameState.GameEnd1P:
                     spriteBatch.Begin();
                     if(P1Game.P1.score > P1Game.P2.score)
@@ -861,6 +879,26 @@ namespace Lab4
                     }
                     spriteBatch.End();
                     break;
+                #endregion
+                #region Two Player Instructions
+                case GameState.Instructions2P:
+                    spriteBatch.Begin();
+                    if (gameSettings.barriers && gameSettings.powerUps)
+                    {
+                        pauseScreen2P_All.Draw(spriteBatch);
+                    }
+                    else if (gameSettings.powerUps)
+                    {
+                        pauseScreen2P_Ball.Draw(spriteBatch);
+                    }
+                    else
+                    {
+                        pauseScreen2P.Draw(spriteBatch);
+                    }
+                    spriteBatch.End();
+                    break;
+                #endregion
+                #region Two Player Game
                 case GameState.InGame2P:
                     spriteBatch.Begin();
                     gymSprite.Draw(spriteBatch);
@@ -869,6 +907,8 @@ namespace Lab4
                     spriteBatch.DrawString(Font1, "Ash: " + P2Game.P1.score, new Vector2(997, 60), Color.Black);
                     spriteBatch.End();
                     break;
+                #endregion
+                #region Two Player Pause
                 case GameState.Pause2P:
                     spriteBatch.Begin();
                     pauseScreen.Draw(spriteBatch);
@@ -876,19 +916,24 @@ namespace Lab4
                     gameExitButton.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
+                #endregion
+                #region Two Player End Game
                 case GameState.GameEnd2P:
                     spriteBatch.Begin();
                     if (P2Game.P1.score > P2Game.P2.score)
                     {
-                        //Draw the winning screen for Ash (Player 1) with points
+                        ashWin.Draw(spriteBatch);
+                        spriteBatch.DrawString(Font1, P2Game.P1.score + " - " + P2Game.P2.score, new Vector2(600, 300), Color.Black);
                     }
                     else
                     {
-                        //Draw the winning screen for Gary (Player 2) with points
+                        garyWin.Draw(spriteBatch);
+                        spriteBatch.DrawString(Font1, P2Game.P2.score + " - " + P2Game.P1.score, new Vector2(550, 300), Color.Black);
                     }
                     spriteBatch.End();
                     break;
-
+                #endregion
+                #region Settings
                 case GameState.Settings:
                     spriteBatch.Begin();
                     settingsSprite.Draw(spriteBatch);
@@ -904,6 +949,8 @@ namespace Lab4
                     settingExitButton.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
+                #endregion
+                #region Credits
                 case GameState.Credits:
                     spriteBatch.Begin();
                     //spriteBatch.DrawString(Font1, "Credits\n     Danny Cahoon\n\n     Jacob Jolly\n\n     Hugh Ohlin\n\n     Robbie Fikes\n\n", new Vector2(((graphics.GraphicsDevice.Viewport.Width / 2) - Font1.MeasureString("Credits").X - 10), 10), Color.LimeGreen);
@@ -911,6 +958,7 @@ namespace Lab4
                     creditScreen.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
+                    #endregion
             }
             base.Draw(gameTime);
         }

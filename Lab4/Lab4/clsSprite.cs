@@ -151,6 +151,13 @@ namespace Lab4
             else
                 return false;
         }
+        public bool PowerUpCollides(clsPowerUp powerUp)
+        {
+            return (this.position.X + this.size.X >= powerUp.position.X &&
+                this.position.X <= powerUp.position.X + powerUp.size.X &&
+                    this.position.Y + this.size.Y >= powerUp.position.Y &&
+                    this.position.Y <= powerUp.position.Y + powerUp.size.Y);
+        }
         //public bool CircleCorner(clsSprite otherSprite)
         //{
         //    //Taken from provided vanilla pong code from https://github.com/KatherineG/InworksGameDev
