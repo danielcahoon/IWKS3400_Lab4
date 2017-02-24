@@ -24,6 +24,7 @@ namespace Lab4
         public float radius { get { return size.X / 2; } } //sprite radius
         
         public Vector2 startingPosition { get; set; } //original location for the sprite
+        public bool midCollision;
         Random rnd = new Random();
 
 
@@ -35,7 +36,7 @@ namespace Lab4
             position = newPosition;
             size = newSize;
             startingPosition = newPosition;
-
+            midCollision = false;
             screenSize = new Vector2(ScreenWidth, ScreenHeight);
         }
         public void Draw(SpriteBatch spriteBatch)
@@ -133,10 +134,23 @@ namespace Lab4
         public bool Collides(clsSprite otherSprite)
         {
             //check if two sprites intersect
-            return (this.position.X + this.size.X >= otherSprite.position.X && 
+            bool collide = this.position.X + this.size.X >= otherSprite.position.X &&
                 this.position.X <= otherSprite.position.X + otherSprite.size.X &&
-                    this.position.Y + this.size.Y >= otherSprite.position.Y && 
-                    this.position.Y <= otherSprite.position.Y + otherSprite.size.Y);
+                    this.position.Y + this.size.Y >= otherSprite.position.Y &&
+                    this.position.Y <= otherSprite.position.Y + otherSprite.size.Y;
+            
+            //First collision
+            if(collide && !midCollision)
+            {
+                midCollision = true;
+                return true;
+            }
+            //Escaped Collision
+            if (!collide && midCollision)
+            {
+                midCollision = false;
+            }
+            return false;
         }
         public bool CircleCollidesPaddle(clsSprite otherSprite)
         {

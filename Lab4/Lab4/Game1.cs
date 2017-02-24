@@ -497,7 +497,7 @@ namespace Lab4
                         else
                         {
                             P1Game.Reset();
-                            CurrentGameState = GameState.MainMenu;
+                            CurrentGameState = GameState.GameEnd1P;
                         }
 
                         //TODO Implement actual exit condition
@@ -531,6 +531,14 @@ namespace Lab4
                     pauseExitButton.Update(mouseState);
                     gameExitButton.Update(mouseState);
 
+                    break;
+                #endregion
+                #region Single Player Game End Code
+                case GameState.GameEnd1P:
+                    if (exitInput.IsKeyDown(Keys.Enter))
+                    {
+                        CurrentGameState = GameState.MainMenu;
+                    }
                     break;
                 #endregion
                 #region Two Player Code
@@ -783,23 +791,44 @@ namespace Lab4
                     gameExitButton.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
-                case GameState.InGame2P:
+                case GameState.GameEnd1P:
                     spriteBatch.Begin();
-                    if (gamePaused)
+                    if(P1Game.P1.score > P1Game.P2.score)
                     {
-                        pauseScreenSprite.Draw(spriteBatch);
-                        pauseExitButton.Draw(spriteBatch);
-                        gameExitButton.Draw(spriteBatch);
+                        //Draw the winning screen for Ash (Player 1) with points
                     }
                     else
                     {
-                        gymSprite.Draw(spriteBatch);
-                        P2Game.Draw(spriteBatch);
-                        spriteBatch.DrawString(Font1, "Gary: " + P2Game.P2.score, new Vector2(130, 60), Color.Black);
-                        spriteBatch.DrawString(Font1, "Ash: " + P2Game.P1.score, new Vector2(997, 60), Color.Black);
+                        //Draw the winning screen for Gary (Player 2) with points
                     }
                     spriteBatch.End();
                     break;
+                case GameState.InGame2P:
+                    spriteBatch.Begin();
+                    gymSprite.Draw(spriteBatch);
+                    P2Game.Draw(spriteBatch);
+                    spriteBatch.DrawString(Font1, "Gary: " + P2Game.P2.score, new Vector2(130, 60), Color.Black);
+                    spriteBatch.DrawString(Font1, "Ash: " + P2Game.P1.score, new Vector2(997, 60), Color.Black);
+                    spriteBatch.End();
+                    break;
+                case GameState.Pause2P:
+                    pauseScreenSprite.Draw(spriteBatch);
+                    pauseExitButton.Draw(spriteBatch);
+                    gameExitButton.Draw(spriteBatch);
+                    break;
+                case GameState.GameEnd2P:
+                    spriteBatch.Begin();
+                    if (P2Game.P1.score > P2Game.P2.score)
+                    {
+                        //Draw the winning screen for Ash (Player 1) with points
+                    }
+                    else
+                    {
+                        //Draw the winning screen for Gary (Player 2) with points
+                    }
+                    spriteBatch.End();
+                    break;
+
                 case GameState.Settings:
                     spriteBatch.Begin();
                     settingsSprite.Draw(spriteBatch);

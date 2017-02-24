@@ -71,9 +71,9 @@ namespace Lab4
                 if (Game1.gameSettings.barriers == true)
                 {
                     topBarrier = new clsSprite(barrierTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 25.5f, 0), new Vector2(51, 167), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                    topBarrier.velocity = new Vector2(0, 2);
+                    topBarrier.velocity = new Vector2(0f, 5f);
                     botBarrier = new clsSprite(barrierTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 25.5f, graphics.PreferredBackBufferHeight - 167), new Vector2(51, 167), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                    botBarrier.velocity = new Vector2(0, -2);
+                    botBarrier.velocity = new Vector2(0f, -5f);
                 }
                 gameBall = new clsSprite(gameBallTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 18, (graphics.PreferredBackBufferHeight / 2) - 18), new Vector2(36, 36), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
                 gameBall.velocity = new Vector2(randPowerUp.Next(5, 7), randPowerUp.Next(-2, 3));
@@ -102,9 +102,9 @@ namespace Lab4
                 if (Game1.gameSettings.barriers == true)
                 {
                     topBarrier = new clsSprite(barrierTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 25.5f, 0), new Vector2(51, 167), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                    topBarrier.velocity = new Vector2(0, 2);
+                    topBarrier.velocity = new Vector2(0f, 5f);
                     botBarrier = new clsSprite(barrierTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 25.5f, graphics.PreferredBackBufferHeight - 167), new Vector2(51, 167), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-                    botBarrier.velocity = new Vector2(0, -2);
+                    botBarrier.velocity = new Vector2(0f, -5f);
                 }
                 gameBall = new clsSprite(gameBallTexture, new Vector2((graphics.PreferredBackBufferWidth / 2) - 18, (graphics.PreferredBackBufferHeight / 2) - 18), new Vector2(36, 36), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
                 gameBall.velocity = new Vector2(randPowerUp.Next(5, 7), randPowerUp.Next(-2, 3));
@@ -128,7 +128,7 @@ namespace Lab4
         {
             if (Game1.gameSettings.barriers == false)
             {
-                botBarrier.position = new Vector2(topBarrier.position.X, -150);
+                botBarrier.position = new Vector2(topBarrier.position.X, -topBarrier.size.X);
                 topBarrier.position = new Vector2(topBarrier.position.X, Game1.graphics.PreferredBackBufferHeight);
             }
             else
@@ -194,6 +194,11 @@ namespace Lab4
                     gameBall.velocity = new Vector2(gameBall.velocity.X, randPowerUp.Next(-3, -1));
                 }
                 gameBall.Move();
+                if (P1.paddle.Collides(gameBall))
+                {
+                    gameBall.position -= gameBall.velocity;
+                    gameBall.velocity = new Vector2(-gameBall.velocity.X, gameBall.velocity.X);
+                }
             }
             if (P2.paddle.Collides(gameBall))
             {
@@ -206,24 +211,63 @@ namespace Lab4
                     gameBall.velocity = new Vector2(gameBall.velocity.X, randPowerUp.Next(-3, -1));
                 }
                 gameBall.Move();
+                if(P2.paddle.Collides(gameBall))
+                {
+                    gameBall.position -= gameBall.velocity;
+                    gameBall.velocity = new Vector2(-gameBall.velocity.X, gameBall.velocity.X);
+                }
             }
             if (botBarrier.Collides(gameBall))
             {
                 ballCue = soundsBank.GetCue("BallHit");
                 ballCue.Play();
-                topBarrier.velocity *= -1;
-                botBarrier.velocity *= -1;
                 gameBall.velocity *= -1;
-                gameBall.Move();
+                //if (gameBall.center.X <= botBarrier.position.X && gameBall.center.X >= botBarrier.position.X + botBarrier.size.X && gameBall.position.Y >= botBarrier.position.Y + gameBall.size.Y)
+                //{
+                //    topBarrier.velocity = new Vector2(0, 5f);
+                //    botBarrier.velocity = new Vector2(0, -5f);
+                //    gameBall.velocity = new Vector2(gameBall.velocity.X, -gameBall.velocity.Y);
+                //}
+                //else if (gameBall.center.X <= botBarrier.position.X && gameBall.center.X >= botBarrier.position.X + botBarrier.size.X && gameBall.position.Y <= botBarrier.position.Y + botBarrier.size.Y)
+                //{
+                //    topBarrier.velocity = new Vector2(0, -5f);
+                //    botBarrier.velocity = new Vector2(0, 5f);
+                //    gameBall.velocity = new Vector2(gameBall.velocity.X, -gameBall.velocity.Y);
+                //}
+                //else if (gameBall.position.X == botBarrier.position.X)
+                //{
+                //    gameBall.velocity *= -1;
+                //}
+                //else if (gameBall.position.X == botBarrier.position.X + botBarrier.size.X)
+                //{
+                //    gameBall.velocity *= -1;
+                //}
             }
             if (topBarrier.Collides(gameBall))
             {
                 ballCue = soundsBank.GetCue("BallHit");
                 ballCue.Play();
-                topBarrier.velocity *= -1;
-                botBarrier.velocity *= -1;
                 gameBall.velocity *= -1;
-                gameBall.Move();
+                //if (gameBall.center.X <= topBarrier.position.X && gameBall.center.X >= topBarrier.position.X + topBarrier.size.X && gameBall.position.Y <= topBarrier.position.Y + topBarrier.size.Y)
+                //{
+                //    topBarrier.velocity = new Vector2(0f, 5f);
+                //    botBarrier.velocity = new Vector2(0f, -5f);
+                //    gameBall.velocity = new Vector2(gameBall.velocity.X, -gameBall.velocity.Y);
+                //}
+                //else if (gameBall.center.X <= topBarrier.position.X && gameBall.center.X >= topBarrier.position.X + topBarrier.size.X && gameBall.position.Y >= topBarrier.position.Y + gameBall.size.Y)
+                //{
+                //    topBarrier.velocity = new Vector2(0f, -5f);
+                //    botBarrier.velocity = new Vector2(0f, 5f);
+                //    gameBall.velocity = new Vector2(gameBall.velocity.X, -gameBall.velocity.Y);
+                //}
+                //else if (gameBall.position.X >= topBarrier.position.X)
+                //{
+                //    gameBall.velocity *= -1;
+                //}
+                //else if (gameBall.position.X <= topBarrier.position.X + topBarrier.size.X)
+                //{
+                //    gameBall.velocity *= -1;
+                //}
             }
             if (P1.score == 10 || P2.score == 10)
             {
