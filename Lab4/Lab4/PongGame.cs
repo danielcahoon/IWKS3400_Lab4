@@ -157,7 +157,7 @@ namespace Lab4
                     if (Game1.gameSettings.barriers)
                     {
                         barrierSpeedDown.active = true;
-                        ballSpeedDown.active = true;
+                        barrierSpeedDown.active = true;
                     }
                     ballSpeedUp.active = true;
                     ballSpeedDown.active = true;
@@ -179,7 +179,7 @@ namespace Lab4
             if (Game1.gameSettings.barriers == false)
             {
                 botBarrier.position = new Vector2(topBarrier.position.X, -topBarrier.size.Y);
-                topBarrier.position = new Vector2(topBarrier.position.X, Game1.graphics.PreferredBackBufferHeight);
+                topBarrier.position = new Vector2(topBarrier.position.X, Game1.graphics.PreferredBackBufferHeight + 10);
             }
             else
             {
@@ -239,27 +239,37 @@ namespace Lab4
                 }
             }
 
+            //Green Pokeball
             if (ballSpeedUp.CircleCollides(gameBall))
             {
                 ballSpeedUp.speedBall(gameBall);
                 ballSpeedUp.active = false;
+                ballSpeedUp.position = new Vector2(Game1.graphics.PreferredBackBufferWidth + 200, Game1.graphics.PreferredBackBufferHeight + 200);
+
             }
-            if(ballSpeedDown.CircleCollides(gameBall))
+            //Yellow Pokeball
+            if (ballSpeedDown.CircleCollides(gameBall))
             {
                 ballSpeedDown.slowBall(gameBall);
                 ballSpeedDown.active = false;
+                ballSpeedDown.position = new Vector2(Game1.graphics.PreferredBackBufferWidth + 200, Game1.graphics.PreferredBackBufferHeight + 200);
+
             }
+            //Ponyta
             if (barrierSpeedUp.CircleCollides(gameBall))
             {
                 barrierSpeedUp.speedBarrier(topBarrier);
                 barrierSpeedUp.speedBarrier(botBarrier);
                 barrierSpeedUp.active = false;
+                barrierSpeedUp.position = new Vector2(Game1.graphics.PreferredBackBufferWidth + 200, Game1.graphics.PreferredBackBufferHeight + 200);
             }
+            //Snorlax
             if (barrierSpeedDown.CircleCollides(gameBall))
             {
                 barrierSpeedDown.slowBarrier(topBarrier);
                 barrierSpeedDown.slowBarrier(botBarrier);
                 barrierSpeedDown.active = false;
+                barrierSpeedDown.position = new Vector2(Game1.graphics.PreferredBackBufferWidth + 200, Game1.graphics.PreferredBackBufferHeight + 200);
             }
 
             #endregion
@@ -409,7 +419,9 @@ namespace Lab4
             P1.Reset();
             P2.Reset();
             botBarrier.Reset();
+            botBarrier.velocity = new Vector2(0, -5);
             topBarrier.Reset();
+            topBarrier.velocity = new Vector2(0, 5);
             gameBall.Reset();
             gameBall.velocity = new Vector2(-gameBall.velocity.X, randPowerUp.Next(-2, 3));
             if (gameBall.velocity.Y == 0)
@@ -418,8 +430,11 @@ namespace Lab4
             }
             ballSpeedUp.Reset();
             ballSpeedDown.Reset();
-            barrierSpeedUp.Reset();
-            barrierSpeedDown.Reset();
+            if (Game1.gameSettings.barriers)
+            {
+                barrierSpeedUp.Reset();
+                barrierSpeedDown.Reset();
+            }
             gameActive = true;
         }
         /// <summary>
@@ -453,11 +468,11 @@ namespace Lab4
                 {
                     ballSpeedDown.Draw(spriteBatch);
                 }
-                if (barrierSpeedUp.active)
+                if (barrierSpeedUp.active && Game1.gameSettings.barriers)
                 {
                     barrierSpeedUp.Draw(spriteBatch);
                 }
-                if (barrierSpeedDown.active)
+                if (barrierSpeedDown.active && Game1.gameSettings.barriers)
                 {
                     barrierSpeedDown.Draw(spriteBatch);
                 }

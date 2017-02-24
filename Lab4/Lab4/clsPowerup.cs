@@ -23,11 +23,6 @@ namespace Lab4
         }
 
         PowerUpType puType;
-        private Texture2D ballSpeedUpTexure;
-        private int v;
-        private Vector2 vector2;
-        private int preferredBackBufferWidth;
-        private int preferredBackBufferHeight;
 
         public bool active {get; set;}
 
@@ -58,16 +53,7 @@ namespace Lab4
 
             screenSize = new Vector2(ScreenWidth, ScreenHeight);
         }
-
-        public clsPowerUp(Texture2D ballSpeedUpTexure, int v, Vector2 vector2, int preferredBackBufferWidth, int preferredBackBufferHeight)
-        {
-            this.ballSpeedUpTexure = ballSpeedUpTexure;
-            this.v = v;
-            this.vector2 = vector2;
-            this.preferredBackBufferWidth = preferredBackBufferWidth;
-            this.preferredBackBufferHeight = preferredBackBufferHeight;
-        }
-
+        
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, Color.White);
@@ -77,11 +63,10 @@ namespace Lab4
             //check if two circles sprite collided
             if (Vector2.Distance(this.center, otherSprite.center) <= this.radius + otherSprite.radius)
             {
-                this.position = new Vector2(otherSprite.position.X + (2 * otherSprite.radius), otherSprite.position.Y + (2 * otherSprite.radius));
+                //this.position = new Vector2(otherSprite.position.X + (2 * otherSprite.radius), otherSprite.position.Y + (2 * otherSprite.radius));
             }
             return (Vector2.Distance(this.center, otherSprite.center) < this.radius + otherSprite.radius);
         }
-
         public clsSprite speedBall(clsSprite ball)
         {
             ball.velocity *= 2;
@@ -102,26 +87,10 @@ namespace Lab4
             barrier.velocity /= 2;
             return barrier;
         }
-
         public void Reset()
         {
-            position = new Vector2((int)(position.X + 17), (int)(position.Y - 17));
-            if (position.X > Game1.graphics.PreferredBackBufferWidth - 50)
-            {
-                position = new Vector2(position.X - 20, position.Y);
-            }
-            if (position.X < 50)
-            {
-                position = new Vector2(position.X + 20, position.Y);
-            }
-            if (position.Y > Game1.graphics.PreferredBackBufferHeight - 50)
-            {
-                position = new Vector2(position.X, position.Y - 20);
-            }
-            if (position.Y < 50)
-            {
-                position = new Vector2(position.X, position.Y + 20);
-            }
+            position = startingPosition;
+            active = true;
         }
     }
 }

@@ -464,7 +464,7 @@ namespace Lab4
                     {
                         mainMenu2P.isClicked = false;
                         menuEffect.Play();
-                        CurrentGameState = GameState.InGame2P;
+                        CurrentGameState = GameState.Instructions2P;
                         P2Game.Reset();
                         if (mouseState.LeftButton == ButtonState.Released)
                         {
@@ -506,7 +506,7 @@ namespace Lab4
                     break;
 
                 #endregion
-                #region Single Player Code
+                #region Single Player Instruction Code
                 case GameState.Instructions1P:
                     if (exitInput.IsKeyDown(Keys.Up))
                     {
@@ -517,6 +517,8 @@ namespace Lab4
                         CurrentGameState = GameState.InGame1P;
                     }
                     break;
+                #endregion
+                #region Single Player Code
                 case GameState.InGame1P:
                     mouseState = Mouse.GetState();
 
@@ -579,6 +581,26 @@ namespace Lab4
                     }
                     break;
                 #endregion
+                #region Two Player Instruction Code
+                case GameState.Instructions2P:
+                    if (exitInput.IsKeyDown(Keys.Up))
+                    {
+                        CurrentGameState = GameState.InGame2P;
+                    }
+                    else if (exitInput.IsKeyDown(Keys.Down))
+                    {
+                        CurrentGameState = GameState.InGame2P;
+                    }
+                    else if (exitInput.IsKeyDown(Keys.W))
+                    {
+                        CurrentGameState = GameState.InGame2P;
+                    }
+                    else if (exitInput.IsKeyDown(Keys.S))
+                    {
+                        CurrentGameState = GameState.InGame2P;
+                    }
+                    break;
+                #endregion
                 #region Two Player Code
                 case GameState.InGame2P:
                     mouseState = Mouse.GetState();
@@ -596,7 +618,6 @@ namespace Lab4
                         }
                         else
                         {
-                            P2Game.Reset();
                             CurrentGameState = GameState.GameEnd2P;
                         }
 
