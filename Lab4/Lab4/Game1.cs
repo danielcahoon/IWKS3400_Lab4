@@ -71,6 +71,7 @@ namespace Lab4
         #endregion
         #region Pause Screen Sprite and Buttons
         //Sprites
+        clsSprite pauseScreen;
         //Single Player
         clsSprite pauseScreen1P;
         clsSprite pauseScreen1P_Ball;
@@ -85,7 +86,10 @@ namespace Lab4
         clsButton pauseExitButton;
         clsButton gameExitButton;
         #endregion
-
+        #region End Game Sprites
+        clsSprite ashWin;
+        clsSprite garyWin;
+        #endregion
         #endregion
 
         PongGame P1Game;
@@ -254,6 +258,8 @@ namespace Lab4
             settingExitButton.setPosition(new Vector2(319, 441));
             #endregion
             #region Pause Buttons and Sprites
+            pauseScreen = new clsSprite(Content.Load<Texture2D>("pause"),
+                                  new Vector2(0f, 0f), new Vector2(1248f, 623f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
             //Sprites
             pauseScreen1P = new clsSprite(Content.Load<Texture2D>("pause-1P"),
                                    new Vector2(0f, 0f), new Vector2(1248f, 623f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
@@ -275,10 +281,17 @@ namespace Lab4
 
 
             //Buttons
-            gameExitButton = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(110, 19), false, false);
-            gameExitButton.setPosition(new Vector2(578, 13));
-            pauseExitButton = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2((672 - 581), 19), false, false);
-            pauseExitButton.setPosition(new Vector2(581, 45));
+            gameExitButton = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(404, 25), false, false);
+            gameExitButton.setPosition(new Vector2(421, 324));
+            pauseExitButton = new clsButton(Content.Load<Texture2D>("MenuLineBar"), new Vector2(297, 26), false, false);
+            pauseExitButton.setPosition(new Vector2(421, 378));
+            #endregion
+            #region EndGame Sprites
+            ashWin = new clsSprite(Content.Load<Texture2D>("win-ash"),
+                                 new Vector2(0f, 0f), new Vector2(1248f, 623f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+            garyWin = new clsSprite(Content.Load<Texture2D>("win-gary"),
+                                 new Vector2(0f, 0f), new Vector2(1248f, 623f), graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+
             #endregion
         }
 
@@ -523,12 +536,11 @@ namespace Lab4
                         }
                         else
                         {
-                            P1Game.Reset();
                             CurrentGameState = GameState.GameEnd1P;
                         }
 
                         //TODO Implement actual exit condition
-                        if (exitInput.IsKeyDown(Keys.Space))
+                        if (exitInput.IsKeyDown(Keys.Enter))
                         {
                             CurrentGameState = GameState.MainMenu;
                         }
@@ -537,52 +549,28 @@ namespace Lab4
                 #endregion
                 #region Single Player Pause Code
                 case (GameState.Pause1P):
-                    
-                    //Ensures that P is not pressed before going out of the pause
-                    
-                    if (exitInput.IsKeyDown(Keys.P))
-                    {
-                        if (exitInput.IsKeyUp(Keys.P))
-                        {
-                            gamePaused = false;
-                            CurrentGameState = GameState.InGame1P;
-                        }
-                    }
-                    else
-                    {
-                        //Exits to main menu
-                        if (exitInput.IsKeyDown(Keys.Enter))
-                        {
-                            if (exitInput.IsKeyUp(Keys.Enter))
-                            {
-                                gamePaused = false;
-                                CurrentGameState = GameState.MainMenu;
-                            }
-                        }
-                    }
-
                     //Code for using buttons to exit 
 
-                    //if (pauseExitButton.isClicked)
-                    //{
-                    //    gamePaused = false;
-                    //    if (mouseState.LeftButton == ButtonState.Released)
-                    //    {
-                    //        CurrentGameState = GameState.InGame1P;
-                    //        gamePaused = false;
-                    //    }
-                    //}
-                    ////Exiting Game needs debugging from Pause Screen
-                    //else if (gameExitButton.isClicked)
-                    //{
-                    //    if (mouseState.LeftButton == ButtonState.Released && exitInput.IsKeyUp(Keys.P))
-                    //    {
-                    //        gamePaused = false;
-                    //        CurrentGameState = GameState.MainMenu;
-                    //    }
-                    //}
-                    //pauseExitButton.Update(mouseState);
-                    //gameExitButton.Update(mouseState);
+                    if (pauseExitButton.isClicked)
+                    {
+                        gamePaused = false;
+                        if (mouseState.LeftButton == ButtonState.Released)
+                        {
+                            CurrentGameState = GameState.InGame1P;
+                            gamePaused = false;
+                        }
+                    }
+                    //Exiting Game needs debugging from Pause Screen
+                    else if (gameExitButton.isClicked)
+                    {
+                        if (mouseState.LeftButton == ButtonState.Released && exitInput.IsKeyUp(Keys.P))
+                        {
+                            gamePaused = false;
+                            CurrentGameState = GameState.MainMenu;
+                        }
+                    }
+                    pauseExitButton.Update(mouseState);
+                    gameExitButton.Update(mouseState);
 
                     break;
                 #endregion
@@ -854,36 +842,22 @@ namespace Lab4
                     break;
                 case GameState.Pause1P:
                     spriteBatch.Begin();
-                    if(gameSettings.barriers && gameSettings.powerUps)
-                    {
-                        pauseScreen1P_All.Draw(spriteBatch);
-                    }
-                    else if (gameSettings.barriers)
-                    {
-                        pauseScreen1P_Barrier.Draw(spriteBatch);
-                    }
-                    else if(gameSettings.powerUps)
-                    {
-                        pauseScreen1P_Ball.Draw(spriteBatch);
-                    }
-                    else
-                    {
-                        pauseScreen1P.Draw(spriteBatch);
-                    }
-
-//                    pauseExitButton.Draw(spriteBatch);
-  //                  gameExitButton.Draw(spriteBatch);
+                    pauseScreen.Draw(spriteBatch);
+                    pauseExitButton.Draw(spriteBatch);
+                    gameExitButton.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
                 case GameState.GameEnd1P:
                     spriteBatch.Begin();
                     if(P1Game.P1.score > P1Game.P2.score)
                     {
-                        //Draw the winning screen for Ash (Player 1) with points
+                        ashWin.Draw(spriteBatch);
+                        spriteBatch.DrawString(Font1, P1Game.P1.score + " - " + P1Game.P2.score, new Vector2(600, 300), Color.Black);
                     }
                     else
                     {
-                        //Draw the winning screen for Gary (Player 2) with points
+                        garyWin.Draw(spriteBatch);
+                        spriteBatch.DrawString(Font1, P1Game.P2.score + " - " + P1Game.P1.score, new Vector2(550, 300), Color.Black);
                     }
                     spriteBatch.End();
                     break;
@@ -896,24 +870,11 @@ namespace Lab4
                     spriteBatch.End();
                     break;
                 case GameState.Pause2P:
-                    if (gameSettings.barriers && gameSettings.powerUps)
-                    {
-                        pauseScreen2P_All.Draw(spriteBatch);
-                    }
-                    else if (gameSettings.barriers)
-                    {
-                        pauseScreen2P_Barrier.Draw(spriteBatch);
-                    }
-                    else if (gameSettings.powerUps)
-                    {
-                        pauseScreen2P_Ball.Draw(spriteBatch);
-                    }
-                    else
-                    {
-                        pauseScreen2P.Draw(spriteBatch);
-                    }
+                    spriteBatch.Begin();
+                    pauseScreen.Draw(spriteBatch);
                     pauseExitButton.Draw(spriteBatch);
                     gameExitButton.Draw(spriteBatch);
+                    spriteBatch.End();
                     break;
                 case GameState.GameEnd2P:
                     spriteBatch.Begin();
