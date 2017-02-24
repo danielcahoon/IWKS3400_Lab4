@@ -184,7 +184,7 @@ namespace Lab4
                     gameBall.velocity = new Vector2(gameBall.velocity.X, randPowerUp.Next(-3, -1));
                 }
             }
-            if (P1.paddle.Collides(gameBall))
+            if (gameBall.CircleCollidesPaddle(P1.paddle))
             {
                 ballCue = soundsBank.GetCue("BallHit");
                 ballCue.Play();
@@ -200,7 +200,7 @@ namespace Lab4
                     gameBall.velocity = new Vector2(-gameBall.velocity.X, gameBall.velocity.X);
                 }
             }
-            if (P2.paddle.Collides(gameBall))
+            if (gameBall.CircleCollidesPaddle(P2.paddle))
             {
 
                 ballCue = soundsBank.GetCue("BallHit");
@@ -217,11 +217,13 @@ namespace Lab4
                     gameBall.velocity = new Vector2(-gameBall.velocity.X, gameBall.velocity.X);
                 }
             }
-            if (botBarrier.Collides(gameBall))
+            if (gameBall.CircleCollidesPaddle(botBarrier))
             {
                 ballCue = soundsBank.GetCue("BallHit");
                 ballCue.Play();
                 gameBall.velocity *= -1;
+                topBarrier.velocity *= -1;
+                botBarrier.velocity *= -1;
                 //if (gameBall.center.X <= botBarrier.position.X && gameBall.center.X >= botBarrier.position.X + botBarrier.size.X && gameBall.position.Y >= botBarrier.position.Y + gameBall.size.Y)
                 //{
                 //    topBarrier.velocity = new Vector2(0, 5f);
@@ -243,11 +245,13 @@ namespace Lab4
                 //    gameBall.velocity *= -1;
                 //}
             }
-            if (topBarrier.Collides(gameBall))
+            if (gameBall.CircleCollidesPaddle(topBarrier))
             {
                 ballCue = soundsBank.GetCue("BallHit");
                 ballCue.Play();
                 gameBall.velocity *= -1;
+                topBarrier.velocity *= -1;
+                botBarrier.velocity *= -1;
                 //if (gameBall.center.X <= topBarrier.position.X && gameBall.center.X >= topBarrier.position.X + topBarrier.size.X && gameBall.position.Y <= topBarrier.position.Y + topBarrier.size.Y)
                 //{
                 //    topBarrier.velocity = new Vector2(0f, 5f);

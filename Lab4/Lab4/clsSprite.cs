@@ -138,30 +138,15 @@ namespace Lab4
                 this.position.X <= otherSprite.position.X + otherSprite.size.X &&
                     this.position.Y + this.size.Y >= otherSprite.position.Y &&
                     this.position.Y <= otherSprite.position.Y + otherSprite.size.Y;
-            
-            //First collision
-            if(collide && !midCollision)
-            {
-                midCollision = true;
-                return true;
-            }
-            //Escaped Collision
-            if (!collide && midCollision)
-            {
-                midCollision = false;
-            }
-            return false;
+            return collide;
         }
         public bool CircleCollidesPaddle(clsSprite otherSprite)
         {
             //Taken from provided vanilla pong code from https://github.com/KatherineG/InworksGameDev
             if ((this.position.X + this.size.X >= otherSprite.position.X) && // right side
                 (this.position.Y + this.size.Y >= otherSprite.position.Y) && //top boundary
-                (this.position.Y <  otherSprite.position.Y + otherSprite.size.Y)) //bottom boundary
-                return true;
-            else if ((this.position.X <= otherSprite.position.X + otherSprite.size.X) &&  // left side
-                    (this.position.Y + this.size.Y >= otherSprite.position.Y) && // top boundary
-                    (this.position.Y <= otherSprite.position.Y + otherSprite.size.Y))
+                (this.position.Y < otherSprite.position.Y + otherSprite.size.Y) &&
+                this.position.X <= otherSprite.position.X + otherSprite.size.X) //bottom boundary
                 return true;
             else
                 return false;
@@ -175,15 +160,10 @@ namespace Lab4
         //    else
         //        return false;
         //}
-        public void blockBall(Vector2 position)
-        {
-
-        }
         
         public void Reset()
         {
             position = startingPosition;
-
         }
     }
 }
